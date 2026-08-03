@@ -115,19 +115,22 @@
   .pct.done{color:var(--ok)}
   .tools{display:flex;gap:8px;flex-wrap:wrap;padding-bottom:12px}
 
-  button.btn{
+  button.btn, a.btn{
     font:inherit;font-size:.8rem;
     padding:6px 12px;border-radius:99px;
     border:1px solid var(--line);background:var(--card-2);color:var(--ink-soft);
     cursor:pointer;box-shadow:var(--shadow);
     display:inline-flex;align-items:center;gap:6px;
+    text-decoration:none;white-space:nowrap;
     transition:.15s;
   }
-  button.btn:hover{border-color:var(--brand);color:var(--brand);background:var(--brand-soft)}
+  button.btn:hover, a.btn:hover{border-color:var(--brand);color:var(--brand);background:var(--brand-soft)}
   button.btn.danger:hover{border-color:var(--danger);color:var(--danger);background:var(--danger-soft)}
-  button.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
-  button.btn.primary:hover{opacity:.9;background:var(--brand);color:#fff}
-  button.btn:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+  button.btn.primary, a.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+  button.btn.primary:hover, a.btn.primary:hover{opacity:.9;background:var(--brand);color:#fff}
+  button.btn:focus-visible, a.btn:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+  a.btn.glossary{border-color:var(--ok);color:var(--ok);background:var(--ok-soft)}
+  a.btn.glossary:hover{border-color:var(--ok);color:var(--ok);background:var(--ok-soft);opacity:.85}
 
   /* ================= HOME : SECTIONS ================= */
   section.sec{
@@ -282,6 +285,7 @@
         <div class="pct" id="totalPct">0%</div>
       </div>
       <div class="tools">
+        <a class="btn glossary" href="glossary.html">📖 พจนานุกรมคำย่อ (อ่านไม่รู้เรื่อง กดที่นี่)</a>
         <button class="btn primary" id="btnExport">⬇ ดาวน์โหลดสรุป (.md)</button>
         <button class="btn" id="btnExpand">เปิดทุกหัวข้อ</button>
         <button class="btn" id="btnCollapse">ย่อทุกหัวข้อ</button>
@@ -297,6 +301,7 @@
       </div>
       <div class="backrow">
         <button class="btn primary" id="btnHome">← กลับหน้าหลัก</button>
+        <a class="btn glossary" href="glossary.html">📖 คำย่อ</a>
         <button class="btn" id="btnTop">↑ ขึ้นบนสุด</button>
       </div>
     </div>
