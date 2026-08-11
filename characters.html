@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>สร้างตัวละคร — story 4</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#0f0d0b; --panel:#17140f; --panel2:#1d1913; --line:#2c2620;
+    --ink:#e8e0d4; --dim:#8d8175; --dim2:#635a50; --hot:#d09a5c; --hot2:#e8b978;
+    --ok:#7fae6f; --warn:#c86a5a;
+  }
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Sarabun","Noto Sans Thai",-apple-system,"Segoe UI",sans-serif;
+    font-size:15px; line-height:1.75; padding:0 0 120px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+  /* ---- topbar ---- */
+  header.top{
+    position:sticky;top:0;z-index:50;background:rgba(15,13,11,.94);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  }
+  .top-in{max-width:1080px;margin:0 auto;padding:12px 20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+  .brand{font-weight:700;letter-spacing:.5px}
+  .brand small{display:block;font-weight:400;font-size:12px;color:var(--dim2);letter-spacing:1.5px;text-transform:uppercase}
+  .grow{flex:1}
+  .count{font-size:13px;color:var(--dim)}
+  .count b{color:var(--hot)}
+
+  button{
+    font:inherit;font-size:13.5px;cursor:pointer;border-radius:8px;
+    padding:9px 15px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);
+    transition:.15s;
+  }
+  button:hover{border-color:var(--dim2);background:#241f18}
+  button.primary{background:var(--hot);border-color:var(--hot);color:#1a1206;font-weight:600}
+  button.primary:hover{background:var(--hot2);border-color:var(--hot2)}
+  button.ghost{background:transparent}
+  button.sm{padding:5px 10px;font-size:12.5px;border-radius:6px}
+
+  /* ---- story meta ---- */
+  .meta{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;margin:22px 0 26px}
+  .meta h2{font-size:15px;margin-bottom:4px}
+  .meta .hint{font-size:12.5px;color:var(--dim2);margin-bottom:16px}
+  .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:720px){.mgrid{grid-template-columns:1fr}}
+
+  label{display:block;font-size:12px;color:var(--dim);letter-spacing:.4px;margin-bottom:5px}
+  input[type=text],textarea{
+    width:100%;font:inherit;font-size:14.5px;color:var(--ink);
+    background:#100e0b;border:1px solid var(--line);border-radius:8px;padding:9px 11px;
+    resize:vertical;line-height:1.7;
+  }
+  input[type=text]:focus,textarea:focus{outline:none;border-color:var(--hot);background:#141110}
+  textarea{min-height:66px}
+  .field{margin-bottom:14px}
+  .field:last-child{margin-bottom:0}
+
+  /* ---- character card ---- */
+  .card{
+    background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    margin-bottom:18px;overflow:hidden;
+  }
+  .card.done{border-color:#3a4a33}
+  .chead{
+    display:flex;gap:14px;align-items:center;padding:12px 16px;
+    background:var(--panel2);border-bottom:1px solid var(--line);cursor:pointer;
+  }
+  .thumb{width:44px;height:56px;object-fit:cover;object-position:50% 18%;border-radius:6px;border:1px solid var(--line);background:#000;flex:none}
+  .chead .nm{font-weight:600;font-size:15px}
+  .chead .key{font-size:11.5px;color:var(--dim2);font-family:ui-monospace,Menlo,Consolas,monospace}
+  .chead .st{font-size:12px;color:var(--dim2)}
+  .chead .st.ok{color:var(--ok)}
+  .chev{color:var(--dim2);font-size:13px;transition:.2s}
+  .card.open .chev{transform:rotate(90deg)}
+
+  .cbody{display:none;padding:18px 16px}
+  .card.open .cbody{display:grid;grid-template-columns:230px 1fr;gap:22px}
+  @media(max-width:760px){.card.open .cbody{grid-template-columns:1fr}}
+
+  .pic{position:relative}
+  .pic img{width:100%;border-radius:10px;border:1px solid var(--line);display:block;background:#000;cursor:zoom-in}
+  .pic .path{font-size:11px;color:var(--dim2);margin-top:7px;word-break:break-all;font-family:ui-monospace,Menlo,Consolas,monospace}
+
+  .row2{display:grid;grid-template-columns:1fr 90px 110px;gap:12px}
+  @media(max-width:560px){.row2{grid-template-columns:1fr}}
+  .flags{display:flex;gap:16px;margin:2px 0 16px;flex-wrap:wrap}
+  .flags label{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--ink);margin:0;cursor:pointer}
+  .flags input{accent-color:var(--hot);width:15px;height:15px;cursor:pointer}
+
+  /* ---- output ---- */
+  .out{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;margin-top:26px}
+  .out h2{font-size:15px;margin-bottom:4px}
+  .out .hint{font-size:12.5px;color:var(--dim2);margin-bottom:14px}
+  #mdout{
+    width:100%;min-height:320px;font-family:ui-monospace,Menlo,Consolas,monospace;
+    font-size:12.5px;line-height:1.65;background:#0b0a08;
+  }
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .toast{
+    position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);
+    background:var(--hot);color:#1a1206;font-weight:600;font-size:13.5px;
+    padding:10px 20px;border-radius:999px;opacity:0;pointer-events:none;transition:.22s;z-index:99;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* ---- lightbox ---- */
+  #lb{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;z-index:100;cursor:zoom-out;padding:30px}
+  #lb.on{display:flex;align-items:center;justify-content:center}
+  #lb img{max-width:100%;max-height:100%;border-radius:8px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <div class="brand">สร้างตัวละคร<small>ntrstory · story 4</small></div>
+    <div class="grow"></div>
+    <div class="count">กรอกแล้ว <b id="cdone">0</b> / <span id="ctotal">0</span></div>
+    <button class="ghost sm" id="b-expand">เปิดทั้งหมด</button>
+    <button class="ghost sm" id="b-collapse">ปิดทั้งหมด</button>
+    <button class="primary" id="b-build">สร้าง .md</button>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="meta">
+    <h2>ข้อมูลเรื่อง</h2>
+    <div class="hint">ส่วนนี้จะกลายเป็นหัวไฟล์ .md · เว้นว่างได้ ช่องไหนว่างจะไม่ถูกใส่ลงไฟล์</div>
+    <div class="field">
+      <label>ชื่อเรื่อง</label>
+      <input type="text" id="m-title" placeholder="เช่น สปอตเตอร์">
+    </div>
+    <div class="field">
+      <label>ประโยคเดียวของเรื่อง</label>
+      <input type="text" id="m-log" placeholder="สรุปทั้งเรื่องให้จบในบรรทัดเดียว">
+    </div>
+    <div class="mgrid">
+      <div class="field">
+        <label>ฉาก / สถานที่</label>
+        <textarea id="m-place" placeholder="เกิดที่ไหน ช่วงเวลาไหน"></textarea>
+      </div>
+      <div class="field">
+        <label>ธีม / โทนเรื่อง</label>
+        <textarea id="m-theme" placeholder="อยากให้คนอ่านรู้สึกยังไง มีอะไรที่ห้ามหลุด"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <div id="list"></div>
+
+  <section class="out">
+    <h2>ผลลัพธ์ .md</h2>
+    <div class="hint">กด “สร้าง .md” ด้านบนก่อน แล้วค่อยดาวน์โหลดหรือคัดลอก · ไฟล์จะถูกบันทึกอัตโนมัติในเบราว์เซอร์ตลอดเวลา</div>
+    <div class="btnrow">
+      <button class="primary" id="b-dl">ดาวน์โหลด characters.md</button>
+      <button id="b-copy">คัดลอกทั้งหมด</button>
+      <button id="b-json">สำรองเป็น .json</button>
+      <button id="b-load">โหลดไฟล์สำรอง</button>
+      <button class="ghost" id="b-clear">ล้างทั้งหมด</button>
+    </div>
+    <textarea id="mdout" spellcheck="false" placeholder="ยังไม่ได้สร้าง..."></textarea>
+  </section>
+
+</div>
+
+<div class="toast" id="toast"></div>
+<div id="lb"><img id="lbimg" alt=""></div>
+<input type="file" id="filein" accept=".json,application/json" hidden>
+
+<script>
+(function(){
+'use strict';
+
+var KEY = 'ntr_story4_chars_v1';
+var DIR = 'assets/chars/';
+
+/* รูปทั้งหมดที่มีจริงในโฟลเดอร์ — แก้ตรงนี้ถ้าเพิ่ม/ลบรูป */
+var FILES = [
+  ['alice','c_alice.png','อลิซ'],
+  ['chai', 'c_chai.png', 'ชัย'],
+  ['donut','c_donut.png','โดนัท'],
+  ['fah',  'c_fah.png',  'ฟ้า'],
+  ['ice',  'c_ice.png',  'ไอซ์'],
+  ['ken',  'c_ken.png',  'เคน'],
+  ['may',  'c_may.png',  'เมย์'],
+  ['nin',  'c_nin.png',  'นิล'],
+  ['sa',   'c_sa.png',   'ซา'],
+  ['prae', 'c_prae.png', 'แพร'],
+  ['tham', 'c_tham.png', 'ธาม'],
+  ['toey', 'c_toey.png', 'เต้ย']
+];
+
+var FIELDS = [
+  {k:'role',  l:'บทบาท / อาชีพ',        ph:'เขาทำอะไรในเรื่องนี้ พูดสั้น ๆ บรรทัดเดียว', big:false},
+  {k:'rel',   l:'ความสัมพันธ์กับคนอื่น', ph:'ใครเป็นอะไรกับใคร · พ่อแม่ลูก แฟน เพื่อน ศัตรู'},
+  {k:'trait', l:'นิสัย',                ph:'พูดยังไง ทำตัวยังไง เวลาโกรธเป็นแบบไหน'},
+  {k:'back',  l:'ภูมิหลัง',             ph:'ก่อนเรื่องจะเริ่ม เขาเจออะไรมาบ้าง'},
+  {k:'knot',  l:'ปม / ความลับ',         ph:'สิ่งที่เขาไม่บอกใคร และเหตุผลที่ไม่บอก'},
+  {k:'hold',  l:'สิ่งที่เขาถืออยู่',     ph:'ของจริง ๆ ที่เขามีแล้วคนอื่นไม่มี · กุญแจ คลิป เอกสาร ข้อมูล'},
+  {k:'note',  l:'โน้ตอื่น ๆ',           ph:'อะไรก็ได้ที่นึกออก'}
+];
+
+var S = load();
+
+function load(){
+  try{
+    var raw = localStorage.getItem(KEY);
+    if(raw){ var d = JSON.parse(raw); if(d && d.chars) return d; }
+  }catch(e){}
+  var chars = {};
+  FILES.forEach(function(f){ chars[f[0]] = {name:f[2], age:'', sex:'', main:false, pov:false}; });
+  return {meta:{title:'',log:'',place:'',theme:''}, chars:chars};
+}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function toast(msg){
+  var t = $('toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(t._x); t._x = setTimeout(function(){ t.classList.remove('show'); }, 1900);
+}
+function filled(c){
+  if(!c) return false;
+  if(!String(c.name||'').trim()) return false;
+  return FIELDS.some(function(f){ return String(c[f.k]||'').trim(); });
+}
+
+/* ---------- build UI ---------- */
+var list = $('list');
+FILES.forEach(function(f){
+  var key = f[0], file = f[1];
+  var c = S.chars[key] || (S.chars[key] = {name:f[2]});
+
+  var card = document.createElement('section');
+  card.className = 'card';
+  card.dataset.key = key;
+
+  var body = FIELDS.map(function(fd){
+    return '<div class="field"><label>'+fd.l+'</label>'+
+      (fd.big === false
+        ? '<input type="text" data-f="'+fd.k+'" value="'+esc(c[fd.k])+'" placeholder="'+esc(fd.ph)+'">'
+        : '<textarea data-f="'+fd.k+'" placeholder="'+esc(fd.ph)+'">'+esc(c[fd.k])+'</textarea>')+
+      '</div>';
+  }).join('');
+
+  card.innerHTML =
+    '<div class="chead">'+
+      '<img class="thumb" src="'+DIR+file+'" alt="">'+
+      '<div><div class="nm">'+esc(c.name || key)+'</div><div class="key">'+key+' · '+file+'</div></div>'+
+      '<div class="grow" style="flex:1"></div>'+
+      '<div class="st">ยังไม่ได้กรอก</div>'+
+      '<div class="chev">›</div>'+
+    '</div>'+
+    '<div class="cbody">'+
+      '<div class="pic">'+
+        '<img src="'+DIR+file+'" alt="'+esc(c.name)+'">'+
+        '<div class="path">'+DIR+file+'</div>'+
+      '</div>'+
+      '<div class="form">'+
+        '<div class="row2">'+
+          '<div class="field"><label>ชื่อ</label><input type="text" data-f="name" value="'+esc(c.name)+'" placeholder="ชื่อตัวละคร"></div>'+
+          '<div class="field"><label>อายุ</label><input type="text" data-f="age" value="'+esc(c.age)+'" placeholder="24"></div>'+
+          '<div class="field"><label>เพศ</label><input type="text" data-f="sex" value="'+esc(c.sex)+'" placeholder="ชาย / หญิง"></div>'+
+        '</div>'+
+        '<div class="flags">'+
+          '<label><input type="checkbox" data-c="main"'+(c.main?' checked':'')+'> ตัวละครหลัก</label>'+
+          '<label><input type="checkbox" data-c="pov"'+(c.pov?' checked':'')+'> เป็นมุมมองเล่าเรื่อง</label>'+
+        '</div>'+
+        body+
+      '</div>'+
+    '</div>';
+
+  list.appendChild(card);
+});
+
+$('ctotal').textContent = FILES.length;
+
+/* ---------- events ---------- */
+list.addEventListener('click', function(e){
+  var head = e.target.closest('.chead');
+  if(head){ head.parentNode.classList.toggle('open'); return; }
+  var img = e.target.closest('.pic img');
+  if(img){ $('lbimg').src = img.src; $('lb').classList.add('on'); }
+});
+$('lb').onclick = function(){ this.classList.remove('on'); };
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') $('lb').classList.remove('on'); });
+
+list.addEventListener('input', function(e){
+  var el = e.target, card = el.closest('.card');
+  if(!card) return;
+  var c = S.chars[card.dataset.key];
+  if(el.dataset.f){
+    c[el.dataset.f] = el.value;
+    if(el.dataset.f === 'name') card.querySelector('.nm').textContent = el.value || card.dataset.key;
+  }
+  refresh(card, c); save();
+});
+list.addEventListener('change', function(e){
+  var el = e.target, card = el.closest('.card');
+  if(!card || !el.dataset.c) return;
+  var c = S.chars[card.dataset.key];
+  c[el.dataset.c] = el.checked;
+  refresh(card, c); save();
+});
+
+['title','log','place','theme'].forEach(function(k){
+  var el = $('m-'+k);
+  el.value = S.meta[k] || '';
+  el.addEventListener('input', function(){ S.meta[k] = el.value; save(); });
+});
+
+function refresh(card, c){
+  var ok = filled(c);
+  card.classList.toggle('done', ok);
+  var st = card.querySelector('.st');
+  st.textContent = ok ? 'กรอกแล้ว' : 'ยังไม่ได้กรอก';
+  st.classList.toggle('ok', ok);
+  tally();
+}
+function tally(){
+  var n = 0;
+  FILES.forEach(function(f){ if(filled(S.chars[f[0]])) n++; });
+  $('cdone').textContent = n;
+}
+document.querySelectorAll('.card').forEach(function(card){ refresh(card, S.chars[card.dataset.key]); });
+
+$('b-expand').onclick   = function(){ document.querySelectorAll('.card').forEach(function(c){ c.classList.add('open'); }); };
+$('b-collapse').onclick = function(){ document.querySelectorAll('.card').forEach(function(c){ c.classList.remove('open'); }); };
+
+/* ---------- markdown ---------- */
+function buildMD(){
+  var m = S.meta, L = [];
+  L.push('# ตัวละคร' + (m.title.trim() ? ' — "' + m.title.trim() + '"' : ''));
+  L.push('');
+  if(m.log.trim()){ L.push('> ' + m.log.trim()); L.push(''); }
+  if(m.place.trim()){ L.push('**ฉาก / สถานที่**  '); L.push(m.place.trim()); L.push(''); }
+  if(m.theme.trim()){ L.push('**ธีม / โทนเรื่อง**  '); L.push(m.theme.trim()); L.push(''); }
+
+  var rows = FILES.filter(function(f){ return filled(S.chars[f[0]]); });
+  var use  = rows.length ? rows : FILES;
+
+  L.push('| ชื่อ | อายุ | เพศ | คีย์ | ไฟล์รูป | บทบาท |');
+  L.push('|---|---|---|---|---|---|');
+  use.forEach(function(f){
+    var c = S.chars[f[0]];
+    var nm = (c.name || f[0]).trim();
+    if(c.pov) nm = '**' + nm + '**';
+    else if(c.main) nm = '**' + nm + '**';
+    L.push('| ' + nm + ' | ' + (c.age||'—') + ' | ' + (c.sex||'—') + ' | `' + f[0] + '` | `' + f[1] + '` | ' + one(c.role) + ' |');
+  });
+  L.push('');
+  L.push('> ไฟล์รูปอยู่ใน `' + DIR + '`');
+  L.push('');
+  L.push('---');
+  L.push('');
+
+  use.forEach(function(f){
+    var c = S.chars[f[0]];
+    var tags = [];
+    if(c.pov)  tags.push('มุมมองเล่าเรื่อง');
+    if(c.main) tags.push('ตัวละครหลัก');
+
+    L.push('## ' + (c.name || f[0]).trim() +
+      (c.age ? ' — ' + c.age : '') +
+      (c.sex ? ' · ' + c.sex : '') +
+      (tags.length ? ' · ' + tags.join(' · ') : ''));
+    L.push('');
+    L.push('![' + (c.name || f[0]) + '](' + DIR + f[1] + ')');
+    L.push('');
+    L.push('`คีย์: ' + f[0] + '`');
+    L.push('');
+    FIELDS.forEach(function(fd){
+      var v = String(c[fd.k] || '').trim();
+      if(!v) return;
+      if(fd.big === false){ L.push('**' + fd.l + ':** ' + one(v)); L.push(''); }
+      else { L.push('**' + fd.l + '**'); L.push(''); L.push(v); L.push(''); }
+    });
+    L.push('---');
+    L.push('');
+  });
+
+  return L.join('\n');
+}
+function one(s){ return String(s||'').trim().replace(/\s*\n+\s*/g, ' · ').replace(/\|/g, '\\|') || '—'; }
+
+$('b-build').onclick = function(){
+  $('mdout').value = buildMD();
+  $('mdout').scrollIntoView({behavior:'smooth', block:'start'});
+  toast('สร้าง .md แล้ว');
+};
+
+function download(text, filename, mime){
+  var blob = new Blob(['﻿'.slice(0,0) + text], {type:(mime||'text/markdown') + ';charset=utf-8'});
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click();
+  setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); }, 400);
+}
+
+$('b-dl').onclick = function(){
+  var md = $('mdout').value.trim() || buildMD();
+  $('mdout').value = md;
+  download(md, 'characters.md');
+  toast('ดาวน์โหลดแล้ว');
+};
+
+$('b-copy').onclick = function(){
+  var md = $('mdout').value.trim() || buildMD();
+  $('mdout').value = md;
+  var ta = $('mdout');
+  ta.focus(); ta.select();
+  var done = false;
+  try{ done = document.execCommand('copy'); }catch(e){}
+  if(!done && navigator.clipboard){
+    navigator.clipboard.writeText(md).then(function(){ toast('คัดลอกแล้ว'); },
+      function(){ toast('คัดลอกไม่ได้ — เลือกในช่องแล้วกด Ctrl+C'); });
+    return;
+  }
+  toast(done ? 'คัดลอกแล้ว' : 'คัดลอกไม่ได้ — กด Ctrl+C ต่อได้เลย');
+};
+
+$('b-json').onclick = function(){
+  download(JSON.stringify(S, null, 2), 'story4-characters-backup.json', 'application/json');
+  toast('สำรองแล้ว');
+};
+
+$('b-load').onclick = function(){ $('filein').click(); };
+$('filein').onchange = function(){
+  var f = this.files && this.files[0];
+  if(!f) return;
+  var r = new FileReader();
+  r.onload = function(){
+    try{
+      var d = JSON.parse(r.result);
+      if(!d || !d.chars) throw 0;
+      localStorage.setItem(KEY, JSON.stringify(d));
+      toast('โหลดแล้ว กำลังรีเฟรช');
+      setTimeout(function(){ location.reload(); }, 500);
+    }catch(e){ toast('ไฟล์ไม่ถูกต้อง'); }
+  };
+  r.readAsText(f, 'utf-8');
+  this.value = '';
+};
+
+$('b-clear').onclick = function(){
+  if(!confirm('ล้างข้อมูลที่กรอกไว้ทั้งหมด?\n(สำรองเป็น .json ไว้ก่อนได้)')) return;
+  localStorage.removeItem(KEY);
+  location.reload();
+};
+
+window.addEventListener('beforeunload', save);
+
+})();
+</script>
+</body>
+</html>
