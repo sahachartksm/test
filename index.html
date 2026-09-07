@@ -1100,7 +1100,283 @@
           background: #78b694;
         }
       }
+      /* Hands-on lesson diagrams use only inline SVG/CSS. Motion is short and
+         triggered by an action; the learning information is also available as text. */
+      .activity {
+        border: 1px solid var(--line);
+        border-top: 4px solid var(--green);
+      }
+      .activity-heading {
+        margin-bottom: 20px;
+      }
+      .activity-heading h2 {
+        margin: 8px 0;
+      }
+      .activity-stage {
+        background: var(--pale);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 18px;
+        margin: 18px 0;
+      }
+      .activity-options {
+        display: grid;
+        gap: 10px;
+        margin-top: 16px;
+      }
+      .activity-options .btn {
+        text-align: left;
+        justify-content: flex-start;
+        font-weight: normal;
+      }
+      .activity-options .selected {
+        border: 2px solid var(--green);
+        background: var(--pale);
+      }
+      .activity-feedback {
+        padding: 16px;
+        margin-top: 16px;
+        background: var(--pale);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+      }
+      .activity-feedback.is-wrong {
+        background: var(--red-bg);
+        color: var(--red);
+      }
+      .activity-feedback p {
+        margin-top: 8px;
+      }
+      .activity-actions {
+        margin-top: 18px;
+      }
+      .network-track {
+        display: grid;
+        gap: 8px;
+        list-style: none;
+        padding: 0;
+        margin: 16px 0;
+      }
+      .network-track li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--paper);
+      }
+      .network-track li.active {
+        border: 2px solid var(--green);
+        background: var(--pale);
+      }
+      .network-track .step-dot {
+        display: grid;
+        place-items: center;
+        width: 32px;
+        height: 32px;
+        flex: none;
+        border-radius: 50%;
+        color: var(--green);
+        border: 1px solid var(--green);
+      }
+      .topology {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 12px 0;
+      }
+      .topology-node {
+        flex: 1 1 70px;
+        text-align: center;
+        padding: 14px 6px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--paper);
+        font-size: 13px;
+      }
+      .topology-node .icon {
+        display: block;
+        margin: 0 auto 8px;
+      }
+      .topology-arrow {
+        color: var(--green);
+      }
+      .packet-demo {
+        position: relative;
+        height: 30px;
+        border-bottom: 2px dashed var(--line);
+        margin-bottom: 14px;
+      }
+      .packet-dot {
+        position: absolute;
+        left: 0;
+        color: var(--green);
+        font-size: 21px;
+      }
+      .activity-motion .packet-dot {
+        animation: packet-trip 1.2s ease-in-out 1 both;
+      }
+      @keyframes packet-trip {
+        from {
+          left: 0;
+        }
+        to {
+          left: calc(100% - 24px);
+        }
+      }
+      .device-panel {
+        background: var(--paper);
+        border: 2px solid var(--line);
+        border-radius: 20px;
+        padding: 18px;
+        margin: 18px 0;
+      }
+      .device-leds {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px 8px;
+        text-align: center;
+        margin: 20px 0 4px;
+      }
+      .device-light {
+        display: block;
+        width: 15px;
+        height: 15px;
+        border: 2px solid #718277;
+        margin: 0 auto 9px;
+        border-radius: 50%;
+        background: #53625a;
+      }
+      .device-light.on {
+        background: #7cb541;
+        border-color: #548126;
+      }
+      .device-light.red {
+        background: #e86268;
+        border-color: #a83443;
+      }
+      .activity-motion .device-light.blink {
+        animation: status-blink 1.2s ease-in-out 3;
+      }
+      @keyframes status-blink {
+        50% {
+          opacity: 0.25;
+        }
+      }
+      .device-leds strong {
+        display: block;
+        font-size: 13px;
+      }
+      .device-leds small {
+        color: var(--muted);
+        display: block;
+        font-size: 12px;
+      }
+      .wifi-map {
+        width: 100%;
+        display: block;
+        color: var(--green);
+      }
+      .wifi-map .wave {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 3;
+      }
+      .activity-motion .wifi-map .wave {
+        animation: wifi-wave 1s ease-out 2;
+      }
+      @keyframes wifi-wave {
+        from {
+          opacity: 0.2;
+        }
+        to {
+          opacity: 0.8;
+        }
+      }
+      .signal-bars {
+        display: inline-flex;
+        align-items: flex-end;
+        gap: 4px;
+        height: 24px;
+        margin-right: 10px;
+      }
+      .signal-bars i {
+        display: block;
+        width: 9px;
+        background: var(--line);
+        border: 1px solid var(--muted);
+        border-radius: 3px 3px 0 0;
+      }
+      .signal-bars i.filled {
+        background: var(--green);
+        border-color: var(--green);
+      }
+      .case-path {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 16px 0;
+      }
+      .case-path li {
+        border: 1px solid var(--line);
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-size: 12px;
+        background: var(--pale);
+      }
+      .match-board {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin: 18px 0;
+      }
+      .match-board div {
+        padding: 16px;
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+      }
+      .match-board strong {
+        display: block;
+        margin-top: 8px;
+      }
+      .match-board .highlight {
+        border: 2px solid var(--green);
+        background: var(--pale);
+      }
+      .activity select {
+        max-width: 100%;
+      }
+      @media (min-width: 650px) {
+        .activity-options {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .network-track {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+        .network-track li {
+          display: block;
+        }
+        .network-track .step-dot {
+          margin-bottom: 8px;
+        }
+        .device-leds {
+          grid-template-columns: repeat(6, minmax(0, 1fr));
+        }
+        .match-board {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+      }
       @media (prefers-reduced-motion: reduce) {
+        .activity *,
+        .activity *::before,
+        .activity *::after {
+          animation: none !important;
+        }
         * {
           scroll-behavior: auto !important;
           transition: none !important;
@@ -1461,8 +1737,8 @@
         );
 
       /* 3. Question bank: stable id, day, question, four options, answer index (0–3), explanation.
-     Keep IDs stable so saved learning statistics still match after editing content.
-     Answers are shuffled at runtime; their displayed position is never the answer key. */
+      Keep IDs stable so saved learning statistics still match after editing content.
+      Answers are shuffled at runtime; their displayed position is never the answer key. */
       const QUESTION_BANK = [
         // Day 1 — network fundamentals (25 questions)
         {
@@ -2921,7 +3197,7 @@
         },
       ];
       /* 4. Persistent state. A single namespaced record makes an answer + its statistics
-     one localStorage write. A restored answer is locked, so reload cannot count it twice. */
+      one localStorage write. A restored answer is locked, so reload cannot count it twice. */
       const STORAGE_KEY = "fibre-ready:v1";
       const byId = Object.fromEntries(QUESTION_BANK.map((q) => [q.id, q]));
       const $ = (id) => document.getElementById(id);
@@ -2940,6 +3216,7 @@
       const freshState = () => ({
         version: 1,
         theme: "light",
+        activityDone: {},
         days: Object.fromEntries(
           DAYS.map((d) => [
             d.id,
@@ -3011,6 +3288,10 @@
           const data = JSON.parse(raw);
           if (data.version !== 1) throw new Error("version");
           base.theme = data.theme === "dark" ? "dark" : "light";
+          for (const d of DAYS) {
+            if (data.activityDone?.[d.id] === true)
+              base.activityDone[d.id] = true;
+          }
           for (const d of DAYS) {
             const v = data.days?.[d.id];
             if (!v) continue;
@@ -3154,7 +3435,7 @@
         );
       }
       /* Mastery priority follows the requested rule: latest wrong OR cumulative wrong >
-     correct stays weak, even if a recent streak is growing. Unseen belongs to weak. */
+      correct stays weak, even if a recent streak is growing. Unseen belongs to weak. */
       function mastery(id) {
         const s = state.stats[id];
         if (!s || !s.lastCorrect || s.wrong > s.correct) return "weak";
@@ -3282,6 +3563,559 @@
           "ตรวจว่ามือถือเห็น SSID และ WiFi ถูกเปิดอยู่หรือไม่",
         ],
       ];
+      /* 7. Active learning. Activities are separate from scored quizzes. Only the
+          completion badge is persisted; experiment controls can be tried freely.
+          Add a prompt, choices, answer and explanation to extend an activity. */
+      const NETWORK_STEPS = [
+        {
+          title: "รับค่าเครือข่าย",
+          icon: "network",
+          nodes: ["มือถือขอค่าเครือข่าย", "Router / DHCP", "มือถือได้รับ IP"],
+          prompt:
+            "มือถือเพิ่งเชื่อมต่อ WiFi และต้องรับ IP อัตโนมัติ ควรพึ่งบริการใด?",
+          choices: [
+            "DNS ค้นชื่อเว็บไซต์",
+            "DHCP แจกค่าเครือข่าย",
+            "Splitter แบ่งแสง",
+          ],
+          answer: 1,
+          explanation:
+            "DHCP แจก IP และค่าเครือข่าย เช่น gateway และ DNS ตามการตั้งค่า มือถือจึงพร้อมสื่อสาร ขั้นนี้ยังไม่ใช่การเปิดเว็บ",
+        },
+        {
+          title: "ค้น IP จากชื่อ",
+          icon: "book",
+          nodes: ["พิมพ์ example.com", "สอบถาม DNS resolver", "ได้ IP ปลายทาง"],
+          prompt:
+            "มือถือมี IP แล้ว แต่ยังรู้จักเว็บไซต์แค่ชื่อ example.com ต้องทำอะไรต่อ?",
+          choices: [
+            "ถาม DNS เพื่อค้น IP ปลายทาง",
+            "Factory Reset เพื่อหาชื่อเว็บไซต์",
+            "ใช้ SSID แทน IP ปลายทาง",
+          ],
+          answer: 0,
+          explanation:
+            "DNS ช่วยค้น IP ที่เกี่ยวข้องกับชื่อโดเมน ในการใช้งานจริงอาจมีคำตอบอยู่ในแคชแล้ว จึงไม่จำเป็นต้องถามใหม่ทุกครั้ง",
+        },
+        {
+          title: "ส่งคำขอออกนอกบ้าน",
+          icon: "fiber",
+          nodes: [
+            "มือถือใน LAN",
+            "Router → ONT",
+            "เครือข่ายผู้ให้บริการ → เว็บ",
+          ],
+          prompt:
+            "เมื่อรู้ปลายทางแล้ว ใครเลือกเส้นทางส่งข้อมูลจาก LAN ออกไปอีกเครือข่าย?",
+          choices: [
+            "Switch Layer 2 เพียงอย่างเดียว",
+            "ชื่อ SSID ของบ้าน",
+            "Router โดยมี ONT เชื่อมช่วงแสง",
+          ],
+          answer: 2,
+          explanation:
+            "Router ส่งข้อมูลข้ามเครือข่าย ส่วน ONT เป็นจุดเชื่อมระบบไฟเบอร์ การติดตั้งจริงอาจรวม Router กับ ONT ในกล่องเดียว ภาพนี้ใช้บ้าน FTTH เป็นตัวอย่าง",
+        },
+        {
+          title: "รับคำตอบและทดสอบ",
+          icon: "check",
+          nodes: [
+            "เว็บส่งข้อมูลกลับ",
+            "เครือข่าย → ONT → Router",
+            "มือถือแสดงผลเว็บไซต์",
+          ],
+          prompt:
+            "มือถือยังเห็น WiFi เต็มขีด แต่ข้อมูลจากเว็บไม่กลับมา ข้อใดสรุปได้เหมาะสม?",
+          choices: [
+            "อินเทอร์เน็ตต้องปกติเพราะ WiFi เต็ม",
+            "ต้องตรวจการออกอินเทอร์เน็ตและบริการเพิ่ม",
+            "ต้องเปลี่ยนชื่อ WiFi เท่านั้น",
+          ],
+          answer: 1,
+          explanation:
+            "ขีด WiFi บอกเฉพาะคุณภาพคลื่นที่รับได้ การโหลดเว็บยังพึ่งเส้นทาง WAN, DNS และปลายทาง ให้ทดสอบและแยกขอบเขตก่อนสรุป",
+        },
+      ];
+      // Each row is [label, status]. Visible status words always accompany color/motion.
+      const LED_CASES = [
+        {
+          label: "ชุดไฟ A",
+          lights: ["on", "off", "on", "blink", "blink", "on"],
+          answer: 4,
+          explanation:
+            "ชุดจำลองนี้มีไฟเลี้ยง ไม่มี LOS และมีการรับส่งข้อมูล LAN/Internet กระพริบจึงไม่ใช่ความผิดปกติโดยตัวมันเอง แต่ยังควรให้ลูกค้าลองใช้งานจริง",
+        },
+        {
+          label: "ชุดไฟ B",
+          lights: ["on", "red-blink", "off", "off", "off", "on"],
+          answer: 1,
+          explanation:
+            "LOS แดงกระพริบชี้ให้ตรวจสัญญาณแสงในรุ่นจำลองนี้ ตรวจแนวสายอย่างปลอดภัยและเหตุขัดข้อง ถ้ายังผิดปกติให้ส่งต่อทางแสง ไม่กด Reset เพื่อแก้คลื่น WiFi",
+        },
+        {
+          label: "ชุดไฟ C",
+          lights: ["on", "off", "on", "on", "off", "on"],
+          answer: 2,
+          explanation:
+            "สมมติว่าคอมพิวเตอร์เปิดอยู่และควรต่อ LAN แต่ไฟ LAN ดับ ให้ตรวจสายทั้งสองปลาย พอร์ต และการ์ดเครือข่าย ก่อนสรุปว่าอินเทอร์เน็ตต้นทางเสีย",
+        },
+        {
+          label: "ชุดไฟ D",
+          lights: ["on", "off", "on", "on", "on", "off"],
+          answer: 3,
+          explanation:
+            "สาย LAN ยังทำงานแต่ WiFi ดับ ให้ตรวจว่าปิดวิทยุ WiFi หรือปิด LED ไว้หรือไม่ แล้วดูว่ามือถือเห็น SSID หรือไม่",
+        },
+        {
+          label: "ชุดไฟ E",
+          lights: ["off", "off", "off", "off", "off", "off"],
+          answer: 0,
+          explanation:
+            "Power และไฟทั้งหมดดับ เริ่มจากปลั๊ก สวิตช์ และอะแดปเตอร์ที่ถูกต้องก่อน ยังไม่ควรเปลี่ยน DNS หรือกด Reset",
+        },
+      ];
+      const LED_CHOICES = [
+        "ตรวจปลั๊กและไฟเลี้ยงก่อน",
+        "ตรวจแนวไฟเบอร์ / เหตุขัดข้องทางแสง",
+        "ตรวจสายและพอร์ต LAN ของคอมพิวเตอร์",
+        "ตรวจการเปิด WiFi / SSID / การตั้งค่า LED",
+        "ยังไม่เห็นสัญญาณผิดปกติชัด ให้ทดสอบใช้งานจริง",
+      ];
+      const CASE_STEPS = {
+        reboot: {
+          label: "เคส A · หลายเครื่องใช้เน็ตไม่ได้",
+          steps: [
+            {
+              title: "รับสาย",
+              evidence: "ลูกค้า: “เน็ตใช้ไม่ได้ ช่วยดูให้หน่อย”",
+              choices: [
+                "ให้กด Reset ค้างทันที",
+                "ถามเริ่มเมื่อไร ทุกเครื่องไหม และต่อผ่านอะไร",
+              ],
+              answer: 1,
+              explanation:
+                "ลูกค้าตอบว่าเริ่มเมื่อครู่ เป็นทั้ง LAN และ WiFi ทุกเครื่อง ตรวจระบบแล้วไม่พบเหตุขัดข้องที่ประกาศ",
+              next: "รู้ขอบเขตอาการ",
+            },
+            {
+              title: "ตรวจไฟ",
+              evidence: "เป็นทุกเครื่องทั้ง LAN และ WiFi ควรตรวจอะไรต่อ?",
+              choices: [
+                "ขอรุ่นและสถานะ Power, LOS/PON, Internet",
+                "เปลี่ยนแพ็กเกจทันที",
+              ],
+              answer: 0,
+              explanation:
+                "ลูกค้ารายงาน Power เขียว LOS ดับ PON พร้อม แต่ยังใช้อินเทอร์เน็ตไม่ได้ ไฟอย่างเดียวไม่ยืนยันทุกบริการ",
+              next: "เช็คไฟแล้ว",
+            },
+            {
+              title: "ตรวจสาย",
+              evidence:
+                "ยังไม่มีไฟเตือนทางแสง ควรตรวจอะไรเพิ่มก่อนเริ่มเครื่องใหม่?",
+              choices: [
+                "เปลี่ยนรหัส WiFi ทุกเครื่อง",
+                "ตรวจสาย Ethernet และพอร์ตตามรูปแบบติดตั้ง",
+              ],
+              answer: 1,
+              explanation:
+                "ตรวจแล้วหัวสายแน่นและอยู่ถูกพอร์ต จึงไปขั้นต่อไปได้โดยมีข้อมูลรองรับ",
+              next: "สายถูกต้อง",
+            },
+            {
+              title: "Restart",
+              evidence: "ไฟและสายไม่พบสิ่งผิดปกติชัดเจน ขั้นต่อไปคืออะไร?",
+              choices: [
+                "แจ้งผลกระทบ ขอความพร้อม แล้ว Restart ตามคู่มือ",
+                "กด Factory Reset เพื่อปิดเปิดใหม่",
+              ],
+              answer: 0,
+              explanation:
+                "ลูกค้าพร้อมให้ตัดการเชื่อมต่อชั่วคราว ใช้ Restart โดยคงค่าตั้งไว้ แล้วรออุปกรณ์เริ่มทำงานครบ",
+              next: "Restart แล้ว",
+            },
+            {
+              title: "ยืนยันผล",
+              evidence: "ไฟกลับมาพร้อมแล้ว จะรู้ได้อย่างไรว่าอาการหาย?",
+              choices: [
+                "ปิดเคสเพราะ Power ติด",
+                "ลองบริการเดิมผ่าน WiFi จริงและเทียบ LAN",
+              ],
+              answer: 1,
+              explanation:
+                "ลูกค้าลองแล้วทั้ง WiFi และ LAN ใช้งานได้ ให้สรุปสิ่งที่ทำและแนวทางติดตาม ไม่จำเป็นต้องส่งช่างในเคสที่ยืนยันว่าหายแล้ว",
+              next: "ทดสอบผ่าน / สรุปเคส",
+            },
+          ],
+        },
+        optical: {
+          label: "เคส B · ใช้ไม่ได้หลังย้ายของ",
+          steps: [
+            {
+              title: "เก็บอาการ",
+              evidence: "ลูกค้าแจ้งว่าเน็ตหายหลังย้ายของข้าง ONT",
+              choices: [
+                "ถามขอบเขตและขอชื่อ/สี/รูปแบบไฟ",
+                "ให้เปลี่ยน DNS ทันที",
+              ],
+              answer: 0,
+              explanation:
+                "ทุกเครื่องใช้ไม่ได้ Power ติดแต่ LOS แดงกระพริบ ตรวจเหตุขัดข้องตามระบบแล้วไม่พบประกาศ",
+              next: "พบ LOS แดง",
+            },
+            {
+              title: "ตรวจทางแสง",
+              evidence:
+                "รุ่นนี้ระบุ LOS แดงคือรับแสงไม่เพียงพอ ควรให้ลูกค้าทำอะไร?",
+              choices: [
+                "ถอดหัวสายแล้วมองเข้าไป",
+                "ตรวจแนวสายว่าถูกกดหรือพับ โดยไม่ดึงหรือถอดหัว",
+              ],
+              answer: 1,
+              explanation:
+                "ลูกค้าตรวจแนวสายภายนอกแล้ว แต่ LOS ยังแดง ไม่ควรดึง หักสาย หรือมองปลายไฟเบอร์",
+              next: "ตรวจแนวสายแล้ว",
+            },
+            {
+              title: "เลือกทางส่งต่อ",
+              evidence: "LOS ยังแดงและทุกเครื่องใช้งานไม่ได้หลังตรวจที่เหมาะสม",
+              choices: [
+                "ส่งต่อทีมตรวจวงจรแสงพร้อมอาการและผลที่ทำ",
+                "ไล่เปลี่ยนรหัส WiFi ก่อนเสมอ",
+              ],
+              answer: 0,
+              explanation:
+                "หลักฐานชี้ไปทางแสง ให้ส่งต่อข้อมูลครบโดยไม่ฝืนทำขั้น WiFi ที่ไม่เกี่ยวข้อง และแจ้งการติดตามตามข้อมูลจริง",
+              next: "ส่งต่อทางแสง",
+            },
+          ],
+        },
+        power: {
+          label: "เคส C · อุปกรณ์ไม่แสดงไฟ",
+          steps: [
+            {
+              title: "เริ่มจากพลังงาน",
+              evidence:
+                "ลูกค้ายืนยัน Power และไฟอื่นดับทั้งหมด ไม่มีกลิ่นไหม้หรือความเสียหายที่เห็นได้",
+              choices: [
+                "เปลี่ยน DNS บนมือถือ",
+                "ตรวจปลั๊ก สวิตช์ และอะแดปเตอร์ที่ถูกต้องอย่างปลอดภัย",
+              ],
+              answer: 1,
+              explanation:
+                "พบสวิตช์ปลั๊กถูกปิด เมื่อลูกค้าเปิดแล้วอุปกรณ์เริ่มทำงาน ต้องรอให้บูตเสร็จก่อนตรวจเครือข่าย",
+              next: "เปิดไฟเลี้ยงแล้ว",
+            },
+            {
+              title: "หลังเปิดเครื่อง",
+              evidence: "อุปกรณ์เริ่มทำงาน ไฟกลับสู่สถานะพร้อมตามคู่มือ",
+              choices: [
+                "ให้ลองบริการที่มีปัญหาและยืนยันผล",
+                "กด Reset เพิ่มทุกครั้ง",
+              ],
+              answer: 0,
+              explanation:
+                "ลูกค้าทดสอบแล้วใช้งานได้ จึงสรุปว่าแก้ที่ไฟเลี้ยงและยืนยันผลแล้ว ไม่จำเป็นต้องล้างค่าตั้ง",
+              next: "ทดสอบผ่าน / สรุปเคส",
+            },
+          ],
+        },
+      };
+      const MATCH_CARDS = [
+        {
+          prompt: "มือถือผ่านการยืนยันรหัส WiFi แล้ว แต่ค้างที่ “กำลังรับ IP”",
+          answer: 0,
+          explanation:
+            "ตรวจการเชื่อมต่อถึง DHCP และการแจกค่าเครือข่ายก่อน ยังไม่ใช่อาการค้นชื่อเว็บไซต์",
+          icon: "network",
+        },
+        {
+          prompt: "เข้าถึงบริการทดสอบด้วย IP ได้ แต่ค้นชื่อโดเมนเดียวกันไม่ได้",
+          answer: 1,
+          explanation:
+            "DNS เป็นจุดที่ควรตรวจเพิ่ม เพราะเส้นทางไป IP ทดสอบยังใช้งานได้ ต้องยืนยันผลก่อนสรุป",
+          icon: "book",
+        },
+        {
+          prompt:
+            "ทุกเครื่องใช้งานไม่ได้ และคู่มือรุ่นนี้ระบุ LOS แดงคือสัญญาณแสงผิดปกติ",
+          answer: 2,
+          explanation:
+            "ตรวจทางแสงและเหตุขัดข้อง ถ้า LOS ยังผิดปกติหลังตรวจอย่างเหมาะสมให้ส่งต่อพร้อมข้อมูล",
+          icon: "fiber",
+        },
+        {
+          prompt:
+            "สาย LAN ปกติ มือถือใช้งานใกล้เราเตอร์ได้ แต่สะดุดเมื่อเข้าห้องหลังบ้าน",
+          answer: 3,
+          explanation:
+            "เปรียบเทียบระยะ สิ่งกีดขวางและการรบกวน WiFi ก่อนเพิ่มแพ็กเกจหรือสรุปว่าวงจรเสีย",
+          icon: "wifi",
+        },
+      ];
+      const MATCH_CHOICES = [
+        "DHCP / การรับค่าเครือข่าย",
+        "DNS / การค้นชื่อ",
+        "วงจรแสง / LOS",
+        "WiFi / พื้นที่ครอบคลุม",
+      ];
+      const newLabs = () => ({
+        network: { step: 0, choice: null, finished: false },
+        leds: { case: 0, choice: null, solved: [] },
+        wifi: { distance: "near", walls: "none", band: null, tried: [] },
+        call: { case: "reboot", step: 0, choice: null, finished: false },
+        match: {
+          order: shuffle([0, 1, 2, 3]),
+          step: 0,
+          choice: null,
+          finished: false,
+        },
+      });
+      let labs = newLabs();
+      function activityComplete(day) {
+        state.activityDone[day] = true;
+        save();
+      }
+      function activityChoices(choices, selected, answer, action) {
+        const locked = selected === answer;
+        return `<div class="activity-options" role="group" aria-label="ลองเลือกคำตอบ">${choices.map((label, i) => `<button class="btn ${selected === i ? "selected" : ""}" data-lab="${action}" data-choice="${i}" ${locked ? "disabled" : ""}>${selected === i ? (locked ? "✓ " : "↻ ") : ""}${esc(label)}</button>`).join("")}</div>`;
+      }
+      function activityFeedback(selected, answer, explanation) {
+        if (selected === null) return "";
+        const correct = selected === answer;
+        return `<div class="activity-feedback ${correct ? "" : "is-wrong"}" role="status"><strong>${correct ? "✓ ใช่แล้ว ลองอธิบายเหตุผลด้วยคำของคุณ" : "↻ ยังไม่ตรงจุด ลองเลือกอีกครั้ง"}</strong><p>${esc(explanation)}</p></div>`;
+      }
+      function labNetwork() {
+        const s = labs.network,
+          step = NETWORK_STEPS[s.step];
+        return `<ol class="network-track">${NETWORK_STEPS.map((x, i) => `<li class="${i === s.step ? "active" : ""}" ${i === s.step ? 'aria-current="step"' : ""}><span class="step-dot">${s.finished || i < s.step ? "✓" : i + 1}</span><span>${x.title}</span></li>`).join("")}</ol>${s.finished ? `<div class="activity-feedback"><h3>ต่อภาพทั้งเส้นทางได้แล้ว</h3><p>DHCP ให้ค่าเครือข่าย → DNS ค้นปลายทาง → Router ส่งข้ามเครือข่ายผ่าน ONT → รับข้อมูลกลับ</p><p class="small muted">ลองพูดอธิบายโดยไม่อ่าน: ถ้า WiFi เต็มแต่เปิดเว็บไม่ได้ จุดใดยังต้องตรวจ?</p></div><button class="btn activity-actions" data-lab="network-reset">ลองเส้นทางนี้ใหม่</button>` : `<div class="activity-stage"><div class="small muted">ภาพเรียงเหตุการณ์แบบย่อ · ตัวอย่างบ้าน FTTH</div><div class="topology">${step.nodes.map((label, i) => `${i ? '<span class="topology-arrow" aria-hidden="true">→</span>' : ""}<div class="topology-node">${icon(i === 0 ? "wifi" : step.icon)}${esc(label)}</div>`).join("")}</div><div class="packet-demo" aria-hidden="true"><span class="packet-dot">●</span></div><h3>${step.prompt}</h3></div>${activityChoices(step.choices, s.choice, step.answer, "network-answer")}${activityFeedback(s.choice, step.answer, step.explanation)}${s.choice === step.answer ? '<button class="btn primary activity-actions" data-lab="network-next">' + (s.step === 3 ? "สรุปเส้นทาง" : "ดูเหตุการณ์ถัดไป") + " →</button>" : ""}`}`;
+      }
+      function labLeds() {
+        const s = labs.leds,
+          c = LED_CASES[s.case],
+          names = ["Power", "LOS", "PON", "Internet", "LAN", "WiFi"];
+        const labels = {
+          on: "เขียวค้าง",
+          off: "ดับ",
+          blink: "เขียวกระพริบ",
+          "red-blink": "แดงกระพริบ",
+        };
+        return `<div class="field"><label for="lab-led-case">เลือกชุดไฟจำลอง</label><select id="lab-led-case">${LED_CASES.map((x, i) => `<option value="${i}" ${i === s.case ? "selected" : ""}>${x.label}</option>`).join("")}</select></div><div class="device-panel"><div class="row between"><strong>ONT / Router จำลอง</strong><span class="small muted">FIBRE LAB</span></div><div class="device-leds">${c.lights.map((status, i) => `<div><span class="device-light ${status === "off" ? "" : status === "red-blink" ? "red blink" : status === "blink" ? "on blink" : "on"}" aria-hidden="true"></span><strong>${names[i]}</strong><small>${labels[status]}</small></div>`).join("")}</div></div><p class="small muted">สมมติอุปกรณ์บูตเสร็จ ควรเปิด WiFi และมีคอมพิวเตอร์ที่เปิดอยู่ต่อ LAN • สีและไฟเป็นตัวอย่างของรุ่นจำลอง ให้เทียบคู่มือรุ่นจริงเสมอ</p><h3 style="margin-top:16px">เห็นไฟชุดนี้ ควรเริ่มตรวจจุดไหน?</h3>${activityChoices(LED_CHOICES, s.choice, c.answer, "led-answer")}${activityFeedback(s.choice, c.answer, c.explanation)}<div class="row between activity-actions"><span class="small muted">อ่านถูกแล้ว ${s.solved.length}/${LED_CASES.length} ชุด</span><button class="btn" data-lab="led-replay">เล่นไฟกระพริบอีกครั้ง</button><button class="btn" data-lab="led-next">ลองชุดถัดไป →</button></div>`;
+      }
+      function wifiReading(s) {
+        const difficult = s.distance === "far" || s.walls === "two";
+        const level =
+          s.band === "5"
+            ? s.distance === "far"
+              ? s.walls === "two"
+                ? 1
+                : 2
+              : s.walls === "two"
+                ? 2
+                : 4
+            : s.distance === "far" && s.walls === "two"
+              ? 2
+              : 4;
+        return {
+          level,
+          text:
+            level === 4
+              ? "สัญญาณค่อนข้างดีในแบบจำลอง"
+              : level === 2
+                ? "สัญญาณลดลงในแบบจำลอง"
+                : "สัญญาณอ่อนในแบบจำลอง",
+          explanation:
+            s.band === "5"
+              ? difficult
+                ? "5GHz อาจลดลงเมื่อไกลหรือมีสิ่งกีดขวาง ลองเทียบ 2.4GHz หรือย้ายจุดใช้งาน ไม่ควรสรุปจากย่านเพียงอย่างเดียว"
+                : "ใกล้เราเตอร์และไม่มีผนังกั้น 5GHz มักเหมาะกับการใช้งานที่ต้องการความเร็วสูง หากเครื่องรองรับ"
+              : difficult
+                ? "2.4GHz โดยทั่วไปได้เปรียบด้านการครอบคลุมเมื่อเทียบกับ 5GHz แต่การรบกวนและผนังจริงยังทำให้ใช้งานไม่ดีได้"
+                : "2.4GHz ใช้งานในระยะใกล้ได้เช่นกัน ลองเทียบ 5GHz เมื่อต้องการความเร็วสูงและอุปกรณ์รองรับ",
+        };
+      }
+      function labWifi() {
+        const s = labs.wifi,
+          r = wifiReading(s),
+          phone = s.distance === "near" ? 215 : 475,
+          wall = s.walls === "two";
+        return `<p>ลองคาดเดาก่อนเลือกย่าน: เมื่ออยู่ไกลหรือมีกำแพง 2.4GHz กับ 5GHz จะต่างกันอย่างไร?</p><div class="form-grid" style="grid-template-columns:repeat(2,minmax(0,1fr))"><div class="field"><label for="lab-wifi-distance">ระยะจากเราเตอร์</label><select id="lab-wifi-distance"><option value="near" ${s.distance === "near" ? "selected" : ""}>ใกล้</option><option value="far" ${s.distance === "far" ? "selected" : ""}>ไกล</option></select></div><div class="field"><label for="lab-wifi-walls">สิ่งกีดขวางระหว่างทาง</label><select id="lab-wifi-walls"><option value="none" ${!wall ? "selected" : ""}>ไม่มีผนัง</option><option value="two" ${wall ? "selected" : ""}>มีผนัง 2 ชั้น</option></select></div></div><div class="activity-stage"><svg class="wifi-map" viewBox="0 0 560 200" role="img" aria-label="เราเตอร์ด้านซ้าย มือถืออยู่${s.distance === "near" ? "ใกล้" : "ไกล"} ${wall ? "มีผนังกั้นสองชั้น" : "ไม่มีผนังกั้น"}${s.band ? " เลือกย่าน " + s.band + " GHz แล้ว" : ""}"><path d="M22 175H538" stroke="currentColor" opacity=".25"/><path class="wave" d="M115 62Q153 100 115 138" opacity=".7"/><path class="wave" d="M140 38Q202 100 140 162" opacity=".45"/><path class="wave" d="M170 15Q255 100 170 185" opacity=".25"/><rect x="38" y="86" width="65" height="40" rx="8" fill="currentColor"/><path d="M48 86V65m45 21V65" stroke="currentColor" stroke-width="4"/>${wall ? `<rect x="${s.distance === "near" ? 135 : 295}" y="25" width="10" height="150" fill="currentColor" opacity=".35"/><rect x="${s.distance === "near" ? 165 : 335}" y="25" width="10" height="150" fill="currentColor" opacity=".35"/>` : ""}<rect x="${phone}" y="75" width="38" height="68" rx="8" fill="none" stroke="currentColor" stroke-width="4"/><path d="M${phone + 12} 132h14" stroke="currentColor" stroke-width="3"/></svg><div class="row between small"><strong>Router</strong><span>มือถือ: ${s.distance === "near" ? "ใกล้" : "ไกล"} · ${wall ? "มีผนัง 2 ชั้น" : "ไม่มีผนัง"}</span></div></div><div class="row"><button class="btn ${s.band === "2.4" ? "primary" : ""}" data-lab="wifi-band" data-band="2.4" aria-pressed="${s.band === "2.4"}">ลอง 2.4GHz</button><button class="btn ${s.band === "5" ? "primary" : ""}" data-lab="wifi-band" data-band="5" aria-pressed="${s.band === "5"}">ลอง 5GHz</button></div>${s.band ? `<div class="activity-feedback" role="status"><div class="row"><span class="signal-bars" aria-hidden="true">${[1, 2, 3, 4].map((i) => `<i class="${i <= r.level ? "filled" : ""}" style="height:${6 + i * 4}px"></i>`).join("")}</span><strong>${r.text}</strong></div><p>${r.explanation}</p></div>` : ""}<p class="small muted" style="margin-top:16px">ภาพเปรียบเทียบเชิงคุณภาพ ไม่ใช่เครื่องคำนวณระยะ ความเร็ว หรือค่ากำลังสัญญาณจริง ในภาพนี้สมมติอุปกรณ์รองรับทั้งสองย่าน และไม่จำลองการรบกวนจากภายนอก</p><p class="small" style="margin-top:10px">ภารกิจ: ลองทั้งสองย่านในสภาพเดียวกัน แล้วเปลี่ยนระยะหรือผนังและลองทั้งสองย่านอีกครั้ง (${s.tried.length} การทดลองที่ต่างกัน)</p>`;
+      }
+      function labCall() {
+        const s = labs.call,
+          c = CASE_STEPS[s.case],
+          step = c.steps[s.step];
+        return `<div class="field"><label for="lab-call-case">เลือกเคสฝึกรับสาย</label><select id="lab-call-case">${Object.entries(
+          CASE_STEPS,
+        )
+          .map(
+            ([key, x]) =>
+              `<option value="${key}" ${key === s.case ? "selected" : ""}>${x.label}</option>`,
+          )
+          .join(
+            "",
+          )}</select></div><ol class="case-path" aria-label="ขั้นตอนที่ทำแล้ว">${c.steps
+          .slice(0, s.finished ? c.steps.length : s.step)
+          .map((x) => `<li>✓ ${x.next}</li>`)
+          .join(
+            "",
+          )}</ol>${s.finished ? `<div class="activity-feedback"><h3>จบเคสจำลองแล้ว</h3><p>ลองเล่าเส้นทางข้างบนให้เพื่อนฟัง: เพราะอะไรจึงเลือกแต่ละขั้น และมีอะไรที่ไม่จำเป็นต้องทำในเคสนี้?</p><p class="small muted">หากพบอันตรายจากอุปกรณ์ให้หยุดตรวจเครือข่ายและจัดการความปลอดภัยก่อน เมื่อทำงานจริงให้ยึดกระบวนการขององค์กร</p></div><button class="btn activity-actions" data-lab="call-reset">เริ่มเคสนี้อีกครั้ง</button>` : `<div class="activity-stage"><span class="pill">${icon("flow")} ขั้น ${s.step + 1} / ${c.steps.length} · ${step.title}</span><h3 style="margin-top:16px">${step.evidence}</h3></div>${activityChoices(step.choices, s.choice, step.answer, "call-answer")}${activityFeedback(s.choice, step.answer, step.explanation)}${s.choice === step.answer ? '<button class="btn primary activity-actions" data-lab="call-next">' + (s.step === c.steps.length - 1 ? "สรุปเคส" : "ดูผลและเลือกขั้นต่อไป") + " →</button>" : ""}`}`;
+      }
+      function labMatch() {
+        const s = labs.match,
+          c = MATCH_CARDS[s.order[s.step]];
+        return s.finished
+          ? `<div class="activity-feedback"><h3>จับคู่ครบทั้ง 4 อาการแล้ว</h3><p>รับค่าไม่ได้ → DHCP • ค้นชื่อไม่ได้ → DNS • LOS แจ้งเตือน → ทางแสง • ช้าเฉพาะจุด → WiFi</p><p class="small muted">นี่คือจุดเริ่มตรวจ ไม่ใช่ข้อสรุปตายตัว ต้องยืนยันด้วยผลทดสอบก่อนเสมอ</p></div><button class="btn activity-actions" data-lab="match-reset">สุ่มอาการใหม่</button>`
+          : `<div class="match-board">${["network", "book", "fiber", "wifi"].map((x, i) => `<div class="${s.choice === c.answer && i === c.answer ? "highlight" : ""}">${icon(x)}<strong>${["DHCP", "DNS", "LOS", "WiFi"][i]}</strong></div>`).join("")}</div><div class="activity-stage"><span class="small muted">อาการที่ ${s.step + 1} / 4 · ลองตอบโดยไม่เปิด cheat sheet</span><h3 style="margin-top:10px">${c.prompt}</h3></div>${activityChoices(MATCH_CHOICES, s.choice, c.answer, "match-answer")}${activityFeedback(s.choice, c.answer, c.explanation)}${s.choice === c.answer ? '<button class="btn primary activity-actions" data-lab="match-next">' + (s.step === 3 ? "สรุปสิ่งที่จำได้" : "อาการถัดไป") + " →</button>" : ""}`;
+      }
+      const LAB_TITLES = [
+        "ตามรอยข้อมูล: จากมือถือไปถึงเว็บไซต์",
+        "อ่านไฟจากอุปกรณ์จำลอง",
+        "ทดลอง WiFi: เลือกย่านแล้วสังเกตผล",
+        "คุณจะพาลูกค้าไปขั้นไหนต่อ?",
+        "จับคู่อาการกับจุดที่ควรตรวจ",
+      ];
+      function learningActivity(day, motion = false) {
+        const body = [labNetwork, labLeds, labWifi, labCall, labMatch][
+          day - 1
+        ]();
+        return `<section class="panel activity ${motion ? "activity-motion" : ""}" id="learning-activity" aria-labelledby="activity-title"><div class="activity-heading"><div class="row between"><span class="eyebrow muted">ลองทำให้เห็นภาพ</span><span class="pill">${state.activityDone[day] ? "✓ ทำกิจกรรมแล้ว" : "กิจกรรม 3–5 นาที"}</span></div><h2 id="activity-title" tabindex="-1">${LAB_TITLES[day - 1]}</h2><p class="small muted">ลองเลือก → สังเกตผล → อธิบายเหตุผล • กิจกรรมนี้ไม่เปลี่ยนคะแนนสอบหรือเกณฑ์ผ่านรายวัน</p></div>${body}</section>`;
+      }
+      function refreshActivity(motion = false) {
+        const old = $("learning-activity");
+        if (!old) return;
+        const active = document.activeElement,
+          focusId = old.contains(active) ? active.id : null;
+        old.outerHTML = learningActivity(currentDay, motion);
+        if (focusId && $(focusId)) $(focusId).focus({ preventScroll: true });
+        else $("activity-title")?.focus({ preventScroll: true });
+      }
+      function handleLabAction(el) {
+        const action = el.dataset.lab,
+          n = Number(el.dataset.choice);
+        if (
+          action === "network-answer" &&
+          labs.network.choice !== NETWORK_STEPS[labs.network.step].answer
+        )
+          labs.network.choice = n;
+        if (
+          action === "network-next" &&
+          labs.network.choice === NETWORK_STEPS[labs.network.step].answer
+        ) {
+          if (labs.network.step === 3) {
+            labs.network.finished = true;
+            activityComplete(1);
+          } else {
+            labs.network.step++;
+            labs.network.choice = null;
+          }
+        }
+        if (action === "network-reset")
+          labs.network = { step: 0, choice: null, finished: false };
+        if (
+          action === "led-answer" &&
+          labs.leds.choice !== LED_CASES[labs.leds.case].answer
+        ) {
+          labs.leds.choice = n;
+          if (
+            n === LED_CASES[labs.leds.case].answer &&
+            !labs.leds.solved.includes(labs.leds.case)
+          )
+            labs.leds.solved.push(labs.leds.case);
+          if (labs.leds.solved.length === 5) activityComplete(2);
+        }
+        if (action === "led-next") {
+          labs.leds.case = (labs.leds.case + 1) % LED_CASES.length;
+          labs.leds.choice = null;
+        }
+        if (action === "wifi-band") {
+          const s = labs.wifi;
+          s.band = el.dataset.band;
+          const trial = `${s.distance}/${s.walls}/${s.band}`;
+          if (!s.tried.includes(trial)) s.tried.push(trial);
+          const pairs = ["near/none", "near/two", "far/none", "far/two"].filter(
+            (k) => s.tried.includes(k + "/2.4") && s.tried.includes(k + "/5"),
+          );
+          if (pairs.length >= 2) activityComplete(3);
+        }
+        if (
+          action === "call-answer" &&
+          labs.call.choice !==
+            CASE_STEPS[labs.call.case].steps[labs.call.step].answer
+        )
+          labs.call.choice = n;
+        if (
+          action === "call-next" &&
+          labs.call.choice ===
+            CASE_STEPS[labs.call.case].steps[labs.call.step].answer
+        ) {
+          if (labs.call.step === CASE_STEPS[labs.call.case].steps.length - 1) {
+            labs.call.finished = true;
+            activityComplete(4);
+          } else {
+            labs.call.step++;
+            labs.call.choice = null;
+          }
+        }
+        if (action === "call-reset") {
+          labs.call.step = 0;
+          labs.call.choice = null;
+          labs.call.finished = false;
+        }
+        if (
+          action === "match-answer" &&
+          labs.match.choice !==
+            MATCH_CARDS[labs.match.order[labs.match.step]].answer
+        )
+          labs.match.choice = n;
+        if (
+          action === "match-next" &&
+          labs.match.choice ===
+            MATCH_CARDS[labs.match.order[labs.match.step]].answer
+        ) {
+          if (labs.match.step === 3) {
+            labs.match.finished = true;
+            activityComplete(5);
+          } else {
+            labs.match.step++;
+            labs.match.choice = null;
+          }
+        }
+        if (action === "match-reset")
+          labs.match = {
+            order: shuffle([0, 1, 2, 3]),
+            step: 0,
+            choice: null,
+            finished: false,
+          };
+        refreshActivity(
+          ["network-next", "led-next", "led-replay", "wifi-band"].includes(
+            action,
+          ),
+        );
+      }
+      function handleLabChange(el) {
+        if (el.id === "lab-led-case") {
+          labs.leds.case = Number(el.value);
+          labs.leds.choice = null;
+        }
+        if (el.id === "lab-wifi-distance") {
+          labs.wifi.distance = el.value;
+          labs.wifi.band = null;
+        }
+        if (el.id === "lab-wifi-walls") {
+          labs.wifi.walls = el.value;
+          labs.wifi.band = null;
+        }
+        if (el.id === "lab-call-case")
+          labs.call = {
+            case: el.value,
+            step: 0,
+            choice: null,
+            finished: false,
+          };
+        refreshActivity(el.id === "lab-led-case");
+      }
       function lessonExtra(id) {
         if (id === 2)
           return `<section class="panel lesson"><h3>อ่านไฟสถานะ ONT / Router</h3><p class="muted">ถามให้ครบ: รุ่นอะไร · ไฟชื่ออะไร · สีอะไร · ติดค้าง กระพริบ หรือดับ</p><div class="callout warning small">ตารางนี้เป็นแนวทางทั่วไป สีและรูปแบบไฟแตกต่างตามรุ่น โหมด และการตั้งค่า LED ให้ยึดคู่มือของอุปกรณ์จริง ไม่ใช่ดูสีเพียงอย่างเดียว</div><div class="table-wrap" tabindex="0" aria-label="ตารางสถานะไฟ เลื่อนแนวนอนได้"><table><caption>ไฟสถานะที่ควรจำ · เลื่อนตารางซ้าย–ขวาบนมือถือ</caption><thead><tr><th scope="col">ไฟ</th><th scope="col">สี / รูปแบบ</th><th scope="col">ความหมายทั่วไป</th><th scope="col">ควรตรวจต่อ</th></tr></thead><tbody>${LED_ROWS.map(
@@ -3383,7 +4217,7 @@
           )}</div><section id="day-panel" role="tabpanel" aria-labelledby="tab-${tab}">${tab === "content" ? lesson(id) : tab === "vocab" ? vocab(id) : quizSetup(id)}</section>`;
       }
       /* 5. Quiz selection. Weighted sampling WITHOUT replacement: weak 6, learning 3,
-     mastered 1. Mixed sets reserve one item from each day before the weighted fill. */
+      mastered 1. Mixed sets reserve one item from each day before the weighted fill. */
       const MODE_LABELS = {
         daily: "ฝึกตามวัน",
         mixed: "รวบยอดทุกวัน",
@@ -3702,6 +4536,11 @@
         save();
         nav(route);
         $("main").innerHTML = body + footer();
+        if (dayMatch && dayMatch[2] === "content") {
+          $("day-panel")
+            .querySelector(".callout")
+            .insertAdjacentHTML("afterend", learningActivity(currentDay));
+        }
         if (route === "settings") {
           $("main")
             .querySelector(".stack")
@@ -3744,6 +4583,10 @@
       document.addEventListener("click", (event) => {
         const el = event.target.closest("button");
         if (!el || el.disabled) return;
+        if (el.dataset.lab) {
+          handleLabAction(el);
+          return;
+        }
         if (el.dataset.route) {
           go(el.dataset.route);
           return;
@@ -3799,6 +4642,7 @@
                   return;
                 }
                 state = freshState();
+                labs = newLabs();
                 pendingWeak = false;
                 save();
                 go("dashboard");
@@ -3809,6 +4653,10 @@
         }
       });
       document.addEventListener("change", (event) => {
+        if (event.target.id.startsWith("lab-")) {
+          handleLabChange(event.target);
+          return;
+        }
         if (event.target.id === "theme-select") {
           state.theme = event.target.value === "dark" ? "dark" : "light";
           applyTheme();
