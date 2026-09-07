@@ -1,0 +1,3868 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#183b32" />
+    <title>Fibre Ready — เตรียมพร้อมใน 5 วัน</title>
+    <script>
+      // Apply the saved appearance before first paint to avoid a light flash.
+      try {
+        const saved = JSON.parse(localStorage.getItem("fibre-ready:v1"));
+        document.documentElement.dataset.theme =
+          saved?.theme === "dark" ? "dark" : "light";
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    </script>
+    <style>
+      /* 1. Design tokens & mobile-first layout. No external fonts/assets. */
+      :root {
+        color-scheme: light;
+        --bg: #f5f6f1;
+        --paper: #fff;
+        --ink: #203b33;
+        --muted: #63716b;
+        --line: #dce3da;
+        --green: #285943;
+        --lime: #d6ef8a;
+        --pale: #eef4e8;
+        --red: #a33138;
+        --red-bg: #fff0ee;
+        --amber: #94611a;
+        --amber-bg: #fff5de;
+        --radius: 20px;
+        --shadow: 0 6px 24px #203b3305;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          16px/1.75 Tahoma,
+          "Segoe UI",
+          sans-serif;
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+      }
+      button,
+      a,
+      select {
+        -webkit-tap-highlight-color: transparent;
+      }
+      button,
+      a {
+        touch-action: manipulation;
+      }
+      button {
+        cursor: pointer;
+      }
+      button:disabled {
+        cursor: default;
+      }
+      a {
+        color: var(--green);
+        text-underline-offset: 4px;
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+      h1 {
+        font-size: clamp(27px, 4vw, 38px);
+        line-height: 1.4;
+        letter-spacing: -0.8px;
+      }
+      h2 {
+        font-size: 22px;
+        line-height: 1.5;
+      }
+      h3 {
+        font-size: 18px;
+      }
+      p + p {
+        margin-top: 10px;
+      }
+      small,
+      .small {
+        font-size: 13px;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .eyebrow {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+      .stack > * + * {
+        margin-top: 22px;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .between {
+        justify-content: space-between;
+      }
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+      .icon {
+        width: 22px;
+        height: 22px;
+        flex: none;
+        vertical-align: middle;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        min-height: 46px;
+        padding: 10px 19px;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: white;
+        color: var(--ink);
+        font-weight: 700;
+        text-decoration: none;
+        line-height: 1.5;
+      }
+      .btn:hover {
+        background: var(--pale);
+        border-color: #9db592;
+      }
+      .btn.primary {
+        background: var(--green);
+        border-color: var(--green);
+        color: white;
+      }
+      .btn.primary:hover {
+        background: #183b32;
+      }
+      .btn.lime {
+        background: var(--lime);
+        border-color: var(--lime);
+        color: #233c23;
+      }
+      .btn.danger {
+        color: var(--red);
+        border-color: #e0b3b3;
+      }
+      .btn:disabled {
+        opacity: 0.5;
+      }
+      .btn.text {
+        border-color: transparent;
+        background: transparent;
+        padding-inline: 8px;
+      }
+      :focus-visible {
+        outline: 3px solid #658a23;
+        outline-offset: 4px;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      .skip {
+        position: fixed;
+        top: -100px;
+        left: 12px;
+        z-index: 20;
+      }
+      .skip:focus {
+        top: 12px;
+      }
+      .sidebar {
+        padding: 18px 20px;
+        background: #fcfdf9;
+        border-bottom: 1px solid var(--line);
+      }
+      .brand {
+        display: flex;
+        gap: 11px;
+        align-items: center;
+        color: var(--ink);
+        text-decoration: none;
+        line-height: 1.3;
+      }
+      .brandmark {
+        width: 39px;
+        height: 39px;
+        border-radius: 12px;
+        background: var(--green);
+        color: var(--lime);
+        display: grid;
+        place-items: center;
+      }
+      .brand strong {
+        font-size: 20px;
+        letter-spacing: -0.6px;
+      }
+      .brand small {
+        display: block;
+        font-size: 10px;
+        letter-spacing: 1.6px;
+        margin-top: 4px;
+        color: var(--muted);
+      }
+      .nav-label,
+      .side-note {
+        display: none;
+      }
+      .nav {
+        display: flex;
+        gap: 5px;
+        margin-top: 20px;
+        overflow-x: auto;
+        padding: 3px;
+      }
+      .nav button {
+        border: 0;
+        border-radius: 10px;
+        padding: 10px 12px;
+        white-space: nowrap;
+        background: transparent;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-align: left;
+        min-height: 45px;
+      }
+      .nav button.active {
+        background: #e9efdf;
+        color: var(--green);
+        font-weight: bold;
+      }
+      .nav .dayname {
+        display: none;
+      }
+      .nav-num {
+        display: grid;
+        place-items: center;
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+        border: 1px solid #d1dbcb;
+        border-radius: 7px;
+      }
+      .nav .settings-link {
+        margin-left: auto;
+      }
+      .workspace {
+        min-width: 0;
+      }
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 16px 22px;
+        border-bottom: 1px solid var(--line);
+        font-size: 12px;
+        background: #ffffff55;
+      }
+      .offline {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        color: var(--green);
+        white-space: nowrap;
+      }
+      .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #638b32;
+        display: inline-block;
+      }
+      .main {
+        max-width: 1170px;
+        margin: auto;
+        padding: 25px 20px 48px;
+      }
+      .page-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: flex-end;
+        margin-bottom: 24px;
+      }
+      .page-head p {
+        margin-top: 8px;
+        color: var(--muted);
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        line-height: 1.5;
+        padding: 6px 10px;
+        border-radius: 20px;
+        background: var(--pale);
+        color: var(--green);
+        font-weight: 700;
+        white-space: nowrap;
+      }
+      .pill.neutral {
+        background: #eff1ed;
+        color: var(--muted);
+      }
+      .panel {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        padding: 22px;
+        box-shadow: var(--shadow);
+      }
+      .hero {
+        background: var(--ink);
+        color: #fff;
+        padding: 28px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero p {
+        color: #d4e0d7;
+        margin: 12px 0 20px;
+        max-width: 530px;
+      }
+      .hero .eyebrow {
+        color: var(--lime);
+        margin-bottom: 13px;
+      }
+      .hero h2 {
+        font-size: 27px;
+      }
+      .hero-art {
+        display: none;
+      }
+      .hero .btn {
+        position: relative;
+      }
+      .progress {
+        width: 100%;
+        height: 8px;
+        appearance: none;
+        border: 0;
+        border-radius: 9px;
+        overflow: hidden;
+        display: block;
+        background: #e9eee4;
+      }
+      .progress::-webkit-progress-bar {
+        background: #e9eee4;
+        border-radius: 9px;
+      }
+      .progress::-webkit-progress-value {
+        background: var(--green);
+        border-radius: 9px;
+      }
+      .progress::-moz-progress-bar {
+        background: var(--green);
+        border-radius: 9px;
+      }
+      .progress.large {
+        height: 10px;
+      }
+      .metric-value {
+        font-size: 34px;
+        font-weight: bold;
+        line-height: 1.3;
+      }
+      .metric-value span {
+        font-size: 15px;
+        font-weight: normal;
+        color: var(--muted);
+      }
+      .metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .metrics .panel {
+        padding: 18px;
+      }
+      .metric-icon {
+        color: var(--green);
+        margin-bottom: 12px;
+      }
+      .section-heading {
+        margin: 30px 0 16px;
+      }
+      .day-card {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        padding: 22px;
+        position: relative;
+      }
+      .day-card .day-icon {
+        width: 46px;
+        height: 46px;
+        background: var(--pale);
+        border-radius: 13px;
+        display: grid;
+        place-items: center;
+        color: var(--green);
+        margin-bottom: 18px;
+      }
+      .day-card .eyebrow {
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+      .day-card h3 {
+        margin-bottom: 9px;
+      }
+      .day-card .desc {
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 22px;
+        flex: 1;
+      }
+      .day-card .btn {
+        margin-top: 18px;
+        width: 100%;
+      }
+      .day-card .pill {
+        position: absolute;
+        top: 25px;
+        right: 20px;
+      }
+      .card-meta {
+        font-size: 12px;
+        color: var(--muted);
+        margin: 10px 0;
+      }
+      .day-card.recommended {
+        border-color: #9ab779;
+      }
+      .learn-tip {
+        background: #eff2e6;
+        border-color: #dce3c8;
+      }
+      .memory-bar {
+        height: 14px;
+        display: flex;
+        overflow: hidden;
+        border-radius: 9px;
+        background: #ecefe8;
+        margin: 18px 0;
+      }
+      .memory-bar span {
+        height: 100%;
+      }
+      .weak-color {
+        background: #c6813c;
+      }
+      .learning-color {
+        background: #a7b968;
+      }
+      .mastered-color {
+        background: #285943;
+      }
+      .memory-legend {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .legend-dot {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        border-radius: 3px;
+        margin-right: 7px;
+      }
+      .footer {
+        font-size: 12px;
+        color: var(--muted);
+        border-top: 1px solid var(--line);
+        margin-top: 36px;
+        padding-top: 20px;
+      }
+      .tabs {
+        display: flex;
+        border-bottom: 1px solid var(--line);
+        gap: 6px;
+        margin-bottom: 24px;
+      }
+      .tabs button {
+        flex: 1;
+        border: 0;
+        border-bottom: 3px solid transparent;
+        background: transparent;
+        padding: 14px 8px;
+        color: var(--muted);
+        font-weight: bold;
+        white-space: nowrap;
+      }
+      .tabs button[aria-selected="true"] {
+        color: var(--green);
+        border-bottom-color: var(--green);
+      }
+      .lesson-grid {
+        display: grid;
+        gap: 16px;
+      }
+      .lesson h3 {
+        margin-bottom: 10px;
+      }
+      .lesson p,
+      .lesson li {
+        font-size: 15px;
+      }
+      .lesson ul,
+      .lesson ol {
+        padding-left: 24px;
+        margin-bottom: 0;
+      }
+      .callout {
+        padding: 17px 20px;
+        border-left: 4px solid #91ac64;
+        background: var(--pale);
+        border-radius: 0 12px 12px 0;
+        margin-top: 16px;
+      }
+      .callout.warning {
+        border-color: #be873a;
+        background: var(--amber-bg);
+        color: #6e501c;
+      }
+      .table-wrap {
+        overflow-x: auto;
+        margin-top: 15px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 610px;
+        font-size: 14px;
+      }
+      caption {
+        text-align: left;
+        padding: 12px;
+        font-weight: bold;
+        background: var(--pale);
+      }
+      th,
+      td {
+        padding: 14px;
+        text-align: left;
+        vertical-align: top;
+        border-bottom: 1px solid var(--line);
+      }
+      th {
+        background: #f4f7ee;
+      }
+      tr:last-child td {
+        border-bottom: 0;
+      }
+      .led {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        margin-right: 5px;
+        background: #718d48;
+      }
+      .led.red {
+        background: #ba4444;
+      }
+      .led.gray {
+        background: #89938b;
+      }
+      .flow {
+        list-style: none;
+        padding: 0 !important;
+        counter-reset: steps;
+      }
+      .flow li {
+        position: relative;
+        margin-bottom: 32px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 18px 18px 18px 62px;
+        background: white;
+        counter-increment: steps;
+      }
+      .flow li:before {
+        content: counter(steps, decimal-leading-zero);
+        position: absolute;
+        left: 16px;
+        top: 18px;
+        color: var(--green);
+        font-weight: bold;
+      }
+      .flow li:not(:last-child):after {
+        content: "↓";
+        position: absolute;
+        bottom: -30px;
+        left: 28px;
+        color: #829773;
+        font-size: 23px;
+      }
+      .flow li:last-child {
+        margin-bottom: 0;
+      }
+      .flow strong {
+        display: block;
+      }
+      .flash-shell {
+        max-width: 680px;
+        margin: auto;
+      }
+      .flashcard {
+        width: 100%;
+        min-height: 280px;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        perspective: 1000px;
+        color: var(--ink);
+      }
+      .flash-inner {
+        display: grid;
+        transform-style: preserve-3d;
+        transition: transform 0.45s;
+        min-height: 280px;
+      }
+      .flashcard.flipped .flash-inner {
+        transform: rotateY(180deg);
+      }
+      .flash-face {
+        grid-area: 1/1;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        border: 1px solid #cbd9b8;
+        border-radius: 22px;
+        background: #f0f5e6;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+      }
+      .flash-face strong {
+        font-size: 32px;
+        line-height: 1.4;
+      }
+      .flash-back {
+        transform: rotateY(180deg);
+        background: white;
+        font-size: 18px;
+      }
+      .vocab-list {
+        display: grid;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .vocab-item {
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+      }
+      .vocab-item summary {
+        cursor: pointer;
+        font-weight: bold;
+      }
+      .vocab-item p {
+        margin-top: 10px;
+        font-size: 14px;
+      }
+      .form-grid {
+        display: grid;
+        gap: 18px;
+        margin: 22px 0;
+      }
+      .field label {
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 7px;
+      }
+      select {
+        width: 100%;
+        padding: 11px 35px 11px 12px;
+        border: 1px solid #bfcdbb;
+        border-radius: 10px;
+        background: white;
+        color: var(--ink);
+        min-height: 48px;
+      }
+      .quiz-container {
+        max-width: 810px;
+        margin: auto;
+      }
+      .quiz-question {
+        font-size: 21px;
+        line-height: 1.7;
+        margin: 24px 0;
+      }
+      .answers {
+        display: grid;
+        gap: 12px;
+      }
+      .answer {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        width: 100%;
+        text-align: left;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 16px;
+        background: white;
+        color: var(--ink);
+        line-height: 1.65;
+      }
+      .answer:not(:disabled):hover {
+        border-color: #759552;
+        background: #f5f9ec;
+      }
+      .answer-letter {
+        display: grid;
+        place-items: center;
+        width: 28px;
+        height: 28px;
+        flex: none;
+        font-size: 13px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+      }
+      .answer.correct {
+        border-color: #5c8b57;
+        background: #eef6e9;
+      }
+      .answer.wrong {
+        border-color: #c26666;
+        background: var(--red-bg);
+      }
+      .answer:disabled {
+        opacity: 1;
+      }
+      .feedback {
+        margin-top: 20px;
+        border-radius: 12px;
+        padding: 18px;
+        background: var(--pale);
+      }
+      .feedback.wrong {
+        background: var(--red-bg);
+        color: #76282c;
+      }
+      .score-circle {
+        width: 132px;
+        height: 132px;
+        border: 9px solid #d8e8bd;
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 18px;
+      }
+      .score-circle strong {
+        font-size: 32px;
+        line-height: 1.3;
+      }
+      .result-head {
+        text-align: center;
+      }
+      .result-stats {
+        display: flex;
+        justify-content: center;
+        gap: 28px;
+        margin: 18px 0;
+      }
+      .review-item {
+        margin-top: 14px;
+        padding: 20px;
+        border: 1px solid #ead7cd;
+        border-radius: 14px;
+        background: #fffdf9;
+      }
+      .review-item .incorrect-text {
+        color: var(--red);
+      }
+      .review-item p {
+        font-size: 14px;
+        margin-top: 8px;
+      }
+      .storage-alert {
+        background: var(--amber-bg);
+        padding: 12px 20px;
+        color: #704c1a;
+        font-size: 14px;
+        border-bottom: 1px solid #dfc691;
+      }
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--ink);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 12px;
+        z-index: 20;
+        max-width: 90%;
+        box-shadow: 0 4px 30px #0002;
+        font-size: 14px;
+      }
+      .resume {
+        background: #edf4e4;
+      }
+      .empty {
+        text-align: center;
+        padding: 30px;
+      }
+      .settings-grid {
+        display: grid;
+        gap: 20px;
+      }
+      .sources li {
+        margin-bottom: 10px;
+      }
+      .sources a {
+        overflow-wrap: anywhere;
+      }
+      dialog {
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 25px;
+        width: min(440px, calc(100% - 32px));
+        color: var(--ink);
+      }
+      dialog::backdrop {
+        background: #10261db3;
+      }
+      dialog .row {
+        justify-content: flex-end;
+        margin-top: 24px;
+      }
+      @media (min-width: 600px) {
+        .days-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .metrics {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+        .form-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .memory-legend {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .main {
+          padding: 32px;
+        }
+        .hero {
+          padding: 35px;
+        }
+        .lesson-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .lesson-grid .wide {
+          grid-column: 1/-1;
+        }
+        .hero-art {
+          display: block;
+          position: absolute;
+          right: 25px;
+          top: 25px;
+          opacity: 0.7;
+          width: 160px;
+          height: 160px;
+        }
+        .hero-copy {
+          position: relative;
+          max-width: 75%;
+        }
+        .settings-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+      @media (min-width: 1000px) {
+        body {
+          display: grid;
+          grid-template-columns: 238px minmax(0, 1fr);
+        }
+        .sidebar {
+          position: sticky;
+          top: 0;
+          height: 100vh;
+          border-bottom: 0;
+          border-right: 1px solid var(--line);
+          padding: 30px 20px;
+          display: flex;
+          flex-direction: column;
+        }
+        .nav {
+          flex-direction: column;
+          overflow: visible;
+          gap: 7px;
+          margin-top: 12px;
+        }
+        .nav button {
+          padding: 12px;
+        }
+        .nav .dayname {
+          display: inline;
+        }
+        .nav .mobile-day {
+          display: none;
+        }
+        .nav-label {
+          display: block;
+          color: #83917f;
+          font-size: 10px;
+          letter-spacing: 1.5px;
+          margin: 44px 12px 0;
+        }
+        .nav .settings-link {
+          margin: 26px 0 0;
+        }
+        .side-note {
+          display: block;
+          margin-top: auto;
+          padding: 18px;
+          background: #f0f3e8;
+          border-radius: 13px;
+          font-size: 12px;
+          color: var(--muted);
+        }
+        .side-note strong {
+          display: block;
+          color: var(--green);
+          margin: 8px 0 5px;
+        }
+        .topbar {
+          padding: 18px 36px;
+        }
+        .days-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .hero-art {
+          right: 60px;
+        }
+        .hero-copy {
+          max-width: 70%;
+        }
+      }
+      /* Dark appearance covers lessons, controls, feedback and dialogs as well as
+         the dashboard. Screen-only overrides preserve the light print layout. */
+      @media screen {
+        html[data-theme="dark"] {
+          color-scheme: dark;
+          --bg: #121b17;
+          --paper: #1b2821;
+          --ink: #e6eee5;
+          --muted: #adbcaf;
+          --line: #384a3d;
+          --green: #b6d777;
+          --pale: #293b2d;
+          --red: #ffb4ba;
+          --red-bg: #43272d;
+          --amber: #e9bf79;
+          --amber-bg: #3b311e;
+          --shadow: 0 6px 24px #00000014;
+        }
+        html[data-theme="dark"] :focus-visible {
+          outline-color: #d6ef8a;
+        }
+        html[data-theme="dark"] .sidebar {
+          background: #16221b;
+        }
+        html[data-theme="dark"] .topbar {
+          background: #16221b;
+        }
+        html[data-theme="dark"] .brandmark {
+          background: #34503c;
+        }
+        html[data-theme="dark"] .nav button.active,
+        html[data-theme="dark"] .side-note,
+        html[data-theme="dark"] .learn-tip,
+        html[data-theme="dark"] .resume {
+          background: #263629;
+        }
+        html[data-theme="dark"] .nav-num,
+        html[data-theme="dark"] .learn-tip {
+          border-color: #4c6347;
+        }
+        html[data-theme="dark"] .nav-label {
+          color: var(--muted);
+        }
+        html[data-theme="dark"] .btn,
+        html[data-theme="dark"] select,
+        html[data-theme="dark"] .flow li,
+        html[data-theme="dark"] .flash-back,
+        html[data-theme="dark"] .answer,
+        html[data-theme="dark"] dialog {
+          background: var(--paper);
+        }
+        html[data-theme="dark"] .btn:hover,
+        html[data-theme="dark"] .answer:not(:disabled):hover {
+          background: var(--pale);
+          border-color: #93b26b;
+        }
+        html[data-theme="dark"] .btn.primary {
+          background: var(--green);
+          border-color: var(--green);
+          color: #182817;
+        }
+        html[data-theme="dark"] .btn.primary:hover,
+        html[data-theme="dark"] .btn.lime {
+          background: var(--lime);
+          border-color: var(--lime);
+          color: #182817;
+        }
+        html[data-theme="dark"] .btn.text {
+          background: transparent;
+        }
+        html[data-theme="dark"] .btn.danger {
+          border-color: #ad737c;
+        }
+        html[data-theme="dark"] select {
+          border-color: #607454;
+        }
+        html[data-theme="dark"] .hero,
+        html[data-theme="dark"] .toast {
+          background: #18352c;
+        }
+        html[data-theme="dark"] .pill.neutral,
+        html[data-theme="dark"] th,
+        html[data-theme="dark"] .flash-face {
+          background: #29382b;
+        }
+        html[data-theme="dark"] .flash-back {
+          background: var(--paper);
+        }
+        html[data-theme="dark"] .flash-face {
+          border-color: #607454;
+        }
+        html[data-theme="dark"] .progress,
+        html[data-theme="dark"] .memory-bar {
+          background: #384736;
+        }
+        html[data-theme="dark"] .progress::-webkit-progress-bar {
+          background: #384736;
+        }
+        html[data-theme="dark"] .callout.warning,
+        html[data-theme="dark"] .storage-alert {
+          color: #f0ca88;
+        }
+        html[data-theme="dark"] .answer.correct {
+          border-color: #82ba83;
+          background: #26412e;
+        }
+        html[data-theme="dark"] .answer.wrong {
+          border-color: #d68b95;
+          background: var(--red-bg);
+        }
+        html[data-theme="dark"] .feedback.wrong {
+          color: var(--red);
+        }
+        html[data-theme="dark"] .review-item {
+          background: #2b2c22;
+          border-color: #635c44;
+        }
+        html[data-theme="dark"] .score-circle {
+          border-color: #779b51;
+        }
+        html[data-theme="dark"] .weak-color {
+          background: #d8a064;
+        }
+        html[data-theme="dark"] .learning-color {
+          background: #b8c974;
+        }
+        html[data-theme="dark"] .mastered-color {
+          background: #78b694;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          scroll-behavior: auto !important;
+          transition: none !important;
+        }
+      }
+      @media print {
+        .sidebar,
+        .topbar,
+        .tabs,
+        .btn,
+        .footer {
+          display: none !important;
+        }
+        body {
+          display: block;
+          background: white;
+        }
+        .main {
+          padding: 0;
+        }
+        .panel {
+          break-inside: avoid;
+          box-shadow: none;
+        }
+        .lesson-grid {
+          display: block;
+        }
+        .lesson-grid > * {
+          margin-bottom: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip btn" href="#main">ข้ามไปเนื้อหา</a>
+    <aside class="sidebar" aria-label="เมนูหลัก">
+      <a class="brand" href="#dashboard"
+        ><span class="brandmark" id="brandmark"></span
+        ><span
+          ><strong>fibre ready<span style="color: #69863a">.</span></strong
+          ><small>YOUR SUPPORT STARTER</small></span
+        ></a
+      >
+      <p class="nav-label">พื้นที่การเรียนรู้</p>
+      <nav class="nav" id="nav"></nav>
+      <div class="side-note">
+        <span class="eyebrow">ONE STEP AT A TIME</span
+        ><strong>วันละนิด พร้อมขึ้นทุกวัน</strong>อ่านให้เข้าใจ ทบทวนคำศัพท์<br />แล้วลองรับสายผ่านโจทย์สถานการณ์
+      </div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar">
+        <span
+          >AIS Fibre <span class="muted">/ เตรียมพร้อมก่อนเริ่มงาน</span></span
+        ><span class="offline"><i class="dot"></i> พร้อมใช้ออฟไลน์</span>
+      </header>
+      <div id="storage-alert" class="storage-alert" role="alert" hidden></div>
+      <main class="main" id="main" tabindex="-1"></main>
+    </div>
+    <div id="toast" class="toast" role="status" hidden></div>
+    <dialog id="confirm-dialog" aria-labelledby="dialog-title">
+      <h2 id="dialog-title"></h2>
+      <p id="dialog-message" class="muted" style="margin-top: 12px"></p>
+      <div class="row">
+        <button class="btn" id="dialog-cancel">ยกเลิก</button
+        ><button class="btn danger" id="dialog-ok">ยืนยัน</button>
+      </div>
+    </dialog>
+    <noscript
+      >กรุณาเปิด JavaScript ในเบราว์เซอร์เพื่อใช้งานบทเรียนและแบบทดสอบ</noscript
+    >
+    <script>
+      "use strict";
+      /* 2. Course content. Add lesson cards and vocabulary here. */
+      const DAYS = [
+        {
+          id: 1,
+          title: "พื้นฐานเครือข่าย",
+          short: "พื้นฐานเครือข่าย",
+          icon: "network",
+          desc: "เข้าใจเส้นทางอินเทอร์เน็ต และรู้จักอุปกรณ์ที่ลูกค้าใช้งาน",
+          time: "45–60 นาที",
+          focus: "แยก IP, DNS และ DHCP ให้ได้",
+          vocab: [
+            [
+              "IP Address",
+              "ที่อยู่เชิงตรรกะของอุปกรณ์ในเครือข่าย ใช้ระบุต้นทางและปลายทางในการส่งข้อมูล",
+            ],
+            [
+              "DNS",
+              "Domain Name System แปลงชื่อโดเมน เช่น example.com เป็น IP Address เพื่อค้นหาปลายทาง",
+            ],
+            [
+              "DHCP",
+              "Dynamic Host Configuration Protocol แจกค่าเครือข่ายอัตโนมัติ เช่น IP, gateway และ DNS",
+            ],
+            [
+              "LAN",
+              "Local Area Network เครือข่ายภายในพื้นที่จำกัด เช่น บ้านหรือสำนักงาน ใช้ได้ทั้งสายและ WiFi",
+            ],
+            [
+              "WAN",
+              "Wide Area Network เครือข่ายที่เชื่อมเครือข่ายต่างพื้นที่เข้าด้วยกัน พอร์ต WAN ของเราเตอร์บ้านเป็นทางออกไปเครือข่ายต้นทาง",
+            ],
+            [
+              "Router",
+              "เลือกเส้นทางและส่งข้อมูลระหว่างเครือข่าย เราเตอร์บ้านมักรวม WiFi, DHCP และ NAT ไว้ด้วย",
+            ],
+            [
+              "Switch",
+              "เชื่อมอุปกรณ์หลายตัวภายใน LAN โดยสวิตช์ทั่วไปส่งต่อ Ethernet frame ตาม MAC Address",
+            ],
+            [
+              "Modem",
+              "อุปกรณ์แปลงสัญญาณให้เหมาะกับสื่อรับส่ง เช่น ADSL modem ใช้กับสายทองแดง",
+            ],
+            [
+              "ONT",
+              "Optical Network Terminal อุปกรณ์ปลายทางไฟเบอร์ในระบบ PON เชื่อมสัญญาณแสงเข้าสู่เครือข่ายภายในบ้าน",
+            ],
+          ],
+          cards: [
+            [
+              "IP Address · ที่อยู่ของอุปกรณ์",
+              "แต่ละอุปกรณ์ต้องมีที่อยู่ที่ใช้งานได้ในเครือข่ายนั้น เพื่อส่งข้อมูลถึงกัน โดยทั่วไปอุปกรณ์ในบ้านรับ IP อัตโนมัติจากเราเตอร์ หากตั้ง IP ซ้ำกันอาจเชื่อมต่อได้ไม่สม่ำเสมอ",
+            ],
+            [
+              "DNS · ค้นหาปลายทางจากชื่อ",
+              "ทำหน้าที่คล้ายสมุดรายชื่อ เมื่อพิมพ์ชื่อเว็บไซต์ ระบบจะค้นหา IP ที่เกี่ยวข้อง หากเข้าถึงปลายทางด้วย IP ได้แต่ค้นชื่อโดเมนไม่ได้ ให้ตรวจ DNS เพิ่มเติม ไม่ควรสรุปทันทีว่าสายเสีย",
+            ],
+            [
+              "DHCP · แจกค่าเครือข่าย",
+              "แจก IP Address, subnet mask, default gateway และ DNS ให้เครื่องลูกข่ายตามการตั้งค่า หากเครื่องค้างที่ “กำลังรับ IP” ให้ตรวจการเชื่อมต่อและบริการ DHCP ก่อนตั้ง IP เอง",
+            ],
+            [
+              "LAN กับ WAN",
+              "LAN คือเครือข่ายในบ้าน ส่วน WAN เชื่อมไปภายนอก การเห็นชื่อ WiFi หรือส่งไฟล์ในบ้านได้ ไม่ได้ยืนยันว่า WAN ใช้อินเทอร์เน็ตได้ พอร์ต LAN ใช้ต่ออุปกรณ์ในบ้าน พอร์ต WAN ใช้ต่อเครือข่ายต้นทาง",
+            ],
+            [
+              "ใครทำหน้าที่อะไร?",
+              "Router ส่งข้อมูลข้ามเครือข่าย • Switch เพิ่มการเชื่อมต่อใน LAN • Modem แปลงสัญญาณตามสื่อ เช่น ADSL • ONT รับสัญญาณไฟเบอร์ในระบบ PON อุปกรณ์หนึ่งกล่องอาจรวมหลายหน้าที่ อย่าตัดสินจากรูปร่างเพียงอย่างเดียว",
+            ],
+            [
+              "ประโยคที่ใช้รับสาย",
+              "“ขอทราบว่าใช้งานไม่ได้ทุกเครื่องหรือเฉพาะเครื่องนี้ครับ/ค่ะ และขณะนี้เชื่อมต่อผ่าน WiFi หรือสาย LAN?” คำถามนี้ช่วยแยกปัญหาฝั่งอุปกรณ์ เครือข่ายในบ้าน และวงจรอินเทอร์เน็ต",
+            ],
+          ],
+        },
+        {
+          id: 2,
+          title: "Fiber / ADSL และไฟสถานะ",
+          short: "Fiber / ADSL",
+          icon: "fiber",
+          desc: "แยกเทคโนโลยีสาย และอ่านไฟบน ONT / Router ให้เป็น",
+          time: "45–60 นาที",
+          focus: "จำ LOS และอ่านไฟร่วมกัน",
+          vocab: [
+            [
+              "ADSL",
+              "Asymmetric Digital Subscriber Line อินเทอร์เน็ตผ่านสายโทรศัพท์ทองแดง อัตรารับและส่งข้อมูลไม่เท่ากัน",
+            ],
+            [
+              "Fiber",
+              "ใยแก้วนำแสง ส่งข้อมูลด้วยแสง รองรับความจุสูงและระยะทางไกลกว่าสายทองแดงในงานเข้าถึงอินเทอร์เน็ตโดยทั่วไป",
+            ],
+            [
+              "FTTx",
+              "Fiber to the x กลุ่มรูปแบบการเดินไฟเบอร์ โดย x บอกจุดปลายทาง เช่น FTTH ถึงบ้าน และ FTTB ถึงอาคาร",
+            ],
+            [
+              "ONT",
+              "Optical Network Terminal อุปกรณ์ปลายทางของผู้ใช้ในระบบ PON บางรุ่นรวม Router และ WiFi",
+            ],
+            [
+              "ONU",
+              "Optical Network Unit หน่วยปลายทางระบบแสงใน PON โดย ONT มักใช้เรียก ONU ที่ปลายทางผู้ใช้ ทั้งสองคำอาจใช้ทับซ้อนกันตามผู้ผลิต",
+            ],
+            [
+              "Splitter",
+              "ตัวแบ่งสัญญาณ: Optical splitter แบ่งกำลังแสงในระบบ PON แบบไม่ใช้ไฟเลี้ยง ส่วน ADSL splitter แยกย่านเสียงโทรศัพท์ออกจาก DSL",
+            ],
+            [
+              "LOS",
+              "Loss of Signal สูญเสียหรือได้รับสัญญาณแสงไม่เพียงพอ ใน ONT หลายรุ่นไฟ LOS สีแดงบ่งชี้ปัญหาที่ต้องตรวจทางแสง",
+            ],
+          ],
+          cards: [
+            [
+              "ADSL ต่างจาก Fiber อย่างไร",
+              "ADSL ใช้สายทองแดงโทรศัพท์ คุณภาพขึ้นกับระยะและสภาพสาย โดยทั่วไปดาวน์โหลดกับอัปโหลดไม่เท่ากัน ส่วน Fiber ใช้แสงผ่านใยแก้ว มีความจุสูงกว่าและไม่ถูกรบกวนทางแม่เหล็กไฟฟ้าแบบสายทองแดง แต่ความเร็วจริงยังขึ้นกับแพ็กเกจ อุปกรณ์ และปลายทาง",
+            ],
+            [
+              "FTTx · ไฟเบอร์ไปถึงไหน",
+              "FTTH คือ Fiber to the Home เดินไฟเบอร์ถึงบ้าน ส่วน FTTB คือ Fiber to the Building ถึงอาคารแล้วอาจใช้สื่อชนิดอื่นต่อเข้าห้อง จึงควรถามรูปแบบติดตั้งจริงก่อนสรุปว่าในห้องต้องมี ONT เสมอ",
+            ],
+            [
+              "ONT / ONU · จุดรับสัญญาณแสง",
+              "ONT ใช้ที่ปลายทางผู้ใช้ในระบบ PON ส่วน ONU เป็นคำกว้างกว่า บางเอกสารเรียกทับซ้อนกัน อุปกรณ์อาจแยกกล่อง ONT กับ Router หรือรวมทุกหน้าที่ในกล่องเดียว",
+            ],
+            [
+              "Splitter · ชื่อเดียว คนละบริบท",
+              "Optical splitter แบ่งแสงจากต้นทางไปหลายแขนงแบบ passive ไม่ได้แจก IP ส่วน ADSL splitter แยกสัญญาณเสียงกับ DSL บนสายทองแดง ห้ามนำสองชนิดมาใช้แทนกัน",
+            ],
+          ],
+        },
+        {
+          id: 3,
+          title: "WiFi และ Router",
+          short: "WiFi และ Router",
+          icon: "wifi",
+          desc: "เลือกย่านความถี่ให้เหมาะ และรับมือปัญหา WiFi ที่พบบ่อย",
+          time: "45–60 นาที",
+          focus: "WiFi เชื่อมต่อ ≠ อินเทอร์เน็ตใช้งานได้",
+          vocab: [
+            [
+              "2.4GHz",
+              "ย่าน WiFi ที่โดยทั่วไปครอบคลุมได้ไกลและผ่านสิ่งกีดขวางได้ดีกว่า 5GHz แต่พบการรบกวนได้มาก",
+            ],
+            [
+              "5GHz",
+              "ย่าน WiFi ที่โดยทั่วไปมีช่องให้ใช้งานมากและรองรับความเร็วสูงในระยะใกล้ แต่สัญญาณลดลงเมื่อผ่านกำแพง",
+            ],
+            [
+              "SSID",
+              "Service Set Identifier ชื่อเครือข่าย WiFi ที่เห็นในรายการเครือข่าย ไม่ใช่รหัสผ่าน",
+            ],
+            [
+              "Bandwidth",
+              "ความจุของช่องทางรับส่งข้อมูลในช่วงเวลาหนึ่ง ไม่ใช่ความแรงสัญญาณหรือเวลาหน่วง และไม่เท่ากับความเร็วจริงเสมอ",
+            ],
+            [
+              "Signal Strength",
+              "ความแรงสัญญาณที่อุปกรณ์รับได้ เช่น จำนวนขีด WiFi สัญญาณเต็มไม่ได้ยืนยันว่าอินเทอร์เน็ตต้นทางปกติ",
+            ],
+          ],
+          cards: [
+            [
+              "2.4GHz · ระยะและความเข้ากันได้",
+              "มักเหมาะกับอุปกรณ์รุ่นเก่า อุปกรณ์ IoT และจุดที่อยู่ห่างจากเราเตอร์ แต่ย่านนี้มีอุปกรณ์ร่วมใช้งานมาก เช่น Bluetooth และอาจถูกรบกวนจากไมโครเวฟ ความเหมาะสมต้องทดสอบในพื้นที่จริง",
+            ],
+            [
+              "5GHz · ความเร็วในระยะใกล้",
+              "โดยทั่วไปเหมาะกับการใช้งานใกล้เราเตอร์ที่ต้องการความเร็วสูง ต้องตรวจว่าเครื่องรองรับด้วย ชื่อ WiFi ที่ลงท้าย 5G มักสื่อถึงย่าน 5GHz ไม่ใช่เครือข่ายมือถือ 5G และทั้งสองย่านอาจใช้ SSID เดียวกันได้",
+            ],
+            [
+              "WiFi ช้า · แยกก่อนแก้",
+              "ถามว่าช้าทุกเครื่องหรือเครื่องเดียว ทุกเว็บหรือเว็บเดียว จากนั้นทดสอบใกล้เราเตอร์ หยุดดาวน์โหลดหนักชั่วคราว และเทียบสาย LAN หาก LAN ปกติแต่ WiFi ช้า ให้ตรวจระยะ สิ่งกีดขวาง และการรบกวน",
+            ],
+            [
+              "เชื่อมต่อไม่ได้ · ตรวจชื่อและรหัส",
+              "ตรวจเปิด WiFi และปิดโหมดเครื่องบิน เลือก SSID ให้ถูก ตรวจรหัสผ่านและตัวพิมพ์เล็กใหญ่ หากเพิ่งเปลี่ยนรหัสให้ลืมเครือข่ายเดิมแล้วเชื่อมต่อใหม่ ไม่ต้องขอให้ลูกค้าอ่านรหัสผ่านให้เจ้าหน้าที่ฟัง",
+            ],
+            [
+              "สัญญาณอ่อน · ดูตำแหน่ง",
+              "วางเราเตอร์ในที่โล่ง ยกจากพื้น ใกล้กลางพื้นที่ หลีกเลี่ยงตู้โลหะและมุมอับ ลองเข้าใกล้หรือเปลี่ยนเป็น 2.4GHz ถ้าพื้นที่กว้างอาจประเมินจุดกระจายสัญญาณเพิ่ม การเพิ่มแพ็กเกจไม่แก้กำแพงบังสัญญาณ",
+            ],
+            [
+              "Restart กับ Factory Reset",
+              "Restart / Reboot คือปิดแล้วเปิดใหม่ โดยปกติคงค่าตั้งไว้ ขออนุญาตก่อนเพราะทุกเครื่องจะหลุดชั่วคราว ส่วน Factory Reset คืนค่าโรงงาน อาจล้างชื่อ WiFi รหัสผ่าน และค่าบริการ จึงใช้เมื่อมีเหตุผลและมีขั้นตอนตั้งค่าคืนพร้อมแล้ว",
+            ],
+          ],
+        },
+        {
+          id: 4,
+          title: "Troubleshooting และศัพท์ IT",
+          short: "แก้ปัญหาเป็นขั้นตอน",
+          icon: "flow",
+          desc: "ฝึกถามให้ตรงจุด ไล่ตรวจอย่างเป็นระบบ และส่งต่องานให้ครบ",
+          time: "50–65 นาที",
+          focus: "เช็คไฟ → สาย → Restart → ทดสอบ → ส่งต่อ",
+          vocab: [
+            [
+              "Bandwidth",
+              "ความจุของเส้นทางในการรับส่งข้อมูล เปรียบเหมือนความกว้างถนน ไม่ใช่ความเร็วในการตอบสนอง",
+            ],
+            [
+              "Latency",
+              "เวลาหน่วงของการส่งข้อมูลระหว่างต้นทางกับปลายทาง ค่าสูงทำให้เกมหรือสนทนาตอบสนองช้า",
+            ],
+            [
+              "Packet loss",
+              "แพ็กเก็ตบางส่วนไปไม่ถึงปลายทาง อาจทำให้เสียงขาด วิดีโอสะดุด หรือจำเป็นต้องส่งข้อมูลซ้ำ",
+            ],
+            [
+              "Firmware",
+              "ซอฟต์แวร์ภายในอุปกรณ์ที่ควบคุมการทำงาน ต้องใช้รุ่นที่ตรงและช่องทางที่ผู้ให้บริการหรือผู้ผลิตรองรับ",
+            ],
+            [
+              "Reset",
+              "ในบทเรียนนี้หมายถึง Factory Reset หรือคืนค่าโรงงาน ซึ่งอาจล้างค่าที่ตั้งไว้ ต่างจาก Reboot",
+            ],
+            [
+              "Reboot",
+              "เริ่มการทำงานอุปกรณ์ใหม่ โดยปกติไม่ล้างค่าตั้ง ชื่อที่ใช้ใกล้เคียงกันคือ Restart",
+            ],
+          ],
+          cards: [
+            [
+              "ก่อนเริ่มแก้ · เก็บขอบเขตอาการ",
+              "ถามว่าเริ่มเมื่อไร เกิดทุกเครื่องหรือบางเครื่อง ใช้สายหรือ WiFi และกระทบทุกบริการหรือบริการเดียว ยืนยันวงจรตามขั้นตอนองค์กรแล้วตรวจประกาศเหตุขัดข้องจากระบบที่ได้รับสิทธิ์",
+            ],
+            [
+              "ช้าแบบไหน? ใช้ศัพท์ให้ตรง",
+              "Bandwidth คือความจุเส้นทาง ส่วน Latency คือเวลาหน่วง และ Packet loss คือข้อมูลบางส่วนสูญหาย แม้ความเร็วดาวน์โหลดดูดี เกมก็อาจหน่วงจาก latency หรือ packet loss ได้ จึงต้องถามลักษณะอาการเพิ่ม",
+            ],
+            [
+              "Firmware · อัปเดตอย่างมีขั้นตอน",
+              "ใช้ไฟล์ตรงรุ่นและ revision ของอุปกรณ์จากแหล่งที่รับรองเท่านั้น สำหรับอุปกรณ์ผู้ให้บริการให้ใช้ขั้นตอนที่องค์กรอนุญาต และอย่าตัดไฟระหว่างอัปเดต",
+            ],
+            [
+              "บันทึกเคสให้คนถัดไปทำต่อได้",
+              "ระบุเวลาเริ่มอาการ ขอบเขตอุปกรณ์ รุ่น ONT/Router สีและรูปแบบไฟ การตรวจสาย ขั้นตอนที่ลองและผลทดสอบ พร้อมผลตรวจเหตุขัดข้องตามระบบ แจ้งเลขรับเรื่องและกรอบติดตามตามข้อมูลจริง ไม่รับปากเวลาแก้ที่ยังไม่ยืนยัน",
+            ],
+          ],
+        },
+        {
+          id: 5,
+          title: "ซ้อมรวบยอด พร้อมรับสาย",
+          short: "ซ้อมรวบยอด",
+          icon: "check",
+          desc: "เปิด cheat sheet แล้วทดสอบความเข้าใจจากทุกหัวข้ออีกครั้ง",
+          time: "45–60 นาที",
+          focus: "ทำรวบยอด 20 ข้อ และทบทวนข้อที่ยังพลาด",
+          vocab: [],
+          cards: [
+            [
+              "01 / เครือข่าย",
+              "IP = ที่อยู่ • DNS = ค้น IP จากชื่อ • DHCP = แจกค่าเครือข่าย • LAN = ภายใน • WAN = ภายนอก • Router = เชื่อมต่างเครือข่าย • Switch = เชื่อมภายใน LAN • Modem = แปลงสัญญาณตามสื่อ • ONT = ปลายทางไฟเบอร์ PON",
+            ],
+            [
+              "02 / Fiber และไฟสถานะ",
+              "ADSL = สายทองแดง • Fiber = แสง • FTTH = ถึงบ้าน • ONT/ONU = หน่วยปลายทางแสง • Splitter = แบ่งสัญญาณตามบริบท ตรวจ Power → LOS/PON → Internet → LAN/WiFi โดยอ้างอิงคู่มือรุ่นจริง LOS สีแดงให้ตรวจเส้นทางแสงและส่งต่อเมื่อยังผิดปกติ",
+            ],
+            [
+              "03 / WiFi และ Router",
+              "2.4GHz มักไกลกว่าแต่รบกวนมาก • 5GHz มักเร็วกว่าในระยะใกล้ • SSID = ชื่อ WiFi • สัญญาณเต็มไม่ได้แปลว่าเน็ตใช้ได้ เปรียบเทียบหลายเครื่อง ใกล้เราเตอร์ และสาย LAN ก่อนสรุป Restart คงค่า ส่วน Factory Reset อาจล้างค่า",
+            ],
+            [
+              "04 / ลำดับแก้และศัพท์ IT",
+              "ถามขอบเขต + ตรวจเหตุขัดข้อง → เช็คไฟ → เช็คสาย → Restart → ทดสอบ WiFi บนมือถือและเทียบ LAN → ส่งต่อเมื่อยังไม่หาย • Bandwidth = ความจุ • Latency = เวลาหน่วง • Packet loss = ข้อมูลสูญหาย • Firmware = ซอฟต์แวร์ในอุปกรณ์",
+            ],
+            [
+              "ลองพูดเหมือนรับสายจริง",
+              "“ขอทราบว่าใช้งานไม่ได้ทุกเครื่องหรือเฉพาะเครื่องนี้ครับ/ค่ะ ช่วยดูไฟ Power และ LOS ว่าเป็นสีอะไร ติดค้างหรือกระพริบได้ไหมครับ/คะ” จากนั้นสรุปสิ่งที่พบก่อนพาไปขั้นต่อไป",
+            ],
+            [
+              "ก่อนจบสาย",
+              "ให้ลูกค้าลองบริการที่เคยมีปัญหา ยืนยันผล สรุปสิ่งที่ทำและสิ่งที่ต้องติดตาม ถ้ายังไม่หายให้ส่งต่อพร้อมข้อมูลครบ แล้วฝึกข้อที่ผิดซ้ำจนเริ่มตอบถูกต่อเนื่อง",
+            ],
+          ],
+        },
+      ];
+      DAYS[4].vocab = DAYS.slice(0, 4)
+        .flatMap((d) => d.vocab)
+        .filter(
+          (v, i, a) =>
+            a.findIndex((x) => x[0].toLowerCase() === v[0].toLowerCase()) === i,
+        );
+
+      /* 3. Question bank: stable id, day, question, four options, answer index (0–3), explanation.
+     Keep IDs stable so saved learning statistics still match after editing content.
+     Answers are shuffled at runtime; their displayed position is never the answer key. */
+      const QUESTION_BANK = [
+        // Day 1 — network fundamentals (25 questions)
+        {
+          id: "d1-01",
+          day: 1,
+          question: "ลูกค้าถามว่า IP Address มีไว้ทำอะไร คำอธิบายใดตรงที่สุด?",
+          options: [
+            "ระบุที่อยู่ต้นทางและปลายทางของอุปกรณ์ในการสื่อสาร",
+            "กำหนดชื่อเครือข่าย WiFi ให้จดจำง่าย",
+            "แปลงสัญญาณแสงเป็นสัญญาณไฟฟ้า",
+            "กำหนดความแรงสัญญาณไร้สาย",
+          ],
+          answer: 0,
+          explanation:
+            "IP Address คือที่อยู่เชิงตรรกะที่ใช้ในการรับส่งข้อมูลบนเครือข่าย ไม่ใช่ชื่อ WiFi หรือค่าความแรงสัญญาณ",
+        },
+        {
+          id: "d1-02",
+          day: 1,
+          question:
+            "เข้าถึงบริการทดสอบด้วย IP ได้ แต่ค้นหาชื่อโดเมนเดียวกันไม่สำเร็จ ควรตรวจเรื่องใดเพิ่ม?",
+          options: [
+            "การทำงานและค่าตั้งของ DNS",
+            "ความสว่างไฟ Power",
+            "ชื่อผู้ใช้ของเครื่องพิมพ์",
+            "ตำแหน่งเสา WiFi อย่างเดียว",
+          ],
+          answer: 0,
+          explanation:
+            "เมื่อเข้าถึง IP ได้แต่แปลงชื่อไม่สำเร็จ DNS เป็นจุดที่ควรตรวจ โดยยังต้องทดสอบยืนยันก่อนสรุปสาเหตุ",
+        },
+        {
+          id: "d1-03",
+          day: 1,
+          question:
+            "มือถือค้างที่ “กำลังรับ IP Address” ทั้งที่เลือกรหัส WiFi ถูกแล้ว ควรสงสัยบริการใด?",
+          options: [
+            "DHCP หรือการเชื่อมต่อถึงบริการแจก IP",
+            "DNS สำหรับแปลงชื่อเว็บไซต์เพียงอย่างเดียว",
+            "บริการเปลี่ยนชื่อ SSID",
+            "ระบบแยกเสียงโทรศัพท์",
+          ],
+          answer: 0,
+          explanation:
+            "DHCP แจก IP และค่าเครือข่าย หากรับค่าไม่ได้ควรตรวจการเชื่อมต่อและ DHCP",
+        },
+        {
+          id: "d1-04",
+          day: 1,
+          question:
+            "ต้องต่อคอมพิวเตอร์หลายเครื่องภายใน LAN และพอร์ตไม่พอ ควรใช้อุปกรณ์ใดเพิ่ม?",
+          options: [
+            "Switch",
+            "Optical splitter",
+            "ADSL splitter",
+            "ONT เพิ่มอีกตัวโดยไม่ลงทะเบียน",
+          ],
+          answer: 0,
+          explanation:
+            "Switch เพิ่มการเชื่อมต่อ Ethernet ภายใน LAN ส่วน splitter แบ่งสัญญาณอีกชนิดหนึ่ง",
+        },
+        {
+          id: "d1-05",
+          day: 1,
+          question:
+            "อุปกรณ์ใดมีหน้าที่หลักส่งข้อมูลระหว่างเครือข่ายบ้านกับเครือข่ายภายนอก?",
+          options: [
+            "Router",
+            "สวิตช์ Layer 2 ที่ใช้ขยาย LAN",
+            "ADSL splitter",
+            "สาย LAN",
+          ],
+          answer: 0,
+          explanation:
+            "Router เลือกเส้นทางและส่งข้อมูลระหว่างเครือข่าย ส่วนสวิตช์ Layer 2 ส่งต่อภายใน LAN",
+        },
+        {
+          id: "d1-06",
+          day: 1,
+          question:
+            "ต้องต่อคอมพิวเตอร์เข้ากับเราเตอร์บ้านตามการตั้งค่าปกติ ควรใช้พอร์ตใด?",
+          options: [
+            "LAN",
+            "ช่องรับสายไฟเบอร์ Optical",
+            "ช่อง Power",
+            "WAN ที่ใช้รับสัญญาณจากต้นทาง",
+          ],
+          answer: 0,
+          explanation:
+            "พอร์ต LAN เชื่อมอุปกรณ์ในบ้าน ส่วน WAN ใช้เชื่อมเครือข่ายต้นทางตามการตั้งค่าทั่วไป",
+        },
+        {
+          id: "d1-07",
+          day: 1,
+          question:
+            "ลูกค้าบอกว่าส่งไฟล์ระหว่างเครื่องในบ้านได้ แต่ทุกเครื่องเปิดเว็บไม่ได้ ข้อใดเหมาะสมที่สุด?",
+          options: [
+            "LAN อาจยังทำงาน แต่ต้องตรวจการออกอินเทอร์เน็ตเพิ่มเติม",
+            "อินเทอร์เน็ตภายนอกปกติแน่นอน",
+            "ต้องเปลี่ยนสวิตช์ทันที",
+            "DNS ไม่มีทางเกี่ยวข้อง",
+          ],
+          answer: 0,
+          explanation:
+            "การสื่อสารภายใน LAN ไม่ได้ยืนยันว่าเส้นทาง WAN หรือ DNS ใช้งานได้",
+        },
+        {
+          id: "d1-08",
+          day: 1,
+          question:
+            "บ้านใช้สายโทรศัพท์ทองแดงรับ ADSL อุปกรณ์แปลงสัญญาณที่เหมาะกับสื่อนี้คืออะไร?",
+          options: [
+            "ADSL modem",
+            "Optical splitter",
+            "สวิตช์ Ethernet อย่างเดียว",
+            "อะแดปเตอร์ WiFi อย่างเดียว",
+          ],
+          answer: 0,
+          explanation:
+            "ADSL modem แปลงสัญญาณ DSL บนสายทองแดง บางรุ่นรวมเราเตอร์ไว้ด้วย",
+        },
+        {
+          id: "d1-09",
+          day: 1,
+          question:
+            "สายไฟเบอร์จากผู้ให้บริการเข้ากล่องปลายทางระบบ PON ในบ้าน กล่องนั้นทำหน้าที่ใด?",
+          options: [
+            "ONT รับและแปลงสัญญาณของระบบแสงสำหรับปลายทางผู้ใช้",
+            "DNS server สำหรับทุกเว็บไซต์ทั่วโลก",
+            "ADSL splitter แยกเสียงบนทองแดง",
+            "Switch แจกแพ็กเกจอินเทอร์เน็ต",
+          ],
+          answer: 0,
+          explanation:
+            "ONT เป็นอุปกรณ์ปลายทางในระบบ PON และอาจรวมฟังก์ชัน Router/WiFi ในกล่องเดียว",
+        },
+        {
+          id: "d1-10",
+          day: 1,
+          question:
+            "ลูกค้าเห็นสัญลักษณ์ WiFi บนมือถือ จึงมั่นใจว่าเน็ตภายนอกปกติ ควรอธิบายอย่างไร?",
+          options: [
+            "มือถือเชื่อมเครือข่ายไร้สายแล้ว แต่ยังต้องทดสอบการออกอินเทอร์เน็ต",
+            "สัญลักษณ์ WiFi ยืนยันว่า DNS ทุกตัวปกติ",
+            "แปลว่าสายไฟเบอร์ไม่มีปัญหาแน่นอน",
+            "แปลว่าแพ็กเกจทำงานเต็มความเร็ว",
+          ],
+          answer: 0,
+          explanation:
+            "WiFi คือการเชื่อมต่อท้องถิ่น การออกอินเทอร์เน็ตยังพึ่ง WAN และบริการเครือข่ายอื่น",
+        },
+        {
+          id: "d1-11",
+          day: 1,
+          question:
+            "สองเครื่องถูกตั้ง IP เดียวกันด้วยมือ แล้วใช้งานติด ๆ ดับ ๆ ควรตรวจอะไร?",
+          options: [
+            "IP ซ้ำกันในเครือข่ายเดียวกัน",
+            "ชื่อเว็บไซต์ยาวเกินไป",
+            "สีไฟ Power ไม่ตรงกัน",
+            "ยี่ห้อจอภาพต่างกัน",
+          ],
+          answer: 0,
+          explanation:
+            "อุปกรณ์ที่ใช้ IP ซ้ำกันในเครือข่ายเดียวกันอาจเกิด address conflict และสื่อสารผิดปกติ",
+        },
+        {
+          id: "d1-12",
+          day: 1,
+          question:
+            "ลูกค้าถามว่า DNS แจก IP ให้มือถือใช่หรือไม่ ควรตอบว่าอย่างไร?",
+          options: [
+            "DHCP แจกค่าเครือข่าย ส่วน DNS ช่วยค้น IP จากชื่อโดเมน",
+            "DNS และ DHCP คือชื่อเดียวกัน",
+            "DNS เพิ่มจำนวนพอร์ต LAN",
+            "DHCP ใช้ปรับสัญญาณแสงเท่านั้น",
+          ],
+          answer: 0,
+          explanation:
+            "DNS และ DHCP ทำหน้าที่ต่างกัน แม้เราเตอร์ตัวเดียวอาจให้บริการทั้งสองอย่าง",
+        },
+        {
+          id: "d1-13",
+          day: 1,
+          question:
+            "เครื่องลูกค้าต้องส่งข้อมูลไปนอกเครือข่ายตนเอง ค่าใดบอกทางออกเริ่มต้น?",
+          options: [
+            "Default gateway",
+            "SSID",
+            "ชื่อ Bluetooth",
+            "ความสว่างของไฟ LAN",
+          ],
+          answer: 0,
+          explanation:
+            "Default gateway เป็นทางออกไปเครือข่ายอื่น โดยทั่วไปคือเราเตอร์ใน LAN นั้น",
+        },
+        {
+          id: "d1-14",
+          day: 1,
+          question: "นิยาม LAN ที่ถูกต้องคือข้อใด?",
+          options: [
+            "เครือข่ายในพื้นที่จำกัด ซึ่งมีได้ทั้งสายและไร้สาย",
+            "เครือข่ายที่ต้องใช้สายเสมอ",
+            "เครือข่ายมือถือเท่านั้น",
+            "เครือข่ายระหว่างประเทศเท่านั้น",
+          ],
+          answer: 0,
+          explanation:
+            "LAN อธิบายขอบเขตเครือข่าย ไม่ได้จำกัดว่าต้องใช้สาย Ethernet เท่านั้น",
+        },
+        {
+          id: "d1-15",
+          day: 1,
+          question: "พอร์ต WAN ของเราเตอร์บ้านทั่วไปใช้ทำอะไร?",
+          options: [
+            "เชื่อมต่อไปยังเครือข่ายต้นทางหรือผู้ให้บริการ",
+            "จ่ายไฟให้เราเตอร์",
+            "ใช้แทนปุ่ม Reset",
+            "แสดงชื่อเครือข่าย WiFi",
+          ],
+          answer: 0,
+          explanation:
+            "WAN เป็นด้านเครือข่ายภายนอก แต่การกำหนดพอร์ตจริงอาจต่างกันตามรุ่นและค่าตั้ง",
+        },
+        {
+          id: "d1-16",
+          day: 1,
+          question:
+            "มีเราเตอร์เพียงกล่องเดียวแต่ใช้ทั้งสาย LAN และ WiFi ได้ ข้อใดอธิบายได้?",
+          options: [
+            "อุปกรณ์หนึ่งกล่องอาจรวม Router, Switch และ Access Point",
+            "ทุกกล่องทำหน้าที่ได้เพียงอย่างเดียว",
+            "ใช้ WiFi ได้จึงไม่มี Router อยู่ในกล่อง",
+            "สาย LAN ต้องต่อผ่าน DNS เสมอ",
+          ],
+          answer: 0,
+          explanation:
+            "เราเตอร์บ้านมักรวมหลายหน้าที่ จึงต้องดูรุ่นและการเชื่อมต่อแทนการนับกล่อง",
+        },
+        {
+          id: "d1-17",
+          day: 1,
+          question:
+            "หลังต่อเครื่องใหม่ ลูกค้าไม่ต้องกรอก IP เองแต่ใช้งานได้ บริการใดน่าจะช่วยตั้งค่า?",
+          options: ["DHCP", "LOS", "SSID", "Optical splitter"],
+          answer: 0,
+          explanation: "DHCP ช่วยแจกค่าเครือข่ายให้เครื่องใหม่โดยอัตโนมัติ",
+        },
+        {
+          id: "d1-18",
+          day: 1,
+          question:
+            "สวิตช์ Ethernet แบบ Layer 2 โดยทั่วไปใช้ข้อมูลใดส่ง frame ไปพอร์ตที่เหมาะสม?",
+          options: [
+            "MAC Address",
+            "ชื่อแพ็กเกจลูกค้า",
+            "ชื่อโดเมนเว็บไซต์",
+            "รหัสผ่าน WiFi",
+          ],
+          answer: 0,
+          explanation:
+            "สวิตช์ Layer 2 เรียนรู้ MAC Address กับพอร์ตเพื่อส่งต่อ frame ใน LAN",
+        },
+        {
+          id: "d1-19",
+          day: 1,
+          question:
+            "ลูกค้าบอก “เน็ตเสีย” คำถามใดช่วยแยกขอบเขตได้ดีที่สุดก่อนเลือกวิธีแก้?",
+          options: [
+            "เป็นทุกเครื่องหรือเครื่องเดียว และใช้ WiFi หรือสาย LAN",
+            "อยากเปลี่ยนชื่อ WiFi เป็นอะไร",
+            "ต้องการซื้อเราเตอร์ใหม่สีอะไร",
+            "เคยใช้จอภาพรุ่นใด",
+          ],
+          answer: 0,
+          explanation:
+            "ขอบเขตอุปกรณ์และรูปแบบการเชื่อมต่อช่วยแยกปัญหาเครื่องลูกข่าย WiFi และวงจร",
+        },
+        {
+          id: "d1-20",
+          day: 1,
+          question:
+            "ลูกค้าถามว่าการเปลี่ยน DNS จะทำให้สัญญาณ WiFi ผ่านกำแพงดีขึ้นหรือไม่?",
+          options: [
+            "ไม่โดยตรง เพราะ DNS จัดการการค้นชื่อ ไม่ได้เพิ่มกำลังคลื่น WiFi",
+            "ได้เสมอเพราะ DNS คือเสาส่ง",
+            "ได้เฉพาะเมื่อเปลี่ยนชื่อ SSID ด้วย",
+            "ได้เพราะ DNS เปลี่ยนสายทองแดงเป็นไฟเบอร์",
+          ],
+          answer: 0,
+          explanation:
+            "DNS ไม่ได้ควบคุมความแรงคลื่น การแก้จุดอับต้องดูตำแหน่ง ระยะ และสิ่งกีดขวาง",
+        },
+        {
+          id: "d1-21",
+          day: 1,
+          question:
+            "คอมพิวเตอร์ต่อสายได้ แต่มือถือเครื่องเดียวเข้าเน็ตไม่ได้ ควรเริ่มจากอะไร?",
+          options: [
+            "ตรวจการเชื่อมต่อและค่าเครือข่ายของมือถือ แล้วเทียบเครื่องอื่น",
+            "ประกาศว่าวงจรไฟเบอร์ล่มทั้งหมด",
+            "เปลี่ยน ONT ทันที",
+            "Factory Reset ทุกอุปกรณ์พร้อมกัน",
+          ],
+          answer: 0,
+          explanation:
+            "เมื่อมีอุปกรณ์อื่นใช้งานได้ ควรแยกตรวจเครื่องที่มีอาการก่อนสรุปว่าต้นทางเสีย",
+        },
+        {
+          id: "d1-22",
+          day: 1,
+          question: "DHCP แจกข้อมูลใดได้ตามการตั้งค่าของผู้ดูแล?",
+          options: [
+            "IP, subnet mask, gateway และ DNS",
+            "เฉพาะชื่อ SSID เท่านั้น",
+            "รหัส OTP สำหรับเข้าสู่บัญชี",
+            "กำลังแสงที่ออกจาก splitter",
+          ],
+          answer: 0,
+          explanation:
+            "DHCP แจก IP และตัวเลือกเครือข่ายต่าง ๆ เพื่อให้เครื่องสื่อสารได้",
+        },
+        {
+          id: "d1-23",
+          day: 1,
+          question: "ลูกค้าเรียกทุกกล่องว่า “โมเด็ม” เจ้าหน้าที่ควรทำอย่างไร?",
+          options: [
+            "ขอรุ่นอุปกรณ์และดูสายที่ต่อ เพื่อระบุหน้าที่จริง",
+            "สรุปทันทีว่าลูกค้าใช้ ADSL",
+            "สรุปว่ากล่องทั้งหมดเป็น Switch",
+            "ให้ถอดทุกสายก่อนถามอาการ",
+          ],
+          answer: 0,
+          explanation:
+            "คำเรียกทั่วไปอาจไม่ตรงหน้าที่จริง ต้องตรวจรุ่นและโครงสร้างติดตั้ง",
+        },
+        {
+          id: "d1-24",
+          day: 1,
+          question:
+            "ต้องการเพิ่มพอร์ตในบ้านโดยไม่เพิ่มเครือข่ายย่อยใหม่ ตัวเลือกใดตรงจุดที่สุด?",
+          options: [
+            "เพิ่ม Switch ที่เหมาะกับการใช้งาน",
+            "เปลี่ยน DNS ของทุกเครื่อง",
+            "เพิ่ม ADSL splitter",
+            "เปลี่ยนรหัสผ่าน WiFi",
+          ],
+          answer: 0,
+          explanation:
+            "Switch ขยายการเชื่อมต่อภายใน LAN โดยไม่จำเป็นต้องสร้างขอบเขต routing ใหม่",
+        },
+        {
+          id: "d1-25",
+          day: 1,
+          question: "ลูกค้าคิดว่า IP กับ SSID เป็นสิ่งเดียวกัน คำตอบใดถูกต้อง?",
+          options: [
+            "IP เป็นที่อยู่สำหรับรับส่งข้อมูล ส่วน SSID เป็นชื่อเครือข่าย WiFi",
+            "IP เป็นรหัสผ่านและ SSID เป็น gateway",
+            "ทั้งสองใช้แทนกันได้ทุกกรณี",
+            "SSID คืออุปกรณ์ที่แจก IP",
+          ],
+          answer: 0,
+          explanation:
+            "ชื่อ WiFi และที่อยู่เครือข่ายเป็นคนละข้อมูลและมีหน้าที่ต่างกัน",
+        },
+        // Day 2 — fiber, equipment and LEDs (25 questions)
+        {
+          id: "d2-01",
+          day: 2,
+          question: "ความต่างหลักของ ADSL กับ Fiber คือข้อใด?",
+          options: [
+            "ADSL ใช้สัญญาณบนทองแดง ส่วน Fiber ใช้แสงในใยแก้ว",
+            "ทั้งคู่ใช้สายโทรศัพท์ทองแดงเสมอ",
+            "Fiber ใช้คลื่น WiFi ตลอดเส้นทาง",
+            "ADSL ต้องมี ONT แบบ PON เสมอ",
+          ],
+          answer: 0,
+          explanation:
+            "สื่อส่งข้อมูลต่างกัน: ADSL ใช้ทองแดง ส่วน Fiber ใช้ใยแก้วนำแสง",
+        },
+        {
+          id: "d2-02",
+          day: 2,
+          question:
+            "ลูกค้า ADSL อยู่ไกลอุปกรณ์ต้นทางและสายเก่า คุณภาพอาจได้รับผลจากอะไร?",
+          options: [
+            "ระยะทางและสภาพสายทองแดง",
+            "ชื่อ SSID เพียงอย่างเดียว",
+            "สีเปลือกเราเตอร์",
+            "จำนวนแท็บในหน้า Settings ของเราเตอร์",
+          ],
+          answer: 0,
+          explanation:
+            "สัญญาณ DSL บนทองแดงได้รับผลจากระยะ สภาพสาย และสัญญาณรบกวน",
+        },
+        {
+          id: "d2-03",
+          day: 2,
+          question: "FTTH อธิบายรูปแบบใด?",
+          options: [
+            "ไฟเบอร์ถึงบ้านผู้ใช้งาน",
+            "ไฟเบอร์ถึงอาคารเท่านั้นทุกกรณี",
+            "WiFi จากเสาสัญญาณมือถือ",
+            "สายโทรศัพท์ทองแดงถึงบ้านเท่านั้น",
+          ],
+          answer: 0,
+          explanation: "FTTH ย่อจาก Fiber to the Home เป็นรูปแบบหนึ่งของ FTTx",
+        },
+        {
+          id: "d2-04",
+          day: 2,
+          question:
+            "คอนโดเป็น FTTB แต่ในห้องมีสาย Ethernet เข้ามา ควรสรุปอย่างไร?",
+          options: [
+            "เป็นไปได้ เพราะไฟเบอร์ถึงอาคารแล้วใช้สื่ออื่นต่อเข้าห้อง",
+            "เป็นไปไม่ได้ เพราะทุกห้องต้องมี ONT",
+            "แปลว่าใช้มือถือ 5G เท่านั้น",
+            "ยืนยันว่าทั้งอาคารเป็น ADSL",
+          ],
+          answer: 0,
+          explanation:
+            "FTTB ระบุจุดที่ไฟเบอร์ไปถึงอาคาร ส่วนช่วงเข้าห้องขึ้นกับระบบติดตั้ง",
+        },
+        {
+          id: "d2-05",
+          day: 2,
+          question: "ความสัมพันธ์ของ ONT กับ ONU อธิบายอย่างไรเหมาะสมที่สุด?",
+          options: [
+            "ONT มักหมายถึง ONU ที่ปลายทางผู้ใช้ และคำเรียกอาจทับซ้อนกัน",
+            "ONU คือชื่อรหัสผ่านของ ONT",
+            "ONT ใช้ได้เฉพาะสายทองแดง",
+            "ทั้งสองเป็นตัวแบ่งเสียงโทรศัพท์",
+          ],
+          answer: 0,
+          explanation:
+            "ONU เป็นคำกว้างของหน่วยปลายทางแสง ส่วน ONT มักใช้ในบริบทปลายทางผู้ใช้",
+        },
+        {
+          id: "d2-06",
+          day: 2,
+          question: "Optical splitter ในระบบ PON ทำอะไร?",
+          options: [
+            "แบ่งกำลังแสงไปหลายแขนงโดยไม่ใช้ไฟเลี้ยง",
+            "แจก IP ให้มือถือทุกเครื่อง",
+            "ขยายกำลังคลื่น WiFi",
+            "แปลงชื่อเว็บเป็น IP",
+          ],
+          answer: 0,
+          explanation:
+            "Optical splitter เป็นองค์ประกอบ passive สำหรับแบ่งแสง ไม่ใช่ DHCP หรืออุปกรณ์ WiFi",
+        },
+        {
+          id: "d2-07",
+          day: 2,
+          question: "ADSL splitter มีหน้าที่ใด?",
+          options: [
+            "แยกย่านสัญญาณเสียงโทรศัพท์กับ DSL",
+            "แบ่งกำลังแสงในสายไฟเบอร์",
+            "เพิ่มพอร์ต LAN แบบ Switch",
+            "สร้างชื่อ SSID ใหม่",
+          ],
+          answer: 0,
+          explanation:
+            "ADSL splitter ใช้กับสายทองแดงเพื่อแยกเสียงและ DSL ไม่ใช่ optical splitter",
+        },
+        {
+          id: "d2-08",
+          day: 2,
+          question:
+            "ลูกค้าถามว่าจะใช้ ADSL splitter แทน optical splitter ได้หรือไม่?",
+          options: [
+            "ไม่ได้ เพราะรองรับสื่อและชนิดสัญญาณต่างกัน",
+            "ได้ถ้าชื่อผู้ใช้เหมือนเดิม",
+            "ได้ถ้าเปลี่ยน DNS",
+            "ได้เฉพาะเมื่อปิด WiFi",
+          ],
+          answer: 0,
+          explanation:
+            "แม้เรียกว่า splitter เหมือนกัน แต่ออกแบบมาสำหรับสัญญาณคนละชนิด",
+        },
+        {
+          id: "d2-09",
+          day: 2,
+          question: "LOS ย่อจากอะไรและสื่อถึงอะไรใน ONT โดยทั่วไป?",
+          options: [
+            "Loss of Signal สัญญาณแสงขาดหายหรือไม่เพียงพอ",
+            "Local Online Service อินเทอร์เน็ตปกติ",
+            "Level of Speed ความเร็วแพ็กเกจ",
+            "Login on Switch การเข้าสู่ระบบ",
+          ],
+          answer: 0,
+          explanation:
+            "LOS เกี่ยวกับการรับสัญญาณแสง ต้องอ้างอิงรูปแบบไฟของรุ่นนั้นด้วย",
+        },
+        {
+          id: "d2-10",
+          day: 2,
+          question:
+            "LOS สีแดงกระพริบและทุกเครื่องใช้เน็ตไม่ได้ ควรเริ่มตรวจด้านใด?",
+          options: [
+            "สถานะและเส้นทางสายไฟเบอร์ พร้อมตรวจเหตุขัดข้อง",
+            "รหัส WiFi ของมือถือเพียงอย่างเดียว",
+            "เพิ่มความกว้างช่อง WiFi ทันที",
+            "เปลี่ยนชื่อคอมพิวเตอร์",
+          ],
+          answer: 0,
+          explanation:
+            "LOS สีแดงชี้ไปที่ปัญหาทางแสงในหลายรุ่น ไม่ควรเริ่มจากปรับ WiFi โดยไม่มีหลักฐาน",
+        },
+        {
+          id: "d2-11",
+          day: 2,
+          question:
+            "ไฟ Power ดับและทุกดวงดับ ควรให้ลูกค้าตรวจอะไรเป็นอันดับแรก?",
+          options: [
+            "ปลั๊ก สวิตช์ไฟ และอะแดปเตอร์ที่ถูกต้อง",
+            "เปลี่ยน DNS",
+            "ลืมเครือข่าย WiFi ทุกเครื่อง",
+            "กด Factory Reset ค้างทันที",
+          ],
+          answer: 0,
+          explanation: "ต้องแน่ใจก่อนว่าอุปกรณ์ได้รับไฟเลี้ยงและเปิดทำงานแล้ว",
+        },
+        {
+          id: "d2-12",
+          day: 2,
+          question:
+            "LOS ดับหลังเปิดเครื่องเสร็จ หมายความว่าเน็ตใช้ได้แน่นอนหรือไม่?",
+          options: [
+            "ยังไม่แน่นอน ต้องดู PON/Internet และทดสอบใช้งานด้วย",
+            "แน่นอน เพราะ LOS ตรวจทุกบริการ",
+            "แน่นอน แม้ไฟ Power ดับ",
+            "หมายถึงสัญญาณแสงเสียเสมอ",
+          ],
+          answer: 0,
+          explanation:
+            "LOS ดับโดยทั่วไปคือไม่มีการแจ้งเตือน LOS แต่ไม่ได้ยืนยันการลงทะเบียนและบริการอินเทอร์เน็ตทั้งหมด",
+        },
+        {
+          id: "d2-13",
+          day: 2,
+          question:
+            "ไฟ LAN กระพริบขณะคอมพิวเตอร์กำลังส่งข้อมูล โดยคู่มือระบุว่ากระพริบคือ activity ควรอธิบายอย่างไร?",
+          options: [
+            "เป็นการแสดงว่ามีข้อมูลวิ่งตามปกติ",
+            "สาย LAN ขาดแน่นอน",
+            "ต้อง Reset ทุกครั้งที่กระพริบ",
+            "แพ็กเกจหมดอายุเสมอ",
+          ],
+          answer: 0,
+          explanation:
+            "ไฟ activity กระพริบเมื่อมีข้อมูลรับส่งเป็นพฤติกรรมปกติตามคู่มือของรุ่นนั้น",
+        },
+        {
+          id: "d2-14",
+          day: 2,
+          question:
+            "เสียบคอมพิวเตอร์ที่เปิดอยู่แล้ว แต่ไฟ LAN ของพอร์ตนั้นดับ ควรตรวจอะไร?",
+          options: [
+            "หัวสาย พอร์ต และอะแดปเตอร์เครือข่ายของคอมพิวเตอร์",
+            "ชื่อโดเมนที่ลูกค้าชอบใช้",
+            "รหัสผ่านหน้าเว็บทุกเว็บไซต์",
+            "รีบเปลี่ยนสายไฟเบอร์ต้นทาง",
+          ],
+          answer: 0,
+          explanation:
+            "LAN ดับอาจหมายถึงไม่มี link ต้องตรวจสาย อุปกรณ์ปลายทาง และพอร์ต",
+        },
+        {
+          id: "d2-15",
+          day: 2,
+          question:
+            "ไฟ WiFi ดับ แต่เครื่องต่อสาย LAN ใช้เน็ตได้ ควรตรวจอะไรเพิ่ม?",
+          options: [
+            "การเปิดใช้งาน WiFi และการตั้งค่าไฟ LED ของรุ่นนั้น",
+            "สรุปว่าผู้ให้บริการล่มทั้งหมด",
+            "เปลี่ยน optical splitter ทันที",
+            "เพิ่มแพ็กเกจอินเทอร์เน็ตก่อน",
+          ],
+          answer: 0,
+          explanation:
+            "WiFi อาจถูกปิด หรืออุปกรณ์ปิดการแสดงไฟ ต้องตรวจชื่อเครือข่ายและค่าตั้งร่วมด้วย",
+        },
+        {
+          id: "d2-16",
+          day: 2,
+          question:
+            "ไฟ Internet ดับ แต่เราเตอร์ถูกตั้ง Bridge mode ควรทำอย่างไร?",
+          options: [
+            "ตรวจบทบาทอุปกรณ์และสถานะเชื่อมต่อที่เราเตอร์หลักตามคู่มือ",
+            "สรุปว่า ONT เสียทันที",
+            "กด Reset โดยไม่ตรวจค่า",
+            "บอกว่า Bridge mode ต้องไม่มีอินเทอร์เน็ตเสมอ",
+          ],
+          answer: 0,
+          explanation:
+            "ความหมายของไฟ Internet ขึ้นกับรุ่นและโหมด ใน Bridge mode อุปกรณ์อีกตัวอาจเป็นผู้เชื่อมต่อบริการ",
+        },
+        {
+          id: "d2-17",
+          day: 2,
+          question: "ไฟ Internet เป็นสีแดง แต่ LOS ดับ คำตอบใดเหมาะสม?",
+          options: [
+            "ตรวจสถานะเชื่อมต่อ WAN/บริการตามคู่มือและระบบก่อนสรุป",
+            "ยืนยันว่าสายไฟเบอร์ขาดแน่นอน",
+            "เปลี่ยนรหัส WiFi จะหายเสมอ",
+            "แจ้งว่าปกติโดยไม่ทดสอบ",
+          ],
+          answer: 0,
+          explanation:
+            "ไฟ Internet อาจบอกปัญหาการเชื่อมต่อบริการ ซึ่งไม่เท่ากับการสูญเสียแสงเสมอ",
+        },
+        {
+          id: "d2-18",
+          day: 2,
+          question: "ลูกค้ารายงานว่าไฟสีเขียวติดอยู่ ข้อมูลใดต้องถามเพิ่ม?",
+          options: [
+            "ชื่อไฟ รุ่นอุปกรณ์ และติดค้างหรือกระพริบ",
+            "สีผนังบ้านเท่านั้น",
+            "ชื่อเครื่องพิมพ์",
+            "จำนวนรายชื่อในมือถือ",
+          ],
+          answer: 0,
+          explanation:
+            "สีอย่างเดียวไม่พอ ต้องรู้ชื่อไฟและรูปแบบการแสดงผลของรุ่นนั้น",
+        },
+        {
+          id: "d2-19",
+          day: 2,
+          question: "พบสายไฟเบอร์พับมุมแหลมและ LOS แดง ควรแนะนำอย่างไร?",
+          options: [
+            "ตรวจแนวสายโดยไม่ดึงหรือหักเพิ่ม และส่งต่อเมื่อยังผิดปกติ",
+            "ม้วนสายให้แน่นขึ้นเพื่อเพิ่มแสง",
+            "ถอดหัวไฟเบอร์แล้วมองเข้าไป",
+            "เปลี่ยน DNS ก่อนดูสาย",
+          ],
+          answer: 0,
+          explanation:
+            "การโค้งงอเกินกำหนดอาจลดสัญญาณแสง ไม่ควรดัดรุนแรงหรือมองเข้าปลายสายไฟเบอร์",
+        },
+        {
+          id: "d2-20",
+          day: 2,
+          question:
+            "LOS ยังแดงหลังตรวจสายภายนอกอย่างปลอดภัยและตรวจเหตุขัดข้องแล้ว ควรทำอย่างไร?",
+          options: [
+            "ส่งต่อทีมที่ตรวจวงจรแสงได้ พร้อมบันทึกไฟและขั้นตอนที่ทำ",
+            "ให้ลูกค้าเปิดฝา ONT ซ่อมเอง",
+            "กด Reset ซ้ำไปเรื่อย ๆ",
+            "ยืนยันว่าปัญหาเกิดจากรหัส WiFi",
+          ],
+          answer: 0,
+          explanation:
+            "LOS ต่อเนื่องต้องใช้การตรวจทางแสง/วงจรโดยทีมที่มีเครื่องมือและสิทธิ์เหมาะสม",
+        },
+        {
+          id: "d2-21",
+          day: 2,
+          question:
+            "คู่มือระบุ PON เขียวค้างคือ registered แต่ไฟยังกระพริบนานหลังบูต ควรตรวจอะไร?",
+          options: [
+            "การลงทะเบียนหรือการเชื่อมต่อกับระบบ PON ตามรุ่น",
+            "ตั้งชื่อ WiFi ใหม่ทันที",
+            "สาย HDMI ของโทรทัศน์",
+            "ภาษาแป้นพิมพ์มือถือ",
+          ],
+          answer: 0,
+          explanation:
+            "ในรุ่นที่กำหนดเช่นนี้ PON กระพริบอาจอยู่ระหว่างลงทะเบียน ต้องเทียบคู่มือและตรวจสถานะระบบ",
+        },
+        {
+          id: "d2-22",
+          day: 2,
+          question:
+            "ลูกค้าถามว่าใช้ Fiber แล้ว WiFi จะเต็มสปีดทุกห้องแน่นอนหรือไม่?",
+          options: [
+            "ไม่แน่นอน เพราะ WiFi ยังขึ้นกับระยะ สิ่งกีดขวางและอุปกรณ์",
+            "แน่นอน เพราะสายไฟเบอร์ทำให้กำแพงไม่มีผล",
+            "แน่นอนถ้า SSID เป็นภาษาอังกฤษ",
+            "แน่นอนเมื่อไฟ Power สีเขียว",
+          ],
+          answer: 0,
+          explanation:
+            "คุณภาพวงจรไฟเบอร์กับคุณภาพการเชื่อมต่อ WiFi เป็นคนละช่วงของเส้นทาง",
+        },
+        {
+          id: "d2-23",
+          day: 2,
+          question:
+            "เราเตอร์มีไฟ LAN สองสีต่างจากตารางทั่วไป ควรใช้อะไรตัดสิน?",
+          options: [
+            "คู่มือรุ่นและ revision ที่ตรงกับอุปกรณ์",
+            "จำว่าสีแดงทุกดวงแปลว่าสายไฟเบอร์ขาด",
+            "ถือว่าทุกยี่ห้อใช้สีเหมือนกัน",
+            "ดูสีสาย Ethernet เท่านั้น",
+          ],
+          answer: 0,
+          explanation:
+            "บางรุ่นใช้สีแสดงความเร็ว link และบางรุ่นต่างกัน ต้องอ้างอิงคู่มือจริง",
+        },
+        {
+          id: "d2-24",
+          day: 2,
+          question:
+            "ลูกค้ามี ONT แยกจากเราเตอร์ ถ้าสาย Ethernet ระหว่างสองกล่องหลวม อาการใดเป็นไปได้?",
+          options: [
+            "ไฟแสง ONT ปกติแต่เราเตอร์ออกอินเทอร์เน็ตไม่ได้",
+            "LOS ต้องแดงทุกครั้งเสมอ",
+            "WiFi ต้องเปลี่ยนชื่อเอง",
+            "Power ของ ONT ต้องดับเสมอ",
+          ],
+          answer: 0,
+          explanation:
+            "วงจรแสงอาจปกติ แต่ช่วง Ethernet ระหว่าง ONT กับ Router ไม่เชื่อมต่อ",
+        },
+        {
+          id: "d2-25",
+          day: 2,
+          question: "ลูกค้าเปลี่ยนจาก ADSL เป็น Fiber ข้อใดอธิบายอย่างรอบคอบ?",
+          options: [
+            "Fiber รองรับความจุสูง แต่ผลใช้งานจริงยังขึ้นกับแพ็กเกจและอุปกรณ์",
+            "ทุกบริการต้องเร็วเท่ากันตลอดเวลา",
+            "อัปโหลดและดาวน์โหลดต้องเท่ากันทุกแพ็กเกจ",
+            "ไม่จำเป็นต้องตรวจ WiFi อีกต่อไป",
+          ],
+          answer: 0,
+          explanation:
+            "เทคโนโลยีมีศักยภาพต่างกัน แต่ไม่รับประกันความเร็วจริงหรือรูปแบบแพ็กเกจทั้งหมด",
+        },
+        // Day 3 — WiFi and router scenarios (25 questions)
+        {
+          id: "d3-01",
+          day: 3,
+          question:
+            "ลูกค้าอยู่ใกล้เราเตอร์และมือถือรองรับทั้งสองย่าน ควรลองย่านใดเมื่อต้องการความเร็วสูง?",
+          options: [
+            "5GHz โดยทดสอบสภาพแวดล้อมจริงร่วมด้วย",
+            "2.4GHz เพราะเร็วกว่าเสมอทุกกรณี",
+            "เลือกจากชื่อ SSID ที่ยาวที่สุด",
+            "ปิดทั้งสองย่านแล้วใช้ WiFi ต่อ",
+          ],
+          answer: 0,
+          explanation:
+            "5GHz มักรองรับความเร็วสูงและมีช่องให้เลือกมากในระยะใกล้ แต่ต้องดูอุปกรณ์และการรบกวนด้วย",
+        },
+        {
+          id: "d3-02",
+          day: 3,
+          question:
+            "ห้องอยู่ไกลและมีกำแพงกั้นหลายชั้น ย่านใดควรลองเปรียบเทียบเพื่อความครอบคลุม?",
+          options: [
+            "2.4GHz ซึ่งโดยทั่วไปผ่านสิ่งกีดขวางได้ดีกว่า",
+            "5GHz เพราะทะลุกำแพงดีกว่าเสมอ",
+            "ทั้งสองย่านต้องให้ผลเหมือนกัน",
+            "เปลี่ยน DNS เพื่อเพิ่มกำลังส่ง",
+          ],
+          answer: 0,
+          explanation:
+            "2.4GHz มักครอบคลุมได้ไกลกว่า แต่ถ้ารบกวนมากอาจต้องปรับตำแหน่งหรือเพิ่มจุดกระจายสัญญาณ",
+        },
+        {
+          id: "d3-03",
+          day: 3,
+          question: "ลูกค้าถาม SSID คือรหัสผ่านใช่ไหม ควรตอบอย่างไร?",
+          options: [
+            "SSID คือชื่อเครือข่าย WiFi ส่วนรหัสผ่านเป็นอีกค่าหนึ่ง",
+            "SSID คือรหัสผ่านผู้ดูแลเราเตอร์",
+            "SSID คือหมายเลขวงจรไฟเบอร์เสมอ",
+            "SSID คือความเร็วอินเทอร์เน็ต",
+          ],
+          answer: 0,
+          explanation:
+            "SSID ระบุชื่อเครือข่ายที่เครื่องมองเห็นและเลือกเชื่อมต่อ",
+        },
+        {
+          id: "d3-04",
+          day: 3,
+          question: "WiFi เต็มขีดแต่เปิดเว็บไม่ได้ ควรทำอะไรต่อ?",
+          options: [
+            "ทดสอบเครื่องอื่นและตรวจการออกอินเทอร์เน็ตของเราเตอร์",
+            "สรุปว่าอินเทอร์เน็ตปกติเพราะเต็มขีด",
+            "ย้ายเราเตอร์ให้ใกล้ขึ้นอย่างเดียว",
+            "เปลี่ยนความสว่างหน้าจอ",
+          ],
+          answer: 0,
+          explanation:
+            "ขีด WiFi บอกความแรงคลื่นที่รับได้ ไม่ยืนยันสถานะ WAN หรือ DNS",
+        },
+        {
+          id: "d3-05",
+          day: 3,
+          question:
+            "เปลี่ยนรหัส WiFi แล้วมือถือยังใช้รหัสเก่าและเชื่อมต่อไม่ได้ ควรทำอย่างไร?",
+          options: [
+            "ลืมเครือข่ายเดิมแล้วเชื่อมต่อด้วยรหัสใหม่ที่ถูกต้อง",
+            "เปลี่ยนสายไฟเบอร์ทันที",
+            "Factory Reset ONT ทุกครั้ง",
+            "เพิ่มแพ็กเกจอินเทอร์เน็ต",
+          ],
+          answer: 0,
+          explanation:
+            "เครื่องอาจเก็บรหัสเดิม การลืมเครือข่ายช่วยให้ใส่ข้อมูลใหม่ได้",
+        },
+        {
+          id: "d3-06",
+          day: 3,
+          question:
+            "อุปกรณ์ IoT รองรับเฉพาะ 2.4GHz แต่มองไม่เห็นเครือข่าย 5GHz ควรทำอย่างไร?",
+          options: [
+            "เปิดหรือเลือกเครือข่าย 2.4GHz ตามคู่มืออุปกรณ์",
+            "เปลี่ยน DNS ของ ONT",
+            "ยืนยันว่าอุปกรณ์เสีย",
+            "ตั้งชื่อ 5GHz ให้เป็น 2.4GHz แล้วจะรองรับเอง",
+          ],
+          answer: 0,
+          explanation:
+            "การรองรับย่านขึ้นกับฮาร์ดแวร์ ชื่อ SSID ไม่สามารถเปลี่ยนความสามารถรับคลื่นได้",
+        },
+        {
+          id: "d3-07",
+          day: 3,
+          question:
+            "ลูกค้าเข้าใจว่า WiFi ชื่อ Home_5G คือซิมมือถือ 5G ควรอธิบายอย่างไร?",
+          options: [
+            "ชื่อนี้มักใช้บอก WiFi ย่าน 5GHz ซึ่งต่างจากมือถือ 5G",
+            "ทั้งสองเป็นบริการเดียวกันเสมอ",
+            "ต้องใส่ซิมในทุกมือถือเพื่อเชื่อม WiFi นี้",
+            "5GHz คือความเร็วแพ็กเกจ 5 Gbps",
+          ],
+          answer: 0,
+          explanation:
+            "5GHz เป็นย่านความถี่ WiFi ส่วน 5G เป็นชื่อรุ่นเทคโนโลยีเครือข่ายมือถือ",
+        },
+        {
+          id: "d3-08",
+          day: 3,
+          question:
+            "ลูกค้าร้องเรียน WiFi อ่อนในห้องที่มีตู้โลหะบังเราเตอร์ ควรลองอะไร?",
+          options: [
+            "ย้ายเราเตอร์ไปจุดโล่งและทดสอบใหม่",
+            "เปลี่ยนชื่อ WiFi ให้สั้น",
+            "ซื้อแพ็กเกจเร็วขึ้นก่อน",
+            "เปลี่ยน DNS เพื่อทะลุตู้",
+          ],
+          answer: 0,
+          explanation:
+            "โลหะและสิ่งกีดขวางลดคุณภาพคลื่น การจัดวางช่วยแก้ที่สาเหตุ",
+        },
+        {
+          id: "d3-09",
+          day: 3,
+          question:
+            "สาย LAN ใช้งานปกติแต่ WiFi ช้าเฉพาะช่วงเย็น ควรตรวจด้านใด?",
+          options: [
+            "การรบกวนและจำนวนอุปกรณ์ใช้งาน WiFi ในช่วงนั้น",
+            "สรุปว่าสายไฟเบอร์ขาด",
+            "เปลี่ยน ONT โดยไม่ทดสอบ",
+            "ล้างค่าทุกเครื่องทันที",
+          ],
+          answer: 0,
+          explanation:
+            "ผลเทียบ LAN ช่วยชี้ให้ตรวจส่วนไร้สาย เช่น ความแออัดและภาระใช้งาน",
+        },
+        {
+          id: "d3-10",
+          day: 3,
+          question: "ก่อนทดสอบความเร็วเพื่อแยกปัญหา ควรจัดสภาพอย่างไร?",
+          options: [
+            "หยุดงานดาวน์โหลดหนักชั่วคราวและทดสอบใกล้เราเตอร์หรือผ่าน LAN",
+            "เปิดดาวน์โหลดทุกเครื่องให้เต็มที่เสมอ",
+            "ยืนไกลที่สุดเพื่อวัดวงจรต้นทางอย่างเดียว",
+            "ใช้เครือข่ายมือถือแล้วนับเป็นผล WiFi",
+          ],
+          answer: 0,
+          explanation:
+            "ลดตัวแปรรบกวนและภาระร่วม เพื่อให้ผลช่วยแยกปัญหาได้ดีขึ้น",
+        },
+        {
+          id: "d3-11",
+          day: 3,
+          question: "Restart Router โดยปกติมีผลต่อค่าตั้งอย่างไร?",
+          options: [
+            "เริ่มการทำงานใหม่โดยคงค่าตั้งไว้",
+            "ล้างค่าโรงงานทุกครั้ง",
+            "เปลี่ยน SSID อัตโนมัติเสมอ",
+            "ลบบัญชีบริการลูกค้า",
+          ],
+          answer: 0,
+          explanation:
+            "Restart หรือ Reboot โดยปกติไม่ล้างค่าตั้ง ต่างจาก Factory Reset",
+        },
+        {
+          id: "d3-12",
+          day: 3,
+          question: "ลูกค้าบอกจะกดรู Reset เพื่อ “ปิดเปิดใหม่” ควรชี้แจงอะไร?",
+          options: [
+            "รู Reset อาจคืนค่าโรงงาน ควรใช้วิธี Restart ตามคู่มือแทน",
+            "กดค้างเท่าไรก็ไม่ล้างค่า",
+            "Reset และ Restart เหมือนกันทุกอย่าง",
+            "กด Reset ขณะอัปเดต firmware จะดีที่สุด",
+          ],
+          answer: 0,
+          explanation:
+            "การกด Reset ค้างอาจทำให้ค่าการเชื่อมต่อหาย จึงต้องแยกความหมายก่อนแนะนำ",
+        },
+        {
+          id: "d3-13",
+          day: 3,
+          question: "เมื่อจำเป็นต้อง Factory Reset สิ่งใดควรพร้อมก่อน?",
+          options: [
+            "ยืนยันผลกระทบกับลูกค้าและมีขั้นตอนตั้งค่าคืนตามรุ่น/ผู้ให้บริการ",
+            "เพียงจดสีเปลือกเราเตอร์",
+            "ให้ลูกค้าเดาค่าบริการเองหลัง Reset",
+            "ปิดโทรศัพท์เพื่อไม่ต้องติดตามผล",
+          ],
+          answer: 0,
+          explanation:
+            "Reset อาจล้างค่า WiFi และบริการ ต้องเตรียมการกู้ค่าตั้งและยืนยันก่อนดำเนินการ",
+        },
+        {
+          id: "d3-14",
+          day: 3,
+          question: "เวลาในการกดปุ่ม Factory Reset ควรอ้างอิงอะไร?",
+          options: [
+            "คู่มือของรุ่นและ revision นั้น",
+            "กด 30 วินาทีเหมือนกันทุกยี่ห้อ",
+            "กดจนกว่าสายไฟเบอร์จะเปลี่ยนสี",
+            "ระยะห่างมือถือจากเราเตอร์",
+          ],
+          answer: 0,
+          explanation:
+            "แต่ละรุ่นใช้เวลาและรูปแบบปุ่มต่างกัน จึงไม่ควรกำหนดเวลาตายตัวกับทุกเครื่อง",
+        },
+        {
+          id: "d3-15",
+          day: 3,
+          question:
+            "ทุกครั้งที่เปิดไมโครเวฟ WiFi 2.4GHz ใกล้ครัวสะดุด ควรพิจารณาอะไร?",
+          options: [
+            "สัญญาณรบกวนในย่าน 2.4GHz และตำแหน่งใช้งาน",
+            "DNS เปลี่ยนทุกครั้งที่อุ่นอาหาร",
+            "สาย LAN กลายเป็นสายโทรศัพท์",
+            "ชื่อ WiFi ไม่ตรงยี่ห้อไมโครเวฟ",
+          ],
+          answer: 0,
+          explanation:
+            "อุปกรณ์บางประเภทอาจรบกวนย่าน 2.4GHz ควรลองย้ายจุดหรือใช้ย่านที่เหมาะสม",
+        },
+        {
+          id: "d3-16",
+          day: 3,
+          question:
+            "ลูกค้าเห็น SSID เดียว แต่เราเตอร์เปิดทั้ง 2.4 และ 5GHz เป็นไปได้หรือไม่?",
+          options: [
+            "เป็นไปได้ หากตั้งชื่อร่วมและมีระบบเลือกย่าน",
+            "ไม่ได้ ต้องเห็นสองชื่อเสมอ",
+            "แปลว่าย่าน 5GHz เสียเสมอ",
+            "แปลว่าเราเตอร์ใช้สายทองแดงเท่านั้น",
+          ],
+          answer: 0,
+          explanation:
+            "เราเตอร์บางรุ่นใช้ชื่อเดียวร่วมหลายย่านและช่วยเลือกย่านให้เครื่องลูกข่าย",
+        },
+        {
+          id: "d3-17",
+          day: 3,
+          question:
+            "มือถือไม่เห็น WiFi ใดเลย แต่เครื่องข้าง ๆ เห็น ควรตรวจอะไรบนมือถือก่อน?",
+          options: [
+            "เปิด WiFi หรือไม่ และโหมดเครื่องบิน/การตั้งค่าเครือข่าย",
+            "เปลี่ยน splitter ของทั้งอาคาร",
+            "สรุปว่า AIS Fibre ล่ม",
+            "เปลี่ยนสาย WAN ทุกเส้น",
+          ],
+          answer: 0,
+          explanation:
+            "เมื่อเครื่องอื่นเห็นเครือข่าย ควรเริ่มตรวจการรับ WiFi ของเครื่องที่มีปัญหา",
+        },
+        {
+          id: "d3-18",
+          day: 3,
+          question:
+            "ลูกค้าพิมพ์รหัส WiFi แล้วแจ้งว่ารหัสไม่ถูกต้อง เจ้าหน้าที่ควรทำอย่างไร?",
+          options: [
+            "ให้ตรวจ SSID และตัวพิมพ์เล็กใหญ่ด้วยตนเอง โดยไม่ต้องบอกรหัสให้ฟัง",
+            "ขอรหัสผ่านทุกบัญชีของลูกค้า",
+            "ปรับ DNS เป็นขั้นแรก",
+            "รีบส่งช่างตรวจสายไฟเบอร์โดยไม่ตรวจรหัส",
+          ],
+          answer: 0,
+          explanation:
+            "ตรวจชื่อเครือข่ายและการพิมพ์ให้ตรง โดยไม่จำเป็นต้องรับรู้รหัสลับของลูกค้า",
+        },
+        {
+          id: "d3-19",
+          day: 3,
+          question: "ข้อใดแยก Bandwidth กับ Signal Strength ได้ถูกต้อง?",
+          options: [
+            "Bandwidth คือความจุรับส่งข้อมูล ส่วน Signal Strength คือความแรงสัญญาณที่รับได้",
+            "ทั้งสองคือรหัสผ่าน WiFi",
+            "Bandwidth คือจำนวนกำแพงและ Signal Strength คือ DNS",
+            "ทั้งสองรับประกันความเร็วจริงเท่ากัน",
+          ],
+          answer: 0,
+          explanation:
+            "สองค่านี้เกี่ยวข้องกับการใช้งานแต่ไม่ใช่สิ่งเดียวกัน และไม่ยืนยันความเร็วจริงเพียงลำพัง",
+        },
+        {
+          id: "d3-20",
+          day: 3,
+          question:
+            "บ้านสองชั้นมีจุดอับแม้จัดวางเราเตอร์เหมาะสมแล้ว ควรเสนอขั้นต่อไปอย่างไร?",
+          options: [
+            "ประเมินพื้นที่และตำแหน่งจุดกระจายสัญญาณหรือ Mesh เพิ่มตามความเหมาะสม",
+            "รับรองว่าเพิ่มแพ็กเกจแล้วทะลุกำแพงได้",
+            "Factory Reset ทุกวัน",
+            "ตั้ง SSID ยาวขึ้นเพื่อเพิ่มระยะ",
+          ],
+          answer: 0,
+          explanation:
+            "พื้นที่ครอบคลุมอาจต้องเพิ่มจุดกระจายสัญญาณโดยวางตำแหน่งและทางเชื่อมต่อให้เหมาะ",
+        },
+        {
+          id: "d3-21",
+          day: 3,
+          question:
+            "WiFi ช้าเฉพาะมือถือเก่าเครื่องเดียว แต่เครื่องอื่นปกติ ควรตรวจอะไรเพิ่ม?",
+          options: [
+            "ความสามารถและการตั้งค่าของมือถือ รวมถึงแอปที่ทำงานอยู่",
+            "เปลี่ยนวงจรไฟเบอร์ทันที",
+            "ปิด DHCP ของทั้งบ้าน",
+            "สรุปว่า 5GHz เสียทุกเครื่อง",
+          ],
+          answer: 0,
+          explanation:
+            "ข้อจำกัดอุปกรณ์และแอปอาจทำให้เครื่องเดียวช้า ต้องแยกจากปัญหาที่กระทบทุกเครื่อง",
+        },
+        {
+          id: "d3-22",
+          day: 3,
+          question:
+            "ลูกค้าอยากเปลี่ยนช่อง WiFi เพราะเพื่อนบอกว่าช่องหนึ่งดีที่สุดเสมอ ควรตอบอย่างไร?",
+          options: [
+            "เลือกช่องตามสภาพรบกวนและคู่มือ ไม่มีกฎว่าช่องเดียวดีที่สุดทุกบ้าน",
+            "ใช้ช่องเดียวกันทั้งประเทศเสมอ",
+            "เปลี่ยนช่องแล้วแก้ LOS ได้ด้วย",
+            "เลขช่องคือความเร็วแพ็กเกจ",
+          ],
+          answer: 0,
+          explanation:
+            "ความแออัดและข้อกำหนดของอุปกรณ์/พื้นที่ต่างกัน ควรเลือกด้วยข้อมูลหรือใช้การเลือกอัตโนมัติที่เหมาะสม",
+        },
+        {
+          id: "d3-23",
+          day: 3,
+          question:
+            "ลูกค้ากำลังประชุมออนไลน์บนอีกเครื่อง ก่อน Restart ควรทำอย่างไร?",
+          options: [
+            "แจ้งว่าทุกเครื่องจะหลุดชั่วคราวและตกลงช่วงเวลาที่สะดวก",
+            "Restart ทันทีโดยไม่แจ้ง",
+            "บอกว่าการ Restart ไม่กระทบใครแน่นอน",
+            "แนะนำ Factory Reset แทนเพราะไม่ตัดสาย",
+          ],
+          answer: 0,
+          explanation:
+            "Restart ตัดการเชื่อมต่อชั่วคราว ต้องแจ้งผลกระทบและขอความพร้อมก่อน",
+        },
+        {
+          id: "d3-24",
+          day: 3,
+          question: "หลัง Factory Reset ชื่อ WiFi เดิมหายไป ควรอธิบายอย่างไร?",
+          options: [
+            "ค่าอาจกลับเป็นค่าโรงงาน ให้ดูคู่มือ/ฉลากและตั้งค่าคืนตามขั้นตอน",
+            "ยืนยันว่าสายไฟเบอร์ขาด",
+            "กด Reset ซ้ำจนชื่อเดิมกลับเองเสมอ",
+            "เปลี่ยนชื่อเว็บไซต์ที่เปิด",
+          ],
+          answer: 0,
+          explanation:
+            "Factory Reset อาจคืนชื่อและรหัส WiFi เป็นค่าเริ่มต้น รวมถึงล้างค่าบริการอื่น",
+        },
+        {
+          id: "d3-25",
+          day: 3,
+          question: "การทดสอบใดช่วยแยก WiFi ออกจากวงจรอินเทอร์เน็ตได้ดีที่สุด?",
+          options: [
+            "ใช้สาย LAN เปรียบเทียบกับ WiFi ภายใต้สภาพใกล้เคียงกัน",
+            "เปลี่ยนภาพพื้นหลังแล้วทดสอบ",
+            "นับจำนวนขีด WiFi เพียงอย่างเดียว",
+            "ใช้มือถือคนละเครือข่ายโดยไม่บันทึก",
+          ],
+          answer: 0,
+          explanation:
+            "การเทียบสาย LAN ช่วยลดปัจจัยจากคลื่นไร้สายเพื่อจำกัดขอบเขตปัญหา",
+        },
+        // Day 4 — troubleshooting and IT terms (25 questions)
+        {
+          id: "d4-01",
+          day: 4,
+          question: "เมื่อเริ่มรับสาย “เน็ตใช้ไม่ได้” ควรทำสิ่งใดก่อนลงมือแก้?",
+          options: [
+            "ถามเวลาเริ่ม ขอบเขตอุปกรณ์และรูปแบบเชื่อมต่อ พร้อมตรวจเหตุขัดข้องตามระบบ",
+            "สั่ง Factory Reset ทันที",
+            "รับปากว่าช่างจะถึงในสิบนาที",
+            "เปลี่ยน firmware โดยไม่ดูรุ่น",
+          ],
+          answer: 0,
+          explanation:
+            "การถามขอบเขตและตรวจเหตุขัดข้องช่วยเลือกเส้นทางแก้ที่ตรงและลดขั้นตอนที่ไม่จำเป็น",
+        },
+        {
+          id: "d4-02",
+          day: 4,
+          question: "ลำดับพื้นฐานสำหรับอาการเน็ตใช้ไม่ได้ตามบทเรียนคือข้อใด?",
+          options: [
+            "เช็คไฟ → เช็คสาย → Restart → ทดสอบ WiFi/เทียบ LAN → ส่งต่อหากยังไม่หาย",
+            "Factory Reset → เปลี่ยนแพ็กเกจ → เช็คไฟ",
+            "ส่งช่างทุกเคส → ถามอาการภายหลัง",
+            "เปลี่ยน DNS → เปลี่ยนรหัส → ไม่ต้องทดสอบ",
+          ],
+          answer: 0,
+          explanation:
+            "เริ่มจากสิ่งที่ตรวจได้ง่ายแล้วค่อยแยกสาเหตุ แต่หากพบอันตรายหรือ LOS ต่อเนื่องให้ใช้ทางส่งต่อที่เหมาะสม",
+        },
+        {
+          id: "d4-03",
+          day: 4,
+          question: "Power ดับสนิท ทำไมจึงไม่ควรเริ่มด้วยการเปลี่ยน DNS?",
+          options: [
+            "ต้องแก้การจ่ายไฟให้อุปกรณ์ทำงานก่อน จึงทดสอบเครือข่ายได้",
+            "DNS เป็นอีกชื่อของปลั๊กไฟ",
+            "การเปลี่ยน DNS ทำให้ไฟบ้านดับเสมอ",
+            "DNS ใช้ได้เฉพาะ WiFi 5GHz",
+          ],
+          answer: 0,
+          explanation:
+            "เมื่ออุปกรณ์ยังไม่ทำงาน ต้องตรวจไฟเลี้ยงก่อนการตั้งค่าเครือข่าย",
+        },
+        {
+          id: "d4-04",
+          day: 4,
+          question:
+            "หลังเช็คไฟตาม flow ขั้นพื้นฐานแล้ว ควรทำอะไรต่อเมื่อไม่พบเหตุที่ต้องส่งต่อทันที?",
+          options: [
+            "ตรวจสายและพอร์ตให้ถูกต้องก่อน Restart",
+            "Factory Reset โดยไม่บอกลูกค้า",
+            "เปลี่ยนแพ็กเกจ",
+            "จบสายทันที",
+          ],
+          answer: 0,
+          explanation:
+            "สายหลวมหรือเสียบผิดพอร์ตอาจเป็นสาเหตุ ตรวจให้เรียบร้อยก่อนเริ่มอุปกรณ์ใหม่",
+        },
+        {
+          id: "d4-05",
+          day: 4,
+          question:
+            "ตรวจไฟและสายแล้วไม่พบสิ่งผิดปกติ ก่อน Restart ควรพูดอย่างไร?",
+          options: [
+            "แจ้งว่าจะหลุดชั่วคราวและขอความพร้อมเพื่อปิดเปิดตามคู่มือ",
+            "ให้กดรู Reset ค้างโดยไม่อธิบาย",
+            "รับรองว่าจะไม่หลุดแม้ชั่วคราว",
+            "ให้ถอดสายไฟเบอร์แล้วมองแสง",
+          ],
+          answer: 0,
+          explanation:
+            "Restart กระทบการเชื่อมต่อ จึงต้องสื่อสารก่อนและใช้วิธีที่ไม่ล้างค่าตั้ง",
+        },
+        {
+          id: "d4-06",
+          day: 4,
+          question: "หลัง Restart แล้ว ควรตรวจอะไรเพื่อยืนยันผล?",
+          options: [
+            "รอเครื่องพร้อม แล้วให้ลองบริการที่มีปัญหาผ่าน WiFi และเทียบ LAN ตามเหมาะสม",
+            "เห็นไฟ Power แล้วปิดเคสทันที",
+            "นับจำนวนครั้งที่กดปุ่มพอ",
+            "เปลี่ยนชื่อ WiFi ทุกครั้ง",
+          ],
+          answer: 0,
+          explanation:
+            "ต้องตรวจผลการใช้งานจริงหลังอุปกรณ์เริ่มทำงานครบ ไม่ใช่ดู Power อย่างเดียว",
+        },
+        {
+          id: "d4-07",
+          day: 4,
+          question:
+            "แก้เบื้องต้นแล้วทุกเครื่องยังใช้ไม่ได้ ข้อมูลใดเหมาะกับการส่งต่อ?",
+          options: [
+            "เวลา อาการ รุ่นอุปกรณ์ สถานะไฟ ขั้นตอนที่ลองและผล",
+            "เพียงคำว่า “เน็ตเสีย”",
+            "รหัสผ่านส่วนตัวทุกบัญชี",
+            "ความเห็นว่า “น่าจะเสีย” โดยไม่บันทึกผล",
+          ],
+          answer: 0,
+          explanation:
+            "ข้อมูลและผลทดสอบที่เป็นรูปธรรมช่วยทีมถัดไปวิเคราะห์ต่อได้โดยไม่เริ่มใหม่ทั้งหมด",
+        },
+        {
+          id: "d4-08",
+          day: 4,
+          question: "Bandwidth หมายถึงอะไรในบริบทเครือข่าย?",
+          options: [
+            "ความจุในการรับส่งข้อมูลของช่องทางต่อช่วงเวลา",
+            "เวลาที่ข้อมูลใช้เดินทางเท่านั้น",
+            "ความแรงแสง LOS",
+            "ชื่อไฟล์ firmware",
+          ],
+          answer: 0,
+          explanation:
+            "Bandwidth อธิบายความจุ ส่วนเวลาหน่วงคือ latency และความเร็วจริงยังมีปัจจัยอื่น",
+        },
+        {
+          id: "d4-09",
+          day: 4,
+          question:
+            "ดาวน์โหลดดูเร็วแต่กดคำสั่งในเกมแล้วตอบสนองช้า ควรตรวจค่าใด?",
+          options: [
+            "Latency และความสม่ำเสมอของเส้นทาง",
+            "ชื่อ SSID เท่านั้น",
+            "สีไฟ Power เท่านั้น",
+            "ความยาวรหัสผ่าน",
+          ],
+          answer: 0,
+          explanation:
+            "Latency สูงทำให้ตอบสนองช้าได้ แม้ throughput หรือความเร็วดาวน์โหลดดูดี",
+        },
+        {
+          id: "d4-10",
+          day: 4,
+          question:
+            "คุยวิดีโอแล้วเสียงขาดเป็นช่วง ๆ พบแพ็กเก็ตไปไม่ถึงปลายทาง เรียกปัญหานี้ว่าอะไร?",
+          options: [
+            "Packet loss",
+            "SSID",
+            "DHCP lease เพียงอย่างเดียว",
+            "Factory default",
+          ],
+          answer: 0,
+          explanation:
+            "Packet loss คือการสูญหายของแพ็กเก็ต อาจทำให้เสียงและวิดีโอสะดุด",
+        },
+        {
+          id: "d4-11",
+          day: 4,
+          question: "Firmware คืออะไร?",
+          options: [
+            "ซอฟต์แวร์ภายในอุปกรณ์ที่ควบคุมการทำงาน",
+            "ชื่อแพ็กเกจอินเทอร์เน็ต",
+            "อุปกรณ์แบ่งสัญญาณแสง",
+            "รหัสผ่านเครือข่าย WiFi",
+          ],
+          answer: 0,
+          explanation:
+            "Firmware ควบคุมการทำงานของฮาร์ดแวร์ เช่น เราเตอร์และ ONT",
+        },
+        {
+          id: "d4-12",
+          day: 4,
+          question: "จะอัปเดต firmware ควรเลือกไฟล์อย่างไร?",
+          options: [
+            "ตรงรุ่นและ revision จากแหล่งที่ผู้ผลิตหรือผู้ให้บริการรับรอง",
+            "เลือกไฟล์ยี่ห้อเดียวกันรุ่นใดก็ได้",
+            "เลือกไฟล์ที่ชื่อสั้นที่สุด",
+            "ดาวน์โหลดจากลิงก์ที่ไม่ทราบที่มา",
+          ],
+          answer: 0,
+          explanation:
+            "ไฟล์ผิดรุ่นอาจทำให้อุปกรณ์ใช้ไม่ได้ และอุปกรณ์ผู้ให้บริการอาจต้องอัปเดตตามกระบวนการขององค์กร",
+        },
+        {
+          id: "d4-13",
+          day: 4,
+          question: "ระหว่างอัปเดต firmware ควรหลีกเลี่ยงอะไร?",
+          options: [
+            "ตัดไฟหรือ Restart กลางขั้นตอน",
+            "อ่านคู่มือรุ่นนั้น",
+            "รออุปกรณ์อัปเดตจนเสร็จ",
+            "ตรวจว่าไฟล์ตรงรุ่นก่อนเริ่ม",
+          ],
+          answer: 0,
+          explanation:
+            "การตัดไฟระหว่างเขียน firmware อาจทำให้ระบบเสียหายและบูตไม่ได้",
+        },
+        {
+          id: "d4-14",
+          day: 4,
+          question: "Reboot กับ Factory Reset ต่างกันอย่างไร?",
+          options: [
+            "Reboot เริ่มใหม่โดยปกติคงค่า ส่วน Factory Reset คืนค่าโรงงาน",
+            "ทั้งสองล้างค่าทุกครั้ง",
+            "Reboot เพิ่มความเร็วแพ็กเกจถาวร",
+            "Factory Reset คือการเปิดเว็บใหม่",
+          ],
+          answer: 0,
+          explanation:
+            "แยกคำนี้ให้ชัดก่อนให้ลูกค้าลงมือ เพราะผลกระทบต่อค่าตั้งต่างกัน",
+        },
+        {
+          id: "d4-15",
+          day: 4,
+          question:
+            "ระบบแจ้งเหตุขัดข้องตรงพื้นที่และวงจรลูกค้าแล้ว ควรทำอย่างไร?",
+          options: [
+            "แจ้งข้อมูลที่ยืนยันได้และแนวทางติดตามตามระบบ ลดการตั้งค่าที่ไม่จำเป็น",
+            "ให้ Factory Reset ทุกเครื่องเพื่อรอช่าง",
+            "รับปากเวลาแก้เองโดยไม่มีข้อมูล",
+            "บอกว่าไม่เกี่ยวข้องโดยไม่ตรวจ",
+          ],
+          answer: 0,
+          explanation:
+            "เหตุขัดข้องที่ยืนยันแล้วควรสื่อสารตามข้อมูลจริง ไม่สร้างผลกระทบจากการเปลี่ยนค่าที่ไม่ช่วยแก้เหตุ",
+        },
+        {
+          id: "d4-16",
+          day: 4,
+          question:
+            "LOS แดงต่อเนื่องหลังตรวจที่เหมาะสมแล้ว จำเป็นต้องฝืนทำ WiFi ทุกขั้นก่อนส่งต่อไหม?",
+          options: [
+            "ไม่จำเป็น ให้ส่งต่อทางแสงพร้อมหลักฐานตามขั้นตอนองค์กร",
+            "จำเป็น ต้องเปลี่ยนรหัส WiFi สิบครั้ง",
+            "จำเป็น ต้องทำ Factory Reset ก่อนเสมอ",
+            "ไม่ต้องบันทึกอะไรเพราะรู้ว่า LOS แดง",
+          ],
+          answer: 0,
+          explanation:
+            "Flow เป็นแนวทาง ไม่ใช่ข้อบังคับให้ทำขั้นที่ไม่เกี่ยวข้องเมื่อมีหลักฐานชัด",
+        },
+        {
+          id: "d4-17",
+          day: 4,
+          question: "ลูกค้าแจ้งมีกลิ่นไหม้จากอะแดปเตอร์ ควรทำอย่างไร?",
+          options: [
+            "หยุดการทดสอบ ให้ตัดไฟเมื่อทำได้อย่างปลอดภัยและส่งต่อผู้เกี่ยวข้อง",
+            "Restart ซ้ำเพื่อยืนยัน",
+            "ให้เปิดฝาอะแดปเตอร์ซ่อมเอง",
+            "แนะนำ Factory Reset กลางอาการ",
+          ],
+          answer: 0,
+          explanation:
+            "ความปลอดภัยมาก่อน flow เครือข่าย ไม่ควรให้ลูกค้าซ่อมภายในหรือฝืนใช้อุปกรณ์ที่ผิดปกติ",
+        },
+        {
+          id: "d4-18",
+          day: 4,
+          question:
+            "อินเทอร์เน็ตมีปัญหาเฉพาะเว็บเดียว แต่บริการอื่นปกติ ควรทำอย่างไร?",
+          options: [
+            "ตรวจปลายทางและเปรียบเทียบการเข้าถึงก่อนสรุปว่าวงจรเสีย",
+            "สรุปว่า ONT เสียแน่นอน",
+            "เปลี่ยนสายไฟเบอร์ทุกครั้ง",
+            "Reset ทุกเครื่องโดยไม่ทดสอบ",
+          ],
+          answer: 0,
+          explanation:
+            "ปัญหาเฉพาะบริการอาจอยู่ที่ปลายทาง DNS หรือเส้นทาง ต้องแยกสาเหตุเพิ่ม",
+        },
+        {
+          id: "d4-19",
+          day: 4,
+          question:
+            "มือถือเปิดเน็ตได้หลังเปิด mobile data ไว้ จะนับว่าแก้ WiFi สำเร็จเลยได้ไหม?",
+          options: [
+            "ยังไม่ได้ ควรยืนยันว่าทดสอบผ่าน WiFi จริง โดยปิดข้อมูลมือถือชั่วคราวหากสะดวก",
+            "ได้เพราะทุกอินเทอร์เน็ตคือวงจรเดียวกัน",
+            "ได้ถ้าขีดมือถือเต็ม",
+            "ไม่ได้จนกว่าจะเปลี่ยนรหัสทุกบัญชี",
+          ],
+          answer: 0,
+          explanation:
+            "มือถืออาจสลับไปใช้เครือข่ายมือถือ ทำให้ผลทดสอบไม่สะท้อน WiFi บ้าน",
+        },
+        {
+          id: "d4-20",
+          day: 4,
+          question: "ทำไมควรเปลี่ยนทีละอย่างแล้วทดสอบ?",
+          options: [
+            "ช่วยระบุว่าขั้นตอนใดมีผลและย้อนกลับได้ง่าย",
+            "ทำให้ต้องส่งช่างทุกครั้ง",
+            "ทำให้ความเร็วเพิ่มถาวรเสมอ",
+            "เพื่อไม่ต้องบันทึกผล",
+          ],
+          answer: 0,
+          explanation:
+            "เปลี่ยนหลายค่าพร้อมกันจะทำให้หาสาเหตุและประเมินผลของแต่ละขั้นได้ยาก",
+        },
+        {
+          id: "d4-21",
+          day: 4,
+          question: "ก่อนจบเคสที่ดูเหมือนหายแล้ว ควรทำอะไร?",
+          options: [
+            "ให้ลองบริการเดิม ยืนยันผล และสรุปสิ่งที่ทำกับแนวทางติดตาม",
+            "จบสายทันทีเมื่อไฟกระพริบ",
+            "สั่ง Reset เพิ่มเพื่อความแน่ใจทุกเคส",
+            "ลบประวัติขั้นตอนที่ทำ",
+          ],
+          answer: 0,
+          explanation:
+            "การยืนยันอาการเดิมและสรุปช่วยให้ลูกค้าเข้าใจผลและมีแนวทางหากเกิดซ้ำ",
+        },
+        {
+          id: "d4-22",
+          day: 4,
+          question: "ข้อความบันทึกเคสใดมีประโยชน์ต่อทีมถัดไปมากกว่า?",
+          options: [
+            "เริ่มช่วงเช้า ทุกเครื่องใช้ไม่ได้ LOS แดง ตรวจแนวสายแล้วและยังเป็นอยู่",
+            "เน็ตไม่ดี ช่วยดูด้วย",
+            "ลูกค้าคิดว่าเสีย",
+            "ทำหลายอย่างแล้ว จำไม่ได้",
+          ],
+          answer: 0,
+          explanation:
+            "บันทึกเวลา ขอบเขต สถานะไฟ และผลการตรวจเป็นหลักฐานที่ใช้ดำเนินงานต่อได้",
+        },
+        {
+          id: "d4-23",
+          day: 4,
+          question: "ลูกค้าขอเวลาแก้เสร็จ แต่ระบบยังไม่ยืนยัน ควรตอบอย่างไร?",
+          options: [
+            "แจ้งสถานะจริงและช่องทาง/กรอบการติดตามตามขั้นตอน โดยไม่เดาเวลา",
+            "รับรองว่าเสร็จในห้านาที",
+            "บอกว่าซื้อแพ็กเกจแล้วจะหายทันที",
+            "ปฏิเสธการให้เลขรับเรื่องทั้งที่มีแล้ว",
+          ],
+          answer: 0,
+          explanation:
+            "ให้ข้อมูลที่ตรวจสอบได้และแนวทางติดตาม ไม่สร้างความคาดหวังจากเวลาที่ไม่ได้ยืนยัน",
+        },
+        {
+          id: "d4-24",
+          day: 4,
+          question:
+            "จุดประสงค์ของการฝึกพิมพ์เป้าหมาย 20 คำต่อนาทีในแผนนี้คืออะไร?",
+          options: [
+            "ช่วยบันทึกเคสได้คล่องพร้อมรักษาความถูกต้องของข้อความ",
+            "ใช้แทนความเข้าใจการแก้ปัญหาทั้งหมด",
+            "ทำให้ Bandwidth ของลูกค้าเพิ่ม",
+            "ใช้เป็นการรับรองเกณฑ์สอบทางการของ AIS",
+          ],
+          answer: 0,
+          explanation:
+            "20 คำต่อนาทีเป็นเป้าฝึกในแผนส่วนตัวนี้ ไม่ใช่การยืนยันเกณฑ์ทางการ และควรให้ความสำคัญกับความถูกต้องด้วย",
+        },
+        {
+          id: "d4-25",
+          day: 4,
+          question: "อาการเดิมกลับมาหลัง Restart ได้ไม่นาน ควรทำอย่างไรต่อ?",
+          options: [
+            "เก็บเวลาและรูปแบบที่เกิดซ้ำ ตรวจเพิ่มหรือส่งต่อพร้อมผลก่อนหน้า",
+            "ให้ Restart ไม่จำกัดครั้งและไม่ต้องบันทึก",
+            "สรุปว่าลูกค้าใช้ผิดเสมอ",
+            "Factory Reset ทุกวันเป็นทางแก้ถาวร",
+          ],
+          answer: 0,
+          explanation:
+            "Restart อาจบรรเทาชั่วคราวแต่ไม่แก้ต้นเหตุ ต้องใช้ข้อมูลการเกิดซ้ำเพื่อวิเคราะห์ต่อ",
+        },
+      ];
+      /* 4. Persistent state. A single namespaced record makes an answer + its statistics
+     one localStorage write. A restored answer is locked, so reload cannot count it twice. */
+      const STORAGE_KEY = "fibre-ready:v1";
+      const byId = Object.fromEntries(QUESTION_BANK.map((q) => [q.id, q]));
+      const $ = (id) => document.getElementById(id);
+      const esc = (value) =>
+        String(value).replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      const freshState = () => ({
+        version: 1,
+        theme: "light",
+        days: Object.fromEntries(
+          DAYS.map((d) => [
+            d.id,
+            {
+              read: false,
+              seen: [],
+              flashIndex: 0,
+              best: 0,
+              passed: false,
+              attempts: 0,
+            },
+          ]),
+        ),
+        stats: {},
+        active: null,
+        history: [],
+        view: "dashboard",
+      });
+      function storageWarning(message) {
+        $("storage-alert").textContent = message;
+        $("storage-alert").hidden = false;
+      }
+      function validSession(s) {
+        if (
+          !s ||
+          !["daily", "mixed", "weak"].includes(s.mode) ||
+          !Array.isArray(s.items) ||
+          !s.items.length ||
+          s.items.length > QUESTION_BANK.length
+        )
+          return false;
+        if (
+          !Number.isInteger(s.index) ||
+          s.index < 0 ||
+          s.index >= s.items.length ||
+          !Number.isInteger(s.day) ||
+          s.day < 1 ||
+          s.day > 5
+        )
+          return false;
+        if (new Set(s.items.map((x) => x.id)).size !== s.items.length)
+          return false;
+        if (
+          !s.items.every(
+            (x, i) =>
+              byId[x.id] &&
+              Array.isArray(x.order) &&
+              x.order.length === 4 &&
+              [0, 1, 2, 3].every((n) => x.order.includes(n)) &&
+              (x.selected === null ||
+                (Number.isInteger(x.selected) &&
+                  x.selected >= 0 &&
+                  x.selected < 4)) &&
+              (i >= s.index || x.selected !== null),
+          )
+        )
+          return false;
+        if (s.mode === "daily" && s.items.some((x) => byId[x.id].day !== s.day))
+          return false;
+        if (s.finished && !s.items.every((x) => x.selected !== null))
+          return false;
+        return typeof s.finished === "boolean";
+      }
+      function loadState() {
+        const base = freshState();
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return base;
+          const data = JSON.parse(raw);
+          if (data.version !== 1) throw new Error("version");
+          base.theme = data.theme === "dark" ? "dark" : "light";
+          for (const d of DAYS) {
+            const v = data.days?.[d.id];
+            if (!v) continue;
+            const best = Number.isFinite(v.best)
+              ? Math.max(0, Math.min(100, v.best))
+              : 0;
+            base.days[d.id] = {
+              read: v.read === true,
+              seen: Array.isArray(v.seen)
+                ? [
+                    ...new Set(
+                      v.seen.filter(
+                        (i) =>
+                          Number.isInteger(i) && i >= 0 && i < d.vocab.length,
+                      ),
+                    ),
+                  ]
+                : [],
+              flashIndex: Number.isInteger(v.flashIndex)
+                ? Math.max(0, Math.min(d.vocab.length - 1, v.flashIndex))
+                : 0,
+              best,
+              passed: best >= 80,
+              attempts:
+                Number.isInteger(v.attempts) && v.attempts >= 0
+                  ? v.attempts
+                  : 0,
+            };
+          }
+          for (const q of QUESTION_BANK) {
+            const s = data.stats?.[q.id];
+            if (!s) continue;
+            if (
+              [s.correct, s.wrong, s.streak].every(
+                (n) => Number.isInteger(n) && n >= 0,
+              ) &&
+              typeof s.lastCorrect === "boolean"
+            )
+              base.stats[q.id] = {
+                correct: s.correct,
+                wrong: s.wrong,
+                streak: Math.min(s.streak, s.correct),
+                lastCorrect: s.lastCorrect,
+              };
+          }
+          if (validSession(data.active)) base.active = data.active;
+          base.history = Array.isArray(data.history)
+            ? data.history
+                .filter(
+                  (h) =>
+                    ["daily", "mixed", "weak"].includes(h.mode) &&
+                    Number.isFinite(h.percent) &&
+                    Number.isInteger(h.total) &&
+                    h.total > 0 &&
+                    typeof h.date === "string",
+                )
+                .slice(-20)
+            : [];
+          if (typeof data.view === "string") base.view = data.view;
+          return base;
+        } catch (error) {
+          storageWarning(
+            "อ่านข้อมูลเดิมไม่ได้หรือเบราว์เซอร์ไม่อนุญาตให้ใช้พื้นที่เก็บข้อมูล ขณะนี้เริ่มด้วยข้อมูลว่าง หากบันทึกไม่ได้จะแจ้งให้ทราบ",
+          );
+          return base;
+        }
+      }
+      let state = loadState(),
+        currentDay = 1,
+        currentTab = "content",
+        flashFlipped = false,
+        toastTimer;
+      function applyTheme() {
+        document.documentElement.dataset.theme = state.theme;
+        document.querySelector('meta[name="theme-color"]').content =
+          state.theme === "dark" ? "#121b17" : "#183b32";
+      }
+      function save() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+          return true;
+        } catch (error) {
+          storageWarning(
+            "บันทึกข้อมูลไม่ได้: เบราว์เซอร์อาจบล็อก localStorage หรือพื้นที่เต็ม ขณะนี้ข้อมูลอยู่ในหน้านี้เท่านั้น กรุณาอนุญาตการจัดเก็บก่อนปิดหน้า",
+          );
+          return false;
+        }
+      }
+      function toast(message) {
+        $("toast").textContent = message;
+        $("toast").hidden = false;
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => ($("toast").hidden = true), 3200);
+      }
+      function confirmAction(title, message, callback) {
+        const dialog = $("confirm-dialog");
+        $("dialog-title").textContent = title;
+        $("dialog-message").textContent = message;
+        $("dialog-cancel").onclick = () => dialog.close();
+        $("dialog-ok").onclick = () => {
+          dialog.close();
+          callback();
+        };
+        dialog.showModal();
+        $("dialog-cancel").focus();
+      }
+      const icons = {
+        network:
+          '<rect x="8" y="2" width="8" height="6" rx="1"/><path d="M12 8v5M4 13h16M4 13v3m16-3v3"/><rect x="1" y="16" width="6" height="5" rx="1"/><rect x="17" y="16" width="6" height="5" rx="1"/>',
+        fiber:
+          '<path d="M3 19C13 19 11 5 21 5M3 12c8 0 10 0 18 0M3 5c10 0 8 14 18 14"/>',
+        wifi: '<path d="M2 8a16 16 0 0 1 20 0M5 12a11 11 0 0 1 14 0m-11 4a6 6 0 0 1 8 0"/><circle cx="12" cy="20" r="1"/>',
+        flow: '<rect x="8" y="2" width="8" height="5" rx="1"/><rect x="8" y="17" width="8" height="5" rx="1"/><path d="M12 7v10m-3-3 3 3 3-3"/>',
+        check: '<path d="m7 12 3 3 7-7"/><circle cx="12" cy="12" r="10"/>',
+        home: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+        settings:
+          '<path d="M4 7h16M4 17h16"/><circle cx="8" cy="7" r="3" fill="currentColor" stroke="none"/><circle cx="16" cy="17" r="3" fill="currentColor" stroke="none"/>',
+        arrow: '<path d="M4 12h16m-6-6 6 6-6 6"/>',
+        book: '<path d="M12 5C8 2 3 3 2 4v15c4-2 7-1 10 1 3-2 6-3 10-1V4c-1-1-6-2-10 1zm0 0v15"/>',
+        clock: '<circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/>',
+        target:
+          '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+        repeat:
+          '<path d="M20 8a8 8 0 0 0-14-3L3 8m0-5v5h5m-4 8a8 8 0 0 0 14 3l3-3m0 5v-5h-5"/>',
+      };
+      function icon(name) {
+        return `<svg class="icon" viewBox="0 0 24 24" aria-hidden="true">${icons[name] || icons.book}</svg>`;
+      }
+      $("brandmark").innerHTML = icon("fiber");
+      const percentText = (n) => Number(n.toFixed(1)).toLocaleString("th-TH");
+      function progress(value, label) {
+        return `<progress class="progress" max="100" value="${value}" aria-label="${esc(label)}">${Math.round(value)}%</progress>`;
+      }
+      function dayProgress(id) {
+        const d = state.days[id],
+          vocab = DAYS[id - 1].vocab.length;
+        return Math.round(
+          (d.read ? 25 : 0) +
+            (25 * d.seen.length) / vocab +
+            50 * Math.min(1, d.best / 80),
+        );
+      }
+      /* Mastery priority follows the requested rule: latest wrong OR cumulative wrong >
+     correct stays weak, even if a recent streak is growing. Unseen belongs to weak. */
+      function mastery(id) {
+        const s = state.stats[id];
+        if (!s || !s.lastCorrect || s.wrong > s.correct) return "weak";
+        return s.streak >= 3 ? "mastered" : "learning";
+      }
+      function memoryCounts() {
+        const c = { weak: 0, learning: 0, mastered: 0, unseen: 0 };
+        for (const q of QUESTION_BANK) {
+          c[mastery(q.id)]++;
+          if (!state.stats[q.id]) c.unseen++;
+        }
+        return c;
+      }
+      function memoryPanel() {
+        const c = memoryCounts(),
+          total = QUESTION_BANK.length;
+        return `<section class="panel"><div class="row between"><h3>ภาพรวมการจำ</h3><span class="small muted">คลังทั้งหมด ${total} ข้อ</span></div><div class="memory-bar" role="img" aria-label="ยังไม่ชำนาญ ${c.weak} ข้อ กำลังจำได้ ${c.learning} ข้อ จำได้แม่นแล้ว ${c.mastered} ข้อ">${["weak", "learning", "mastered"].map((k) => `<span class="${k}-color" style="width:${(100 * c[k]) / total}%"></span>`).join("")}</div><div class="memory-legend">${[
+          ["weak", "ยังไม่ชำนาญ"],
+          ["learning", "กำลังจำได้"],
+          ["mastered", "จำได้แม่นแล้ว"],
+        ]
+          .map(
+            ([k, label]) =>
+              `<div class="small"><i class="legend-dot ${k}-color"></i>${label} <strong>${c[k]}</strong><span class="muted"> (${Math.round((100 * c[k]) / total)}%)</span></div>`,
+          )
+          .join(
+            "",
+          )}</div><p class="small muted" style="margin-top:14px">รวมข้อที่ยังไม่เคยทำ ${c.unseen} ข้อในกลุ่มยังไม่ชำนาญ • ตอบถูกต่อเนื่อง 3 ครั้งขึ้นไปและยอดถูกไม่น้อยกว่าผิด จึงถือว่าจำได้แม่น</p></section>`;
+      }
+      function nav(route) {
+        $("nav").innerHTML =
+          `<button data-route="dashboard" class="${route === "dashboard" ? "active" : ""}" ${route === "dashboard" ? 'aria-current="page"' : ""}>${icon("home")}ภาพรวม</button>${DAYS.map((d) => `<button data-route="day/${d.id}/content" class="${route.startsWith("day/" + d.id + "/") ? "active" : ""}" ${route.startsWith("day/" + d.id + "/") ? 'aria-current="page"' : ""}><span class="nav-num">${state.days[d.id].passed ? "✓" : String(d.id).padStart(2, "0")}</span><span class="dayname">${d.short}</span><span class="mobile-day">วันที่ ${d.id}</span></button>`).join("")}<button data-route="settings" class="settings-link ${route === "settings" ? "active" : ""}" ${route === "settings" ? 'aria-current="page"' : ""}>${icon("settings")}ตั้งค่า</button>`;
+      }
+      function footer() {
+        return '<footer class="footer row between"><span>Fibre Ready · แผนทบทวนส่วนตัว 5 วัน ไม่ใช่คู่มืออบรมทางการของ AIS</span><a href="#settings">วิธีใช้งานและแหล่งอ้างอิง</a></footer>';
+      }
+      function resumePanel() {
+        const s = state.active;
+        if (!s || s.finished) return "";
+        const answered = s.items.filter((x) => x.selected !== null).length;
+        return `<div class="panel resume row between"><div><strong>มีแบบทดสอบที่ทำค้างไว้</strong><p class="small muted">${modeName(s.mode)} · ตอบแล้ว ${answered}/${s.items.length} ข้อ บันทึกคำตอบไว้แล้ว</p></div><button class="btn primary" data-route="run">ทำต่อ ${icon("arrow")}</button></div>`;
+      }
+      function dashboard() {
+        const completed = DAYS.filter((d) => state.days[d.id].passed).length,
+          c = memoryCounts(),
+          overall = Math.round(
+            DAYS.reduce((n, d) => n + dayProgress(d.id), 0) / 5,
+          ),
+          next = DAYS.find((d) => dayProgress(d.id) < 100) || DAYS[4];
+        return `<div class="page-head"><div><div class="eyebrow muted">YOUR 5-DAY LEARNING PLAN</div><h1 style="margin-top:8px">เตรียมพร้อม ทีละวัน<span style="color:#7d9c40">.</span></h1><p>พื้นฐานแน่น รับสายมั่นใจ เริ่มจากก้าวเล็ก ๆ วันนี้</p></div></div><div class="stack">${resumePanel()}<section class="panel hero"><svg class="hero-art" viewBox="0 0 180 180" aria-hidden="true"><circle cx="90" cy="90" r="76" fill="none" stroke="#aacb79" stroke-dasharray="2 10"/><circle cx="90" cy="90" r="56" fill="none" stroke="#aacb79" opacity=".4"/><rect x="49" y="83" width="82" height="38" rx="10" fill="#d6ef8a"/><path d="M60 83V58m60 25V58M70 46a35 35 0 0 1 40 0m-30 12a19 19 0 0 1 20 0" fill="none" stroke="#d6ef8a" stroke-width="4" stroke-linecap="round"/><circle cx="65" cy="103" r="3" fill="#285943"/><circle cx="77" cy="103" r="3" fill="#285943"/></svg><div class="hero-copy"><div class="eyebrow">LEARN. PRACTICE. REMEMBER.</div><h2>อีก 5 วัน สู่การเริ่มต้นที่พร้อมกว่า</h2><p>รู้จักเครือข่าย อ่านไฟสถานะเป็น แก้ปัญหาอย่างมีขั้นตอน<br>พร้อมคลังข้อสอบ ${QUESTION_BANK.length} ข้อ ที่ช่วยทบทวนจุดที่ยังไม่แม่น</p><button class="btn lime" data-route="day/${next.id}/content">${overall ? "เรียนต่อ" : "เริ่มเรียน"}วันที่ ${next.id} ${icon("arrow")}</button></div></section><div class="grid metrics"><div class="panel"><div class="metric-icon">${icon("target")}</div><div class="metric-value">${overall}<span>%</span></div><div class="small muted" style="margin:7px 0 12px">ความคืบหน้ารวม</div>${progress(overall, "ความคืบหน้ารวม")}</div><div class="panel"><div class="metric-icon">${icon("check")}</div><div class="metric-value">${completed}<span> / 5 วัน</span></div><div class="small muted" style="margin-top:7px">สอบผ่านแล้ว · เกณฑ์ 80%</div></div><div class="panel"><div class="metric-icon">${icon("book")}</div><div class="metric-value">${QUESTION_BANK.length - c.unseen}<span> / ${QUESTION_BANK.length}</span></div><div class="small muted" style="margin-top:7px">คำถามที่ได้ลองทำ</div></div><div class="panel"><div class="metric-icon">${icon("repeat")}</div><div class="metric-value">${c.mastered}<span> ข้อ</span></div><div class="small muted" style="margin-top:7px">จำได้แม่นแล้ว</div></div></div></div><div class="section-heading row between"><h2>เส้นทางการเรียนรู้ของคุณ</h2><span class="small muted">เรียนตามลำดับ หรือเลือกทบทวนได้เลย</span></div><div class="grid days-grid">${DAYS.map(
+          (d) => {
+            const s = state.days[d.id],
+              pct = dayProgress(d.id);
+            return `<article class="panel day-card ${d.id === next.id ? "recommended" : ""}"><div class="day-icon">${icon(d.icon)}</div><span class="pill ${s.passed ? "" : "neutral"}">${s.passed ? "✓ ผ่านแล้ว" : s.attempts ? "ยังไม่ผ่าน" : pct ? "กำลังเรียน" : "ยังไม่เริ่ม"}</span><div class="eyebrow">DAY ${String(d.id).padStart(2, "0")}</div><h3>${d.title}</h3><p class="desc">${d.desc}</p><div class="row between small"><span>ความคืบหน้า</span><strong>${pct}%</strong></div>${progress(pct, `วันที่ ${d.id}`)}<div class="card-meta">${s.attempts ? "คะแนนสูงสุด " + percentText(s.best) + "%" : "ยังไม่มีคะแนน"} · ${d.id === 5 ? "รวบยอด 20 ข้อ" : "คลัง 25 ข้อ"}</div><button class="btn ${d.id === next.id ? "primary" : ""}" data-route="day/${d.id}/content">${s.passed ? "ทบทวนอีกครั้ง" : pct ? "เรียนต่อ" : "เข้าสู่บทเรียน"} ${icon("arrow")}</button></article>`;
+          },
+        ).join(
+          "",
+        )}<article class="panel day-card learn-tip"><div class="day-icon">${icon("repeat")}</div><div class="eyebrow">A LITTLE EVERY DAY</div><h3>จำได้ ด้วยการเจอซ้ำ</h3><p class="desc">ข้อที่ยังไม่แม่นจะมีโอกาสออกบ่อยขึ้น ส่วนข้อที่จำได้แล้วจะกลับมาเป็นระยะ ลองฝึกสั้น ๆ แล้วกลับมาทบทวนอีกครั้งวันถัดไป</p><button class="btn" data-action="weak-setup">ฝึกเน้นจุดอ่อน ${icon("arrow")}</button></article></div><div style="margin-top:22px">${memoryPanel()}</div><p class="small muted" style="margin-top:16px">ความคืบหน้าแต่ละวัน: อ่านจบ 25% + พลิกคำศัพท์ครบ 25% + คะแนนถึงเกณฑ์ 80% อีก 50% • สถานะผ่านตัดสินจากคะแนนสอบที่ทำจบ</p>`;
+      }
+      const LED_ROWS = [
+        [
+          "Power",
+          '<span class="led"></span>เขียว/สีปกติค้าง',
+          "มีไฟเลี้ยงและอุปกรณ์เปิดทำงาน",
+          "ดูไฟอื่นต่อ ยังไม่ยืนยันว่าออกอินเทอร์เน็ตได้",
+        ],
+        [
+          "Power",
+          '<span class="led gray"></span>ดับ / กระพริบผิดจากปกติ',
+          "ดับ: ไม่มีไฟเลี้ยงหรือปิดอยู่ • กระพริบ: อาจกำลังบูต/อัปเดตตามรุ่น",
+          "ตรวจปลั๊กและอะแดปเตอร์ หากกำลังอัปเดตอย่าตัดไฟ",
+        ],
+        [
+          "LOS",
+          '<span class="led gray"></span>ดับ',
+          "โดยทั่วไปไม่มีการแจ้งเตือนสัญญาณแสงสูญหาย",
+          "ดู PON และ Internet ร่วมด้วย",
+        ],
+        [
+          "LOS",
+          '<span class="led red"></span>แดงค้าง / แดงกระพริบ',
+          "ในหลายรุ่น: สัญญาณแสงขาดหายหรือไม่เพียงพอ",
+          "ตรวจแนวสายโดยไม่ถอดหัวหรือมองปลายสาย หากยังเป็นอยู่ให้ส่งต่อ",
+        ],
+        [
+          "PON (ถ้ามี)",
+          '<span class="led"></span>เขียวค้าง / กระพริบ / ดับ',
+          "หลายรุ่น: ค้าง = ลงทะเบียนแล้ว • กระพริบ = กำลังลงทะเบียน • ดับ = ยังไม่เชื่อมต่อ/ไม่ทำงาน",
+          "ตรวจคู่มือรุ่นและระบบร่วมกับ LOS",
+        ],
+        [
+          "Internet",
+          '<span class="led"></span>เขียวค้าง / กระพริบ',
+          "ในโหมด Router หลายรุ่น: ค้าง = เชื่อมต่อบริการแล้ว • กระพริบ = มีข้อมูล",
+          "ยืนยันด้วยการเปิดบริการจริง",
+        ],
+        [
+          "Internet",
+          '<span class="led red"></span>แดง / <span class="led gray"></span>ดับ',
+          "อาจเชื่อมต่อ WAN/บริการไม่สำเร็จ • บางรุ่นดับเมื่อ Bridge mode หรือไม่ได้ใช้ไฟนี้",
+          "ดูรูปแบบติดตั้ง ค่าบริการ และคู่มือก่อนสรุป",
+        ],
+        [
+          "LAN",
+          '<span class="led"></span>เขียว/สีตามรุ่นค้าง / กระพริบ',
+          "ค้าง = มี link • กระพริบ = รับส่งข้อมูลในหลายรุ่น สีอาจบอกความเร็ว link",
+          "กระพริบจากข้อมูลเป็นเรื่องปกติ ไม่ต้อง Reset",
+        ],
+        [
+          "LAN",
+          '<span class="led gray"></span>ดับ',
+          "ไม่มี link / อุปกรณ์ปลายทางปิด / สายหรือพอร์ตมีปัญหา",
+          "ตรวจทั้งสองปลายสายและลองสายหรือพอร์ตที่เหมาะสม",
+        ],
+        [
+          "WiFi / WLAN",
+          '<span class="led"></span>เขียว/สีตามรุ่นค้าง / กระพริบ',
+          "โดยทั่วไป: เปิดวิทยุ WiFi / กำลังรับส่งข้อมูล",
+          "บางรุ่นกระพริบเพื่อ WPS ให้เทียบคู่มือและชื่อไฟ",
+        ],
+        [
+          "WiFi / WLAN",
+          '<span class="led gray"></span>ดับ',
+          "อาจปิด WiFi หรือปิดการแสดง LED",
+          "ตรวจว่ามือถือเห็น SSID และ WiFi ถูกเปิดอยู่หรือไม่",
+        ],
+      ];
+      function lessonExtra(id) {
+        if (id === 2)
+          return `<section class="panel lesson"><h3>อ่านไฟสถานะ ONT / Router</h3><p class="muted">ถามให้ครบ: รุ่นอะไร · ไฟชื่ออะไร · สีอะไร · ติดค้าง กระพริบ หรือดับ</p><div class="callout warning small">ตารางนี้เป็นแนวทางทั่วไป สีและรูปแบบไฟแตกต่างตามรุ่น โหมด และการตั้งค่า LED ให้ยึดคู่มือของอุปกรณ์จริง ไม่ใช่ดูสีเพียงอย่างเดียว</div><div class="table-wrap" tabindex="0" aria-label="ตารางสถานะไฟ เลื่อนแนวนอนได้"><table><caption>ไฟสถานะที่ควรจำ · เลื่อนตารางซ้าย–ขวาบนมือถือ</caption><thead><tr><th scope="col">ไฟ</th><th scope="col">สี / รูปแบบ</th><th scope="col">ความหมายทั่วไป</th><th scope="col">ควรตรวจต่อ</th></tr></thead><tbody>${LED_ROWS.map(
+            (r) =>
+              `<tr><th scope="row">${r[0]}</th>${r
+                .slice(1)
+                .map((c) => `<td>${c}</td>`)
+                .join("")}</tr>`,
+          ).join("")}</tbody></table></div></section>`;
+        if (id === 3)
+          return `<section class="panel lesson"><h3>วิธี Restart และ Factory Reset ที่ต้องแยกให้ชัด</h3><ol><li><strong>Restart:</strong> แจ้งผลกระทบและขอความพร้อม จากนั้นใช้เมนู Reboot หรือปิด–เปิดไฟเลี้ยงตามคู่มือ รอไฟกลับสู่สถานะพร้อมแล้วทดสอบ</li><li><strong>ก่อน Factory Reset:</strong> ยืนยันว่าจำเป็นและอยู่ในขั้นตอนที่อนุญาต อธิบายว่าค่าอาจหาย เตรียมสำรอง/ตั้งค่าคืนและขอความยินยอมลูกค้า</li><li><strong>ลงมือ Reset:</strong> ขณะมีไฟเลี้ยง กดปุ่ม Reset ตามระยะเวลาหรือใช้เมนูคืนค่าโรงงานที่คู่มือรุ่นนั้นกำหนด ไม่ใช้ระยะเวลากดเดียวกับทุกรุ่น</li><li><strong>หลัง Reset:</strong> รอเครื่องเริ่มใหม่ ตั้งค่าบริการและ WiFi คืนตามขั้นตอนของผู้ให้บริการ แล้วตรวจทุกบริการที่ได้รับผลกระทบ</li></ol><div class="callout warning small">อย่าใช้ Factory Reset เป็นขั้นแรกของทุกปัญหา และอย่าตัดไฟระหว่างอัปเดต firmware</div></section>`;
+        if (id === 4)
+          return `<section class="panel lesson"><h3>Flow รับมือ “เน็ตใช้ไม่ได้”</h3><p class="muted">หลังถามขอบเขตอาการและตรวจเหตุขัดข้อง ใช้ลำดับนี้เป็นแนวทาง</p><ol class="flow">${[
+            [
+              "เช็คไฟสถานะ",
+              "ดู Power, LOS/PON, Internet, LAN และ WiFi ตามรุ่น ถ้า Power ดับให้ตรวจไฟเลี้ยงก่อน",
+            ],
+            [
+              "เช็คสาย",
+              "ตรวจปลั๊กและหัว Ethernet ว่าตรงพอร์ต แนวไฟเบอร์ไม่ถูกกดหรือพับ หลีกเลี่ยงถอดหัวไฟเบอร์เอง",
+            ],
+            [
+              "Restart",
+              "แจ้งว่าจะหลุดชั่วคราวและขอความพร้อม ปิดเปิดตามคู่มือ รอเครื่องพร้อม โดยไม่กด Factory Reset",
+            ],
+            [
+              "เช็ค WiFi บนมือถือ",
+              "เลือก SSID ที่ถูก ลองใกล้เราเตอร์ ปิดข้อมูลมือถือชั่วคราวหากสะดวกเพื่อยืนยันเส้นทาง เทียบเครื่องอื่นและสาย LAN",
+            ],
+            [
+              "ส่งต่อทีม/ช่างเมื่อยังไม่หาย",
+              "ส่งอาการ เวลา รุ่น ไฟสถานะ และผลทุกขั้นให้ทีมตามกระบวนการ ไม่รับปากเวลาแก้ที่ยังไม่ยืนยัน",
+            ],
+          ]
+            .map(([t, b]) => `<li><strong>${t}</strong>${b}</li>`)
+            .join(
+              "",
+            )}</ol><div class="callout small">ถ้าหายแล้วให้ยืนยันกับลูกค้าและสรุปเคส ไม่ต้องส่งช่าง • หาก LOS แดงต่อเนื่องให้ส่งต่อทางแสงได้โดยไม่ฝืนแก้ WiFi • พบกลิ่นไหม้หรืออันตรายให้หยุดและจัดการความปลอดภัยก่อน</div></section><section class="panel row between"><div><h3>ฝึกพิมพ์บันทึกเคส</h3><p class="muted small">เป้าหมายฝึก 20 คำ/นาที พร้อมความถูกต้อง • ไม่ใช่เกณฑ์ทางการของ AIS</p><p class="muted small">ปุ่มนี้ต้องใช้อินเทอร์เน็ตและเปิดเว็บไซต์ใหม่</p></div><a class="btn primary" href="https://10fastfingers.com/typing-test/thai" target="_blank" rel="noopener noreferrer">ฝึกที่ 10fastfingers ↗</a></section>`;
+        if (id === 5)
+          return `<section class="panel learn-tip row between"><div><h3>พร้อมลองรับสายแล้วหรือยัง?</h3><p class="small muted">สุ่ม 20 ข้อ ครบทุกหัวข้อวันที่ 1–4 • ได้ 80% ขึ้นไปเพื่อผ่านวันที่ 5</p></div><button class="btn primary" data-action="comprehensive">ทำแบบทดสอบรวบยอด ${icon("arrow")}</button></section>`;
+        return "";
+      }
+      function lesson(id) {
+        const d = DAYS[id - 1],
+          s = state.days[id];
+        return `<div class="stack"><div class="callout"><strong>วันนี้โฟกัส:</strong> ${d.focus}<p class="small muted">แนะนำ: อ่าน 20 นาที → คำศัพท์ 10 นาที → แบบทดสอบและทบทวนข้อผิด 15–30 นาที</p></div><div class="lesson-grid">${d.cards.map(([title, body]) => `<article class="panel lesson"><h3>${title}</h3><p>${body}</p></article>`).join("")}</div>${lessonExtra(id)}<div class="panel row between"><div><strong>${s.read ? "✓ บันทึกว่าอ่านจบแล้ว" : "อ่านจบแล้ว ลองทวนด้วยคำของตัวเอง"}</strong><p class="small muted">การอ่านจบเพิ่มความคืบหน้า แต่สถานะผ่านต้องได้คะแนนสอบอย่างน้อย 80%</p></div><button class="btn ${s.read ? "" : "primary"}" data-action="read" ${s.read ? "disabled" : ""}>${s.read ? "อ่านจบแล้ว" : "ทำเครื่องหมายว่าอ่านจบ"}</button><button class="btn" data-route="day/${id}/vocab">ทบทวนคำศัพท์ ${icon("arrow")}</button></div></div>`;
+      }
+      function vocab(id) {
+        const d = DAYS[id - 1],
+          s = state.days[id],
+          v = d.vocab[s.flashIndex];
+        flashFlipped = false;
+        return `<div class="flash-shell stack"><div class="row between"><div><h2>พลิกคำศัพท์ให้จำขึ้นใจ</h2><p class="small muted">ลองนึกความหมายก่อนพลิก · กดการ์ดหรือ Enter / Space</p></div><span class="pill" id="vocab-seen">ดูความหมายแล้ว ${s.seen.length}/${d.vocab.length}</span></div><button class="flashcard" id="flashcard" data-action="flip" aria-label="พลิกดูความหมาย ${esc(v[0])}" aria-pressed="false"><span class="flash-inner"><span class="flash-face" id="flash-front"><span class="eyebrow muted">WHAT DOES IT MEAN?</span><strong>${esc(v[0])}</strong><span class="small muted">แตะเพื่อดูความหมาย ↻</span></span><span class="flash-face flash-back" id="flash-back" aria-hidden="true"><span class="eyebrow muted">${esc(v[0])}</span><span>${esc(v[1])}</span><span class="small muted">แตะเพื่อกลับด้านคำศัพท์ ↻</span></span></span></button><div class="row between"><button class="btn" data-action="flash-prev" aria-label="คำศัพท์ก่อนหน้า">← ก่อนหน้า</button><span class="small muted">ใบที่ ${s.flashIndex + 1} / ${d.vocab.length}</span><button class="btn" data-action="flash-next" aria-label="คำศัพท์ถัดไป">ถัดไป →</button></div><p class="small muted">พลิกดูความหมายแต่ละใบเพื่อบันทึกความคืบหน้าคำศัพท์ ใช้ปุ่มลูกศรซ้าย–ขวาได้เมื่อโฟกัสที่การ์ด</p><details><summary>เปิดรายการคำศัพท์ทั้งหมด (${d.vocab.length} คำ)</summary><div class="vocab-list">${d.vocab.map(([t, b]) => `<details class="vocab-item"><summary>${esc(t)}</summary><p>${esc(b)}</p></details>`).join("")}</div></details><button class="btn primary" data-route="day/${id}/quiz">ไปฝึกแบบทดสอบ ${icon("arrow")}</button></div>`;
+      }
+      function flip() {
+        flashFlipped = !flashFlipped;
+        const s = state.days[currentDay];
+        if (flashFlipped && !s.seen.includes(s.flashIndex)) {
+          s.seen.push(s.flashIndex);
+          save();
+        }
+        const el = $("flashcard");
+        el.classList.toggle("flipped", flashFlipped);
+        el.setAttribute("aria-pressed", String(flashFlipped));
+        el.setAttribute(
+          "aria-label",
+          flashFlipped
+            ? "พลิกกลับไปดูคำศัพท์"
+            : "พลิกดูความหมาย " + DAYS[currentDay - 1].vocab[s.flashIndex][0],
+        );
+        $("flash-front").setAttribute("aria-hidden", String(flashFlipped));
+        $("flash-back").setAttribute("aria-hidden", String(!flashFlipped));
+        $("vocab-seen").textContent =
+          `ดูความหมายแล้ว ${s.seen.length}/${DAYS[currentDay - 1].vocab.length}`;
+      }
+      function moveFlash(delta) {
+        const s = state.days[currentDay],
+          total = DAYS[currentDay - 1].vocab.length;
+        s.flashIndex = (s.flashIndex + delta + total) % total;
+        save();
+        $("day-panel").innerHTML = vocab(currentDay);
+        $("flashcard").focus({ preventScroll: true });
+      }
+      function dayPage(id, tab) {
+        const d = DAYS[id - 1];
+        currentDay = id;
+        currentTab = tab;
+        return `<div class="page-head"><div><div class="row"><a class="small" href="#dashboard">← ภาพรวม</a><span class="pill">วันที่ ${id} / 5</span></div><h1 style="margin-top:14px">${d.title}</h1><p>${d.desc}</p><div class="row small muted" style="margin-top:12px">${icon("clock")} ${d.time} <span>·</span> ${d.id === 5 ? "ทบทวนทุกหัวข้อ" : "คำถาม 25 ข้อ"}</div></div></div><div class="tabs" role="tablist" aria-label="ส่วนของบทเรียน">${[
+          ["content", "เนื้อหา"],
+          ["vocab", "คำศัพท์"],
+          ["quiz", "แบบทดสอบ"],
+        ]
+          .map(
+            ([key, label]) =>
+              `<button role="tab" id="tab-${key}" aria-controls="day-panel" aria-selected="${tab === key}" tabindex="${tab === key ? 0 : -1}" data-route="day/${id}/${key}">${label}</button>`,
+          )
+          .join(
+            "",
+          )}</div><section id="day-panel" role="tabpanel" aria-labelledby="tab-${tab}">${tab === "content" ? lesson(id) : tab === "vocab" ? vocab(id) : quizSetup(id)}</section>`;
+      }
+      /* 5. Quiz selection. Weighted sampling WITHOUT replacement: weak 6, learning 3,
+     mastered 1. Mixed sets reserve one item from each day before the weighted fill. */
+      const MODE_LABELS = {
+        daily: "ฝึกตามวัน",
+        mixed: "รวบยอดทุกวัน",
+        weak: "เน้นจุดอ่อน",
+      };
+      function modeName(mode) {
+        return MODE_LABELS[mode] || "";
+      }
+      function shuffle(input) {
+        const a = [...input];
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+      function weightedSample(pool, count) {
+        const remaining = [...pool],
+          picked = [],
+          weights = { weak: 6, learning: 3, mastered: 1 };
+        while (picked.length < count && remaining.length) {
+          let ticket =
+              Math.random() *
+              remaining.reduce((n, q) => n + weights[mastery(q.id)], 0),
+            idx = remaining.length - 1;
+          for (let i = 0; i < remaining.length; i++) {
+            ticket -= weights[mastery(remaining[i].id)];
+            if (ticket < 0) {
+              idx = i;
+              break;
+            }
+          }
+          picked.push(remaining.splice(idx, 1)[0]);
+        }
+        return picked;
+      }
+      let quizConfig = { mode: "daily", day: 1, count: "10" };
+      function quizSetup(id) {
+        quizConfig = {
+          mode: id === 5 ? "mixed" : "daily",
+          day: Math.min(id, 4),
+          count: id === 5 ? "20" : "10",
+        };
+        return `<div class="quiz-container stack">${resumePanel()}<section class="panel"><div class="row between"><div><div class="eyebrow muted">PRACTICE MAKES PROGRESS</div><h2 style="margin-top:8px">เลือกวิธีฝึกของวันนี้</h2></div>${icon("target")}</div><p class="muted small" style="margin-top:12px">เลือกคำตอบแล้วดูเฉลยได้ทันที ไม่มีเวลาจำกัด และกลับมาทำต่อได้</p><div class="form-grid"><div class="field"><label for="quiz-mode">โหมดแบบทดสอบ</label><select id="quiz-mode"><option value="daily" ${id !== 5 ? "selected" : ""}>ฝึกตามวัน</option><option value="mixed" ${id === 5 ? "selected" : ""}>รวบยอดทุกวัน</option><option value="weak">เน้นจุดอ่อน</option></select></div><div class="field"><label for="quiz-day">หัวข้อของวัน</label><select id="quiz-day">${DAYS.slice(
+          0,
+          4,
+        )
+          .map(
+            (d) =>
+              `<option value="${d.id}" ${d.id === quizConfig.day ? "selected" : ""}>วันที่ ${d.id}: ${d.short}</option>`,
+          )
+          .join(
+            "",
+          )}</select></div><div class="field"><label for="quiz-count">จำนวนคำถาม</label><select id="quiz-count"></select></div></div><div class="callout small" id="quiz-description"></div><div class="row" style="margin-top:22px"><button class="btn primary" id="start-quiz" data-action="start-quiz">เริ่มแบบทดสอบ ${icon("arrow")}</button><span class="small muted" id="quiz-pool"></span></div><p class="small muted" style="margin-top:18px">คำถามไม่ซ้ำภายในชุด • สุ่มลำดับคำถามและตัวเลือกใหม่ทุกครั้ง • ข้อที่ไม่ชำนาญมีน้ำหนักมากกว่า ข้อที่แม่นแล้วยังมีโอกาสกลับมา</p></section>${memoryPanel()}</div>`;
+      }
+      function setupControls() {
+        if (!$("quiz-mode")) return;
+        const mode = quizConfig.mode,
+          pool =
+            mode === "daily"
+              ? QUESTION_BANK.filter((q) => q.day === quizConfig.day)
+              : mode === "weak"
+                ? QUESTION_BANK.filter((q) => mastery(q.id) === "weak")
+                : QUESTION_BANK;
+        $("quiz-mode").value = mode;
+        $("quiz-day").value = String(quizConfig.day);
+        $("quiz-day").disabled = mode !== "daily";
+        const options =
+          mode === "mixed"
+            ? [
+                ["15", "15 ข้อ"],
+                ["20", "20 ข้อ"],
+                ["40", "40 ข้อ"],
+                ["all", "ทั้งหมด (100 ข้อ)"],
+              ]
+            : [
+                ["10", "10 ข้อ"],
+                ["20", "20 ข้อ"],
+                ["all", `ทั้งหมด (${pool.length} ข้อ)`],
+              ];
+        if (!options.some(([v]) => v === quizConfig.count))
+          quizConfig.count = mode === "mixed" ? "20" : "10";
+        $("quiz-count").innerHTML = options
+          .map(
+            ([v, l]) =>
+              `<option value="${v}" ${v === quizConfig.count ? "selected" : ""}>${l}</option>`,
+          )
+          .join("");
+        $("quiz-description").textContent =
+          mode === "daily"
+            ? `คะแนนชุดที่ทำจบใช้บันทึกสูงสุดของวันที่ ${quizConfig.day} ได้อย่างน้อย 80% ถือว่าผ่านวันนั้น`
+            : mode === "mixed"
+              ? "สุ่มจากทุกหัวข้อโดยมีวันที่ 1–4 ครบในชุด คะแนนชุดที่ทำจบใช้ผ่านวันที่ 5 เมื่อได้อย่างน้อย 80%"
+              : "ฝึกเฉพาะกลุ่มยังไม่ชำนาญจากทุกวัน รวมข้อที่ยังไม่เคยทำ หากมีน้อยกว่าที่เลือกจะใช้เท่าที่มี โหมดนี้อัปเดตสถิติการจำ แต่ไม่ใช้ตัดสินผ่านรายวัน";
+        const actual =
+          quizConfig.count === "all"
+            ? pool.length
+            : Math.min(Number(quizConfig.count), pool.length);
+        $("quiz-pool").textContent = pool.length
+          ? `เริ่มชุดละ ${actual} ข้อ · มีให้ฝึก ${pool.length} ข้อ`
+          : "ไม่มีข้อที่ยังไม่ชำนาญแล้ว ลองโหมดรวบยอดเพื่อทบทวน";
+        $("start-quiz").disabled = !pool.length;
+      }
+      function createSession(mode, day, count) {
+        let pool =
+          mode === "daily"
+            ? QUESTION_BANK.filter((q) => q.day === day)
+            : mode === "weak"
+              ? QUESTION_BANK.filter((q) => mastery(q.id) === "weak")
+              : QUESTION_BANK;
+        const n =
+          count === "all" ? pool.length : Math.min(Number(count), pool.length);
+        if (!n) return null;
+        let selected = [];
+        if (mode === "mixed") {
+          for (let d = 1; d <= 4; d++)
+            selected.push(
+              ...weightedSample(
+                pool.filter((q) => q.day === d),
+                1,
+              ),
+            );
+          const ids = new Set(selected.map((q) => q.id));
+          selected.push(
+            ...weightedSample(
+              pool.filter((q) => !ids.has(q.id)),
+              n - selected.length,
+            ),
+          );
+        } else selected = weightedSample(pool, n);
+        return {
+          mode,
+          day: mode === "mixed" ? 5 : day,
+          index: 0,
+          finished: false,
+          startedAt: new Date().toISOString(),
+          items: shuffle(selected).map((q) => ({
+            id: q.id,
+            order: shuffle([0, 1, 2, 3]),
+            selected: null,
+          })),
+        };
+      }
+      function startQuiz(mode, day, count) {
+        const begin = () => {
+          const session = createSession(mode, day, count);
+          if (!session) {
+            toast("ไม่มีคำถามในกลุ่มนี้ ลองโหมดรวบยอด");
+            return;
+          }
+          state.active = session;
+          save();
+          go("run");
+        };
+        if (state.active && !state.active.finished)
+          confirmAction(
+            "เริ่มชุดใหม่แทนชุดที่ค้างไว้?",
+            "สถิติข้อที่ตอบแล้วจะยังอยู่ แต่ชุดที่ค้างจะไม่ได้คะแนนรวมและไม่สามารถกลับมาทำต่อได้",
+            begin,
+          );
+        else begin();
+      }
+      function quizRun() {
+        const s = state.active;
+        if (!s)
+          return '<div class="panel empty"><h2>ยังไม่มีแบบทดสอบที่กำลังทำ</h2><a class="btn" href="#day/1/quiz">เลือกแบบทดสอบ</a></div>';
+        if (s.finished) return results();
+        const item = s.items[s.index],
+          q = byId[item.id],
+          answered = item.selected !== null,
+          correct = item.selected === q.answer,
+          done = s.items.filter((x) => x.selected !== null).length;
+        return `<div class="quiz-container stack"><div class="row between"><button class="btn text" data-route="dashboard">← พักไว้ กลับภาพรวม</button><span class="pill">${modeName(s.mode)}${s.mode === "daily" ? " · วันที่ " + s.day : ""}</span></div><section class="panel"><div class="row between small"><span class="muted">ข้อที่ ${s.index + 1} / ${s.items.length}</span><strong>${done} ข้อที่ตอบแล้ว</strong></div><div style="margin-top:12px">${progress((100 * done) / s.items.length, "จำนวนข้อที่ตอบแล้ว")}</div><div class="small muted" style="margin-top:22px">วันที่ ${q.day} · ${DAYS[q.day - 1].short}</div><h1 class="quiz-question" id="question-title" tabindex="-1">${esc(q.question)}</h1><div class="answers" role="group" aria-labelledby="question-title">${item.order.map((option, i) => `<button class="answer ${answered ? (option === q.answer ? "correct" : option === item.selected ? "wrong" : "") : ""}" data-answer="${option}" ${answered ? "disabled" : ""}><span class="answer-letter">${["ก", "ข", "ค", "ง"][i]}</span><span>${esc(q.options[option])}${answered && option === q.answer ? " <strong>✓ คำตอบที่ถูก</strong>" : answered && option === item.selected ? " <strong>✕ คำตอบของคุณ</strong>" : ""}</span></button>`).join("")}</div><div id="feedback-region" aria-live="polite">${answered ? feedback(q, correct) : ""}</div></section><p class="small muted">${answered ? "บันทึกคำตอบแล้ว หากกลับมาเปิดใหม่จะเริ่มที่ข้อนี้พร้อมเฉลย" : "เลือกได้ครั้งเดียวในแต่ละข้อ ระบบบันทึกเมื่อกดตอบทันที"} • พักเมื่อไรก็ได้</p></div>`;
+      }
+      function feedback(q, correct) {
+        const last = state.active.index === state.active.items.length - 1;
+        return `<div class="feedback ${correct ? "" : "wrong"}" tabindex="-1" id="answer-feedback"><strong>${correct ? "✓ ถูกต้อง" : "✕ ยังไม่ถูก ลองจำเหตุผลนี้ไว้"}</strong><p class="small" style="margin-top:8px"><strong>เฉลย:</strong> ${esc(q.options[q.answer])}</p><p style="margin-top:8px">${esc(q.explanation)}</p></div><div class="row" style="justify-content:flex-end;margin-top:20px"><button class="btn primary" data-action="next-question">${last ? "ดูสรุปผล" : "ข้อต่อไป"} ${icon("arrow")}</button></div>`;
+      }
+      function answerQuestion(answer) {
+        const s = state.active;
+        if (!s || s.finished) return;
+        const item = s.items[s.index];
+        if (item.selected !== null || ![0, 1, 2, 3].includes(answer)) return;
+        const q = byId[item.id],
+          correct = answer === q.answer;
+        item.selected = answer;
+        const old = state.stats[q.id] || {
+          correct: 0,
+          wrong: 0,
+          streak: 0,
+          lastCorrect: false,
+        };
+        state.stats[q.id] = {
+          correct: old.correct + (correct ? 1 : 0),
+          wrong: old.wrong + (correct ? 0 : 1),
+          streak: correct ? old.streak + 1 : 0,
+          lastCorrect: correct,
+        };
+        save();
+        render(false);
+        $("answer-feedback")?.focus({ preventScroll: true });
+      }
+      function scoreSession(s) {
+        const correct = s.items.filter(
+          (x) => x.selected === byId[x.id].answer,
+        ).length;
+        return {
+          correct,
+          wrong: s.items.length - correct,
+          total: s.items.length,
+          percent: (100 * correct) / s.items.length,
+        };
+      }
+      function creditDay(s) {
+        return s.mode === "daily"
+          ? s.day
+          : s.mode === "mixed" &&
+              s.items.length >= 15 &&
+              new Set(s.items.map((x) => byId[x.id].day)).size === 4
+            ? 5
+            : null;
+      }
+      function finishSession() {
+        const s = state.active;
+        if (!s || s.finished || s.items.some((x) => x.selected === null))
+          return;
+        const score = scoreSession(s),
+          day = creditDay(s);
+        s.finished = true;
+        s.finishedAt = new Date().toISOString();
+        if (day) {
+          const d = state.days[day];
+          d.best = Math.max(d.best, score.percent);
+          d.passed = d.best >= 80;
+          d.attempts++;
+        }
+        state.history.push({
+          ...score,
+          mode: s.mode,
+          day: day || s.day,
+          date: s.finishedAt,
+        });
+        state.history = state.history.slice(-20);
+        save();
+        go("results");
+      }
+      function nextQuestion() {
+        const s = state.active;
+        if (!s || s.finished || s.items[s.index].selected === null) return;
+        if (s.index === s.items.length - 1) {
+          finishSession();
+          return;
+        }
+        s.index++;
+        save();
+        render(false);
+        $("question-title")?.focus({ preventScroll: true });
+        window.scrollTo({ top: 0, behavior: "instant" });
+      }
+      function results() {
+        const s = state.active;
+        if (!s?.finished)
+          return '<div class="panel empty"><h2>ยังไม่มีผลแบบทดสอบที่จบแล้ว</h2><a class="btn" href="#dashboard">กลับภาพรวม</a></div>';
+        const score = scoreSession(s),
+          day = creditDay(s),
+          wrong = s.items.filter((x) => x.selected !== byId[x.id].answer),
+          pass = score.percent >= 80;
+        return `<div class="quiz-container stack"><div class="row between"><a href="#dashboard">← กลับภาพรวม</a><span class="pill">${modeName(s.mode)}</span></div><section class="panel result-head"><div class="score-circle"><strong>${percentText(score.percent)}%</strong><span class="small muted">คะแนนชุดนี้</span></div><h1>${pass ? "เข้าใจมากขึ้นอีกก้าว!" : "เห็นจุดที่ต้องทบทวนแล้ว"}</h1><p class="muted" style="margin-top:12px">${day ? (pass ? `✓ ผ่านเกณฑ์วันที่ ${day}` : `ชุดนี้ยังไม่ถึงเกณฑ์ 80% ของวันที่ ${day}`) : "โหมดจุดอ่อนบันทึกสถิติการจำ โดยไม่เปลี่ยนคะแนนผ่านรายวัน"}</p><div class="result-stats"><span>ถูก <strong>${score.correct}</strong> ข้อ</span><span>ผิด <strong>${score.wrong}</strong> ข้อ</span><span>รวม <strong>${score.total}</strong> ข้อ</span></div>${day ? `<p class="small muted">คะแนนสูงสุดวันที่ ${day}: ${percentText(state.days[day].best)}% · ${state.days[day].passed ? "ผ่านแล้ว" : "ยังไม่ผ่าน"} (คะแนนสูงสุดไม่ลดเมื่อฝึกซ้ำ)</p>` : ""}<div class="row" style="justify-content:center;margin-top:22px"><button class="btn primary" data-action="retry">สุ่มชุดใหม่ ${icon("repeat")}</button><button class="btn" data-action="weak-setup">ฝึกจุดอ่อน</button><button class="btn" data-route="dashboard">กลับภาพรวม</button></div></section>${memoryPanel()}<section><h2>ทบทวนข้อที่ตอบผิด <span class="muted">(${wrong.length})</span></h2>${
+          wrong.length
+            ? wrong
+                .map((item, i) => {
+                  const q = byId[item.id];
+                  return `<article class="review-item"><span class="small muted">ทบทวน ${i + 1} · วันที่ ${q.day}</span><h3 style="margin-top:8px">${esc(q.question)}</h3><p class="incorrect-text">✕ คุณตอบ: ${esc(q.options[item.selected])}</p><p><strong>✓ เฉลย: ${esc(q.options[q.answer])}</strong></p><p class="muted">${esc(q.explanation)}</p><a class="small" href="#day/${q.day}/content">กลับไปอ่านหัวข้อนี้ →</a></article>`;
+                })
+                .join("")
+            : '<div class="panel empty" style="margin-top:15px">✓ ชุดนี้ตอบถูกทุกข้อ ลองกลับมาทำซ้ำวันถัดไปเพื่อทดสอบว่าจำได้ต่อเนื่อง</div>'
+        }</section></div>`;
+      }
+      /* 6. Settings, navigation and events. Reset only removes this app's key. */
+      function appearanceSettings() {
+        return `<section class="panel"><h3>ธีมการแสดงผล</h3><p class="small muted" style="margin-top:10px">เลือกโทนที่อ่านสบายสำหรับคุณ ธีมจะใช้กับทุกหน้าและจำไว้เมื่อกลับมาเปิดใหม่</p><div class="field" style="max-width:340px;margin-top:18px"><label for="theme-select">เลือกธีม</label><select id="theme-select"><option value="light" ${state.theme === "light" ? "selected" : ""}>สว่าง (Light)</option><option value="dark" ${state.theme === "dark" ? "selected" : ""}>มืด (Dark)</option></select></div></section>`;
+      }
+      function settings() {
+        return `<div class="page-head"><div><div class="eyebrow muted">YOUR LEARNING SPACE</div><h1>ตั้งค่าและวิธีใช้งาน</h1><p>จัดการข้อมูลการเรียน และรู้ที่มาของเนื้อหา</p></div></div><div class="stack"><div class="settings-grid"><section class="panel"><h3>ข้อมูลอยู่ในเบราว์เซอร์นี้</h3><p class="small muted" style="margin-top:12px">บันทึกการอ่าน คำศัพท์ คะแนนสูงสุด สถิติรายข้อ และแบบทดสอบที่ค้างผ่าน localStorage โดยอัตโนมัติ ไม่ต้องมีบัญชี</p><p class="small muted">ใช้ไฟล์เดิมและเบราว์เซอร์เดิมเพื่อกลับมาเรียนต่อ โหมดไม่ระบุตัวตน การล้างข้อมูลเว็บไซต์ หรือย้ายไฟล์/เปลี่ยนเบราว์เซอร์อาจทำให้เข้าถึงข้อมูลเดิมไม่ได้ ข้อมูลไม่ได้ซิงก์ข้ามอุปกรณ์</p></section><section class="panel"><h3>เริ่มแผนใหม่</h3><p class="small muted" style="margin:12px 0 20px">ลบความคืบหน้า คะแนน สถิติคำถาม และแบบทดสอบที่ค้างของแอปนี้ การลบไม่สามารถย้อนกลับได้</p><button class="btn danger" data-action="reset-all">รีเซ็ตข้อมูลทั้งหมด</button></section></div><section class="panel lesson"><h3>อ่าน progress และการจำอย่างไร</h3><ul><li>แต่ละวัน: อ่านจบ 25% + พลิกคำศัพท์ตามสัดส่วน 25% + คะแนนสูงสุดเทียบเกณฑ์ 80% อีก 50% รวมแล้วได้ progress ของวันนั้น และเฉลี่ย 5 วันเป็นภาพรวม</li><li>วันที่ 1–4 ผ่านจากโหมดฝึกตามวัน วันที่ 5 ผ่านจากโหมดรวบยอดอย่างน้อย 15 ข้อที่ครอบคลุมครบทั้ง 4 วัน ใช้เกณฑ์คะแนนจริง ≥ 80% และต้องทำจบชุด</li><li>ยังไม่ชำนาญ: ไม่เคยทำ หรือตอบล่าสุดผิด หรือยอดผิดสะสมมากกว่าถูก</li><li>กำลังจำได้: ตอบถูกต่อเนื่อง 1–2 ครั้ง และไม่ได้เข้าเงื่อนไขยังไม่ชำนาญ</li><li>จำได้แม่นแล้ว: ตอบถูกต่อเนื่องอย่างน้อย 3 ครั้ง และยอดถูกไม่น้อยกว่าผิด</li><li>น้ำหนักสุ่มต่อข้อคือ 6 : 3 : 1 ตามสามกลุ่ม ข้อที่แม่นยังมีโอกาสออก สุ่มโดยไม่ซ้ำในชุด หากเลือกทั้งหมดทุกข้อจะออกหนึ่งครั้ง</li><li>รวบยอดรับประกันอย่างน้อยหนึ่งข้อจากแต่ละวันก่อนสุ่มส่วนที่เหลือ และสลับลำดับทั้งหมด โหมดจุดอ่อนเลือกกลุ่ม ณ เวลาเริ่มชุด</li><li>ระบบนี้ทบทวนตามประวัติคำตอบ ไม่ได้ตั้งนัดเตือนตามเวลา ลองกลับมาทำอีกครั้งวันถัดไป</li></ul></section><section class="panel"><h3>ประวัติการฝึกล่าสุด</h3>${
+          state.history.length
+            ? `<div class="table-wrap"><table><caption>เก็บ 20 ชุดล่าสุดที่ทำจบ</caption><thead><tr><th scope="col">เวลา</th><th scope="col">โหมด</th><th scope="col">ถูก / ทั้งหมด</th><th scope="col">คะแนน</th></tr></thead><tbody>${[
+                ...state.history,
+              ]
+                .reverse()
+                .map(
+                  (h) =>
+                    `<tr><td>${esc(new Date(h.date).toLocaleString("th-TH"))}</td><td>${modeName(h.mode)}${h.mode === "daily" ? " วันที่ " + esc(h.day) : ""}</td><td>${esc(h.correct)} / ${h.total}</td><td>${percentText(h.percent)}%</td></tr>`,
+                )
+                .join("")}</tbody></table></div>`
+            : '<p class="small muted" style="margin-top:12px">ยังไม่มีแบบทดสอบที่ทำจบ ลองเริ่มชุดแรกจากบทเรียนได้เลย</p>'
+        }</section><section class="panel lesson"><h3>แหล่งอ้างอิงและขอบเขตเนื้อหา</h3><p class="small muted">เรียบเรียงเพื่อเตรียมตัวด้านพื้นฐาน ไม่ใช่ข้อสอบหรือขั้นตอนภายในของ AIS เมื่อทำงานจริงให้ยึดคู่มือรุ่นอุปกรณ์และกระบวนการองค์กร ลิงก์ด้านล่างต้องใช้อินเทอร์เน็ต แต่บทเรียนและข้อสอบทั้งหมดอยู่ในไฟล์นี้แล้ว</p><ul class="sources small"><li><a href="https://www.ais.th/consumers/help-and-support/fibre" target="_blank" rel="noopener noreferrer">AIS: ศูนย์ข้อมูลความรู้ Fibre ↗</a> — การตรวจอุปกรณ์และแนวทางแก้ปัญหา</li><li><a href="https://aiscallcenter.ais.co.th/fbbrouter/" target="_blank" rel="noopener noreferrer">AIS: สเปคและการตั้งค่าเราเตอร์แต่ละรุ่น ↗</a> — ใช้เทียบรุ่นจริงก่อนแปลไฟสถานะ</li><li><a href="https://www.tp-link.com/us/support/faq/497/" target="_blank" rel="noopener noreferrer">TP-Link: การคืนค่าโรงงานของ Router ↗</a> — ผลต่อค่าตั้งและขั้นตอนตามรุ่น</li><li><a href="https://service-provider.tp-link.com/ro/faq/323/" target="_blank" rel="noopener noreferrer">TP-Link: สัญญาณ WiFi ย่าน 5GHz ↗</a> — ระยะและสิ่งกีดขวาง</li><li><a href="https://www.cloudflare.com/learning/network-layer/how-does-the-internet-work/" target="_blank" rel="noopener noreferrer">Cloudflare: การทำงานของอินเทอร์เน็ต ↗</a> — packet และการค้นชื่อผ่าน DNS</li><li><a href="https://www.cloudflare.com/en-in/learning/performance/glossary/what-is-latency/" target="_blank" rel="noopener noreferrer">Cloudflare: Latency ↗</a> — เวลาหน่วงของข้อมูล</li></ul><p class="small muted">ตรวจข้อมูลอ้างอิง 8 กันยายน 2026 • เพิ่มหรือแก้เนื้อหาได้ในส่วน DAYS และ QUESTION_BANK ของไฟล์ HTML</p></section></div>`;
+      }
+      function go(route) {
+        if (location.hash.slice(1) === route) render();
+        else location.hash = route;
+      }
+      function render(focus = true) {
+        applyTheme();
+        let route = location.hash.slice(1) || "dashboard",
+          body;
+        const dayMatch = /^day\/([1-5])\/(content|vocab|quiz)$/.exec(route);
+        if (dayMatch) body = dayPage(Number(dayMatch[1]), dayMatch[2]);
+        else if (route === "settings") body = settings();
+        else if (route === "run") body = quizRun();
+        else if (route === "results") body = results();
+        else {
+          route = "dashboard";
+          body = dashboard();
+        }
+        state.view = route;
+        save();
+        nav(route);
+        $("main").innerHTML = body + footer();
+        if (route === "settings") {
+          $("main")
+            .querySelector(".stack")
+            .insertAdjacentHTML("afterbegin", appearanceSettings());
+        }
+        if (dayMatch && dayMatch[2] === "quiz") setupControls();
+        document.title =
+          (dayMatch
+            ? `วันที่ ${dayMatch[1]} · ${DAYS[Number(dayMatch[1]) - 1].short}`
+            : route === "settings"
+              ? "ตั้งค่า"
+              : route === "run"
+                ? "แบบทดสอบ"
+                : route === "results"
+                  ? "ผลการฝึก"
+                  : "ภาพรวม") + " — Fibre Ready";
+        if (focus) {
+          $("main").focus({ preventScroll: true });
+          window.scrollTo({ top: 0, behavior: "instant" });
+        }
+      }
+      // Pending setup allows the dashboard/results shortcut to open weakness controls.
+      let pendingWeak = false;
+      function openWeakSetup() {
+        pendingWeak = true;
+        const target = "day/5/quiz";
+        if (location.hash.slice(1) === target) {
+          render();
+          applyPending();
+        } else go(target);
+      }
+      function applyPending() {
+        if (pendingWeak && $("quiz-mode")) {
+          pendingWeak = false;
+          quizConfig.mode = "weak";
+          quizConfig.count = "10";
+          setupControls();
+        }
+      }
+      document.addEventListener("click", (event) => {
+        const el = event.target.closest("button");
+        if (!el || el.disabled) return;
+        if (el.dataset.route) {
+          go(el.dataset.route);
+          return;
+        }
+        if (el.dataset.answer !== undefined) {
+          answerQuestion(Number(el.dataset.answer));
+          return;
+        }
+        switch (el.dataset.action) {
+          case "read":
+            state.days[currentDay].read = true;
+            save();
+            render(false);
+            toast("บันทึกว่าอ่านจบแล้ว");
+            break;
+          case "flip":
+            flip();
+            break;
+          case "flash-prev":
+            moveFlash(-1);
+            break;
+          case "flash-next":
+            moveFlash(1);
+            break;
+          case "start-quiz":
+            startQuiz(quizConfig.mode, quizConfig.day, quizConfig.count);
+            break;
+          case "next-question":
+            nextQuestion();
+            break;
+          case "comprehensive":
+            startQuiz("mixed", 5, "20");
+            break;
+          case "weak-setup":
+            openWeakSetup();
+            break;
+          case "retry": {
+            const s = state.active;
+            if (s) startQuiz(s.mode, s.day, String(s.items.length));
+            break;
+          }
+          case "reset-all":
+            confirmAction(
+              "รีเซ็ตข้อมูลทั้งหมด?",
+              "ความคืบหน้า คะแนน สถิติการจำ และชุดข้อสอบที่ค้างของ Fibre Ready จะถูกลบ โดยไม่กระทบข้อมูลแอปอื่น",
+              () => {
+                try {
+                  localStorage.removeItem(STORAGE_KEY);
+                } catch (error) {
+                  storageWarning(
+                    "ไม่สามารถลบข้อมูลที่บันทึกได้ กรุณาตรวจสิทธิ์พื้นที่เก็บข้อมูลของเบราว์เซอร์",
+                  );
+                  return;
+                }
+                state = freshState();
+                pendingWeak = false;
+                save();
+                go("dashboard");
+                toast("รีเซ็ตข้อมูลของ Fibre Ready แล้ว");
+              },
+            );
+            break;
+        }
+      });
+      document.addEventListener("change", (event) => {
+        if (event.target.id === "theme-select") {
+          state.theme = event.target.value === "dark" ? "dark" : "light";
+          applyTheme();
+          if (save())
+            toast(
+              state.theme === "dark"
+                ? "บันทึกธีมมืดแล้ว"
+                : "บันทึกธีมสว่างแล้ว",
+            );
+          return;
+        }
+        if (!event.target.id.startsWith("quiz-")) return;
+        if (event.target.id === "quiz-mode")
+          quizConfig.mode = event.target.value;
+        if (event.target.id === "quiz-day")
+          quizConfig.day = Number(event.target.value);
+        if (event.target.id === "quiz-count")
+          quizConfig.count = event.target.value;
+        setupControls();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (
+          event.target.closest(".flashcard") &&
+          ["ArrowLeft", "ArrowRight"].includes(event.key)
+        ) {
+          event.preventDefault();
+          moveFlash(event.key === "ArrowLeft" ? -1 : 1);
+        }
+        const tab = event.target.closest('[role="tab"]');
+        if (
+          tab &&
+          ["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)
+        ) {
+          event.preventDefault();
+          const keys = ["content", "vocab", "quiz"],
+            index = keys.indexOf(currentTab),
+            next =
+              event.key === "Home"
+                ? 0
+                : event.key === "End"
+                  ? 2
+                  : (index + (event.key === "ArrowRight" ? 1 : 2)) % 3;
+          go(`day/${currentDay}/${keys[next]}`);
+          setTimeout(() => $("tab-" + keys[next])?.focus(), 0);
+        }
+      });
+      window.addEventListener("hashchange", () => {
+        render();
+        applyPending();
+      });
+      // Save the last page, and keep a paused quiz even when reading another lesson.
+      if (!location.hash && state.view !== "dashboard")
+        location.hash = state.view;
+      render(false);
+    </script>
+  </body>
+</html>
