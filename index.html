@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#161c17">
+  <meta name="description" content="บ้านกระจก นิยายโต้ตอบภาษาไทย เรื่องของคนสามคนที่ชีวิตเดินต่อทุกครั้งที่เปลี่ยนฉาก">
+  <title>บ้านกระจก · Love</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="story/brain.js"></script>
+  <script defer src="story/engine.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <header class="topbar"><div class="site-width top-inner">
+    <button class="brand" type="button" data-action="home" aria-label="บ้านกระจก หน้าหลัก"><span class="brand-mark" aria-hidden="true"></span><span>บ้านกระจก</span></button>
+    <nav aria-label="เมนูเกม">
+      <button type="button" class="nav-button" data-action="cast">ตัวละคร</button>
+      <button type="button" class="nav-button" data-action="journal" id="journal-nav" hidden>บันทึก</button>
+      <button type="button" class="nav-button outlined" data-action="saves">เซฟเกม</button>
+    </nav>
+  </div></header>
+  <main id="app"></main>
+  <footer class="site-footer"><div class="site-width"><span>บ้านกระจก</span><span>นิยายโต้ตอบ</span></div></footer>
+  <dialog id="panel" aria-labelledby="panel-title">
+    <div class="panel-head"><h2 id="panel-title"></h2><button type="button" data-action="close" class="icon-button" aria-label="ปิด">×</button></div>
+    <div class="panel-body" id="panel-body"></div>
+  </dialog>
+  <div class="toast" id="toast" role="status" hidden></div>
+</body>
+</html>

@@ -1,0 +1,213 @@
+# ภาพของ Love · บ้านกระจก
+
+ภาพ 35 ภาพสร้างด้วย ImageGen แบบ built-in และบันทึกเป็น WebP ที่ `assets/scenes/` ภาพที่มีตัวละครใช้ไฟล์ต้นฉบับประจำตัวประกอบการสร้าง
+
+## หน้าปก บ้านกระจก
+
+[cover.webp](scenes/cover.webp)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Scene: a long, narrow mid-century Bangkok shophouse courtyard with a lived-in teak rear room and a real greenhouse-like glass annex, built onto a family home. Plant shadows, striped green awning, wilting bouquet in galvanized bucket, a warm lamp next to fogged glass just before nightfall. Camera from the open street looking in. Space for an interface on the left, photo detail strongest on right. No people. Wide editorial 16:9 frame with a darker, softly detailed left half reserved for interface text. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ลานบ้านกระจกก่อนฝน
+
+[prologue.webp](scenes/prologue.webp)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Scene: a small private Bangkok shophouse courtyard on a late rainy afternoon. Wet terracotta tiles, louvre windows and a long teak table, three small white envelopes near open door and an old brass key, modest potted plants, cyan rain reflections with amber lamp inside. Eye-level camera looking across table toward glass annex. No people. Landscape 16:9 cinematic still at natural standing eye level. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## เช้าวันสำรวจ
+
+[01-house.webp](scenes/01-house.webp)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Scene: tropical rain just ended at a modest family-run Bangkok house with a glass annex. Open projecting wooden door and a delivery cart with small closed cardboard boxes, a narrow aisle of pale green plants with wet edges, daylight on cream plaster. No people. Landscape 16:9 cinematic still at natural standing eye level. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ไฟในบ้านหลังคนเลิกงาน
+
+[02-house.webp](scenes/02-house.webp)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Scene: view along a narrow Bangkok shophouse back lane just after business hours, a faded jade door with a frosted glass upper panel, two umbrellas drying beside it, far light from the family-run glass annex, warm golden interior, muted rainy dusk, no people. Landscape 16:9 cinematic still at natural standing eye level. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## โต๊ะที่เตรียมไว้ให้คนมา
+
+[03-house.webp](scenes/03-house.webp)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Scene: a courtyard dining table outside an old glass conservatory in the city, a pale paper takeout parcel, translucent jasmine tea in two ordinary ceramic cups, warm midday light, potted plants and modest fabric awning. No people. Landscape 16:9 cinematic still at natural standing eye level. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## โต๊ะลงชื่อ
+
+[04-house.webp](scenes/04-house.webp)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Scene: small shared community planning table of a Bangkok family house, neat old receipt books and three plain envelopes, dried jasmine petal next to a pencil, evening sun at a low angle through grid windows, hidden corners natural, no legible text and no people. Landscape 16:9 cinematic still at natural standing eye level. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ทางเดินหลังฝน
+
+[05-house.webp](scenes/05-house.webp)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Scene: glass annex seen from a covered corridor on a heavy tropical rain evening. Two pairs of ordinary shoes by a chalky green door, the translucent glass glowing honey yellow, a curtain half thrown, warm intimate uncertainty; no silhouettes or people. Landscape 16:9 cinematic still at natural standing eye level. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## วันที่เอาเอกสารมาคืน
+
+[06-house.webp](scenes/06-house.webp)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Scene: counter near the rear windows of a renovated Bangkok shophouse, brown envelopes, old key with a removable cloth tag and two water glasses, damp window from last night's rain, natural late morning light, no people. Landscape 16:9 cinematic still at natural standing eye level. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## คืนเตรียมเปิดบ้าน
+
+[07-house.webp](scenes/07-house.webp)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Scene: open glass annex at a small renovated family property, warm little practical lamps and stacked pale wooden chairs, an empty display plinth, tables covered with raw linen, paper-and-plant shadows on real walls, evening, no people. Landscape 16:9 cinematic still at natural standing eye level. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## วันเปิดบ้านกระจก
+
+[08-house.webp](scenes/08-house.webp)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Scene: Bangkok neighborhood house and glass annex on a porch prepared for a small, intimate daytime community opening with a vased single stem, bread on a serving stand, framed analog photographs with indistinct faces, sunlight flooded, approachable and lived-in, no people. Landscape 16:9 cinematic still at natural standing eye level. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## หลังแขกกลับ
+
+[epilogue.webp](scenes/epilogue.webp)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Scene: glass annex after a small family open-house, blue twilight in Bangkok, drying bunch of flowers near a window, one half-empty clear water glass and one empty teak chair, tiny warm table lamp, reflection of a quiet lane, no people. Landscape 16:9 cinematic still at natural standing eye level. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ดารินที่ม้านั่งปลายชาน
+
+[01-d.webp](scenes/01-d.webp) · [ภาพหลัก](../1.png)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 29. Preserve the reference subject's defining eyes, upright nose, soft oval face, dark long loose wavy hair and wispy full fringe. Naturally fuller silhouette under ordinary modest clothes. Cool, self-possessed freelance photographer. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: fitted but modest ivory short-sleeved buttoned blouse, dark trousers, crouched by an old camera bag inspecting a brass key caught in the hinge of a sunlit slatted wooden bench, house glass annex in background. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ดารินหน้าห้องล้างรูป
+
+[02-d.webp](scenes/02-d.webp) · [ภาพหลัก](../1.png)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 29. Preserve the reference subject's defining eyes, upright nose, soft oval face, dark long loose wavy hair and wispy full fringe. Naturally fuller silhouette under ordinary modest clothes. Cool, self-possessed freelance photographer. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: dark indigo button-up over plain ivory tank with camera strap, in doorway of a narrow analog darkroom with deep brown shelves and restrained red safelight, she holds the door partway and looks at the viewer to ask for a moment. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ดารินที่โต๊ะชา
+
+[03-d.webp](scenes/03-d.webp) · [ภาพหลัก](../1.png)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 29. Preserve the reference subject's defining eyes, upright nose, soft oval face, dark long loose wavy hair and wispy full fringe. Naturally fuller silhouette under ordinary modest clothes. Cool, self-possessed freelance photographer. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: dusty denim overshirt, two glass cups of amber tea on a teak courtyard table in warm daylight, she reaches over to turn a torn sketch page, a rare shy smile, brunette fringe matches reference. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ดารินดูรูปที่ขอบขาด
+
+[04-d.webp](scenes/04-d.webp) · [ภาพหลัก](../1.png)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 29. Preserve the reference subject's defining eyes, upright nose, soft oval face, dark long loose wavy hair and wispy full fringe. Naturally fuller silhouette under ordinary modest clothes. Cool, self-possessed freelance photographer. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: dark olive buttoned shirt, sitting angled beside a contact sheet and a framed photograph face-down in a warmly lit studio, tense eyes looking at a torn corner, green glass reflection in distance. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ดารินใต้ร่มที่รออยู่
+
+[05-d.webp](scenes/05-d.webp) · [ภาพหลัก](../1.png)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 29. Preserve the reference subject's defining eyes, upright nose, soft oval face, dark long loose wavy hair and wispy full fringe. Naturally fuller silhouette under ordinary modest clothes. Cool, self-possessed freelance photographer. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: ordinary dark brown cotton jacket over pale top, under a corrugated awning in misty drizzle, holding one folded umbrella and looking toward a second umbrella in the distance, close camera as if the viewer has just arrived. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ดารินกับซองเก็บภาพ
+
+[06-d.webp](scenes/06-d.webp) · [ภาพหลัก](../1.png)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 29. Preserve the reference subject's defining eyes, upright nose, soft oval face, dark long loose wavy hair and wispy full fringe. Naturally fuller silhouette under ordinary modest clothes. Cool, self-possessed freelance photographer. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: linen shirt with rolled sleeves, opens a plain beige archival envelope under a small practical lamp beside an unused spare key, old photo enlarger on a desk in soft focus, face in relaxed profile and visible. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ดารินเตรียมแขวนรูป
+
+[07-d.webp](scenes/07-d.webp) · [ภาพหลัก](../1.png)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 29. Preserve the reference subject's defining eyes, upright nose, soft oval face, dark long loose wavy hair and wispy full fringe. Naturally fuller silhouette under ordinary modest clothes. Cool, self-possessed freelance photographer. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: high-neck slate shirt, standing at the glass annex wall at dusk, holding a narrow unmarked brass clip while fitting a framed analog print onto a rail, face turned back to viewer. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ดารินกับรูปสุดท้าย
+
+[08-d.webp](scenes/08-d.webp) · [ภาพหลัก](../1.png)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 29. Preserve the reference subject's defining eyes, upright nose, soft oval face, dark long loose wavy hair and wispy full fringe. Naturally fuller silhouette under ordinary modest clothes. Cool, self-possessed freelance photographer. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: modest white tailored blouse and charcoal trousers, seated near the finishing end of a small photographic exhibition inside the garden glass annex in amber afternoon light, one blank hanger and an open door beyond. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ใบชาที่โต๊ะลองขนม
+
+[01-b.webp](scenes/01-b.webp) · [ภาพหลัก](../2.jpg)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 28. Preserve the reference subject's recognizable eyes, small facial proportions, chin and dark straight layered shoulder-blade-length hair with side-swept wispy fringe. Naturally slight upper-body silhouette under ordinary clothes. Open, gentle adult baker. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: modest blue plaid pinafore over an ivory cotton crewneck top, black straight layered hair and a few loose wisps, beside a narrow shophouse pastry display, extends a wrapped bun across counter, cool green garden beyond. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ใบชาหน้าเตาอบ
+
+[02-b.webp](scenes/02-b.webp) · [ภาพหลัก](../2.jpg)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 28. Preserve the reference subject's recognizable eyes, small facial proportions, chin and dark straight layered shoulder-blade-length hair with side-swept wispy fringe. Naturally slight upper-body silhouette under ordinary clothes. Open, gentle adult baker. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: blue work apron over a plain close-neck ivory tee, checking a covered baking tray in an old shophouse kitchen, paper slip facedown under stainless bowl, cool window rim light and amber practical lamp. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ใบชากับถุงขนมริมถนน
+
+[03-b.webp](scenes/03-b.webp) · [ภาพหลัก](../2.jpg)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 28. Preserve the reference subject's recognizable eyes, small facial proportions, chin and dark straight layered shoulder-blade-length hair with side-swept wispy fringe. Naturally slight upper-body silhouette under ordinary clothes. Open, gentle adult baker. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: pale cornflower blouse with long sleeves, seated on a side stool after closing, hands holding a folded kraft bakery parcel, candid hopeful eye contact, rainy blue exterior and palm leaf shadow. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ใบชาตรวจสมุดแป้ง
+
+[04-b.webp](scenes/04-b.webp) · [ภาพหลัก](../2.jpg)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 28. Preserve the reference subject's recognizable eyes, small facial proportions, chin and dark straight layered shoulder-blade-length hair with side-swept wispy fringe. Naturally slight upper-body silhouette under ordinary clothes. Open, gentle adult baker. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: simple muted blue work shirt and canvas apron, eyes on a battered baking ledger lying near two unmarked receipts, face visible, overcast afternoon kitchen light, one tray where a bun is missing. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ใบชาหลังเคาน์เตอร์
+
+[05-b.webp](scenes/05-b.webp) · [ภาพหลัก](../2.jpg)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 28. Preserve the reference subject's recognizable eyes, small facial proportions, chin and dark straight layered shoulder-blade-length hair with side-swept wispy fringe. Naturally slight upper-body silhouette under ordinary clothes. Open, gentle adult baker. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: pale navy apron over cream knit top, stands in an ordinary Bangkok pastry shop at blue hour, one cup set aside on a shelf, she has turned away from a phone screen, quietly torn expression, pendant lighting. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ใบชาที่โต๊ะปิดร้าน
+
+[06-b.webp](scenes/06-b.webp) · [ภาพหลัก](../2.jpg)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 28. Preserve the reference subject's recognizable eyes, small facial proportions, chin and dark straight layered shoulder-blade-length hair with side-swept wispy fringe. Naturally slight upper-body silhouette under ordinary clothes. Open, gentle adult baker. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: cream shirt and sage apron, at a small bread packing table, turns an unlabelled cardboard box with two hands, steady candid gaze in warm linoleum kitchen, photo from across table. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ใบชาทดลองจัดโต๊ะขนม
+
+[07-b.webp](scenes/07-b.webp) · [ภาพหลัก](../2.jpg)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 28. Preserve the reference subject's recognizable eyes, small facial proportions, chin and dark straight layered shoulder-blade-length hair with side-swept wispy fringe. Naturally slight upper-body silhouette under ordinary clothes. Open, gentle adult baker. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: dusty blue plaid buttoned blouse and apron, setting plain white plates along a linen-draped open-house table with bread and quiet candlelight at dusk. She has stopped arranging plates to look at camera. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## ใบชาหลังขนมขายหมด
+
+[08-b.webp](scenes/08-b.webp) · [ภาพหลัก](../2.jpg)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 28. Preserve the reference subject's recognizable eyes, small facial proportions, chin and dark straight layered shoulder-blade-length hair with side-swept wispy fringe. Naturally slight upper-body silhouette under ordinary clothes. Open, gentle adult baker. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: blue linen top and ivory canvas apron, sunlight on natural face in the glass annex after an open house, wipes a nearly empty plate with a clean cloth, looks gently but directly at viewer, a second stool to side. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## เฟื่องที่โต๊ะดอกไม้
+
+[01-f.webp](scenes/01-f.webp) · [ภาพหลัก](../3.jpg)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 26. Preserve the reference subject's bright eyes, smile, oval face and dark chestnut hair in a loose low bun with face-framing strands. Average natural silhouette under ordinary clothes. Expressive, cheerful florist. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: cream linen blouse with modest neckline and crimson-brown apron, holding one orange flower in a bright Bangkok shophouse home kitchen with a basket of citrus fruit, friendly unposed half-smile. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## เฟื่องที่หน้าต่างเตรียมดอก
+
+[02-f.webp](scenes/02-f.webp) · [ภาพหลัก](../3.jpg)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 26. Preserve the reference subject's bright eyes, smile, oval face and dark chestnut hair in a loose low bun with face-framing strands. Average natural silhouette under ordinary clothes. Expressive, cheerful florist. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: ivory boatneck cotton top and ochre apron, floral shears resting on a table as she checks cash receipt-like white sheet beside a bucket of stems, dim quiet dusk in the family house. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## เฟื่องสอนมัดช่อ
+
+[03-f.webp](scenes/03-f.webp) · [ภาพหลัก](../3.jpg)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 26. Preserve the reference subject's bright eyes, smile, oval face and dark chestnut hair in a loose low bun with face-framing strands. Average natural silhouette under ordinary clothes. Expressive, cheerful florist. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: cream striped short-sleeved shirt and tan apron, hands tying a practical bouquet at a concrete shop counter in afternoon light, she looks up with an amused but vulnerable expression, distinctive low chestnut bun. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## เฟื่องกับแฟ้มของที่บ้าน
+
+[04-f.webp](scenes/04-f.webp) · [ภาพหลัก](../3.jpg)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 26. Preserve the reference subject's bright eyes, smile, oval face and dark chestnut hair in a loose low bun with face-framing strands. Average natural silhouette under ordinary clothes. Expressive, cheerful florist. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: muted yellow linen top with sleeves, sitting by glass frontage with a plain envelope and closed gray folder, a hand steadies it. Warm side light and jars of stems, she pauses mid-sentence and looks away. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## เฟื่องที่โต๊ะข้าวหลังร้าน
+
+[05-f.webp](scenes/05-f.webp) · [ภาพหลัก](../3.jpg)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 26. Preserve the reference subject's bright eyes, smile, oval face and dark chestnut hair in a loose low bun with face-framing strands. Average natural silhouette under ordinary clothes. Expressive, cheerful florist. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: cream long-sleeved cotton shirt, sitting beside an untouched takeaway meal under a covered wooden corridor, warm backlight and long raindrops behind her, she looks momentarily too tired to smile. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## เฟื่องเปิดซองสัญญา
+
+[06-f.webp](scenes/06-f.webp) · [ภาพหลัก](../3.jpg)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 26. Preserve the reference subject's bright eyes, smile, oval face and dark chestnut hair in a loose low bun with face-framing strands. Average natural silhouette under ordinary clothes. Expressive, cheerful florist. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: off-white modest blouse and olive apron, shophouse worktable in late morning, her hands spread several plain papers and she looks at the viewer as if correcting a misconception, window reflections and small vase. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## เฟื่องจัดดอกไม้ก่อนเปิดบ้าน
+
+[07-f.webp](scenes/07-f.webp) · [ภาพหลัก](../3.jpg)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 26. Preserve the reference subject's bright eyes, smile, oval face and dark chestnut hair in a loose low bun with face-framing strands. Average natural silhouette under ordinary clothes. Expressive, cheerful florist. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: soft apricot tailored blouse and cream canvas apron, inside glass conservatory at evening, shows one asymmetrical flower arrangement on a bench and smiles for real but with slight fatigue, careful identity matching. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
+
+## เฟื่องเก็บกุญแจร้าน
+
+[08-f.webp](scenes/08-f.webp) · [ภาพหลัก](../3.jpg)
+
+> Use case photorealistic-natural. Create a live-action still for an adult Thai romantic visual novel, true photography only. Reference image role: face and appearance continuity for the same fictional adult character. Adult woman age 26. Preserve the reference subject's bright eyes, smile, oval face and dark chestnut hair in a loose low bun with face-framing strands. Average natural silhouette under ordinary clothes. Expressive, cheerful florist. The exact visual identity anchored by the reference should remain easily recognizable across scenes. Use everyday clothing, no sexualization or glamour posing. Scene: adult woman in modest white blouse with pale blue trousers, relaxed low bun, untying ribbon from an empty table at house opening after the last customer, one brass key with green cloth tag, amber side light and generous quiet background. Landscape 3:2 frame, chest or waist up at eye level with the face near upper-middle and clearly visible. Subject large enough to read on a phone. Natural skin and real surface textures, 35mm editorial photography, believable present-day Bangkok materials and tropical light, gentle warm highlights, forest green and muted cream accents. Emotional human drama, no horror, no text, no graphics, no watermark.
