@@ -137,10 +137,10 @@
     const house = brain.house[episode];
     const text = event.text.slice();
     if (p.visits === 0 && episode > 2) {
-      text.unshift(`หลายวันแล้วที่ผมเห็น${brain.characters[id].name}จากอีกฟากของบ้าน แต่วันนี้เพิ่งมีเวลาคุยเรื่องของเธอจริง ๆ`);
+      text.unshift(`ผมแวะมาที่บ้านหลายครั้งแล้ว วันนี้เพิ่งได้คุยกับ${brain.characters[id].name}ตามลำพัง`);
     } else if (p.lastSeen && episode - p.lastSeen > 1) {
       const previous = brain.house[p.lastSeen].day;
-      text.unshift(`ผ่านไป ${house.day - previous} วันตั้งแต่ผมได้คุยกับ${brain.characters[id].name}ตามลำพัง เรื่องที่เธอทำระหว่างนั้นยังคืบหน้าไปแม้ผมไม่ได้อยู่ด้วย`);
+      text.unshift(`ผมไม่ได้คุยกับ${brain.characters[id].name}ตามลำพังมา ${house.day - previous} วันแล้ว`);
     }
     if (event.branch) {
       const mode = p.other ? 'other' : p.missed > 0 && p.mood < 3 ? 'missed' : p.love >= 9 ? 'steady' : 'neutral';
@@ -207,26 +207,26 @@
         if (truth && p.other) p.truthShown = true;
         response += ` ${line}`;
       } else {
-        response += ' เธอขอเก็บเรื่องนั้นไว้จนกว่าจะรู้สึกว่าคุยกันได้โดยไม่ถูกสรุปแทน';
+        response += ' เธอบอกว่ายังไม่พร้อมเล่า เอาไว้คุยกันตอนที่ผมพร้อมฟังเธอจนจบดีกว่า';
       }
     }
     if (choice.appoint) p.appointment = state.episode + 1;
     if (choice.commit && id !== 'f' && p.love >= 8 && !p.other) {
       p.committed = true;
-      response += ' เราตกลงเริ่มคบกันและบอกกันก่อนหากความรู้สึกเปลี่ยน';
+      response += ' เราตกลงคบกัน ถ้าวันไหนใครเปลี่ยนใจ จะบอกอีกคนตรง ๆ';
       const next = brain.house[state.episode + 1];
       if (next) {
         p.appointment = state.episode + 1;
-        response += ` ผมรับนัดจะมาหาเธอ ${dateLabel(next.day)}`;
+        response += ` ผมตกลงว่าจะมาหาเธอวันที่ ${dateLabel(next.day)}`;
       }
     } else if (choice.commit) {
-      response += ' เธอบอกว่ายังขอเวลาและอยากให้เราคุยกันอีกก่อนจะเรียกว่าคบกัน';
+      response += ' เธอขอเวลาอีกหน่อย อยากคุยกันให้มากกว่านี้ก่อนจะตกลงคบกัน';
     }
     if (state.help.id === id) {
       if (state.episode === aid && choice.aidWork) {
         state.help.acted = true;
         p.appointment = follow;
-        response += ` เรานัดคุยผลอีกครั้ง ${dateLabel(brain.house[follow].day)}`;
+        response += ` เรานัดคุยกันอีกทีวันที่ ${dateLabel(brain.house[follow].day)}`;
       }
       if (state.episode === follow && state.help.acted && choice.aidFollow) state.help.followed = true;
       if (state.episode === pool && choice.poolTalk && stillHasTime(state,id,false)) state.help.poolTalk = true;
@@ -235,11 +235,11 @@
       const speech = brain.voice[id];
       response = state.episode === pool
         ? p.intimacy.affair ? speech.hesitation : speech.boundary
-        : p.intimacy.affair ? 'เธอขอโทษแล้วเก็บคำตอบที่เหลือไว้ สายตาค้างอยู่ที่ของในมือแทนที่จะมองผม' : 'เธอบอกว่าจะกลับไปหาคนที่นัดไว้ แล้วลุกไปโดยยังไม่มีนัดครั้งถัดไปของเรา';
+        : p.intimacy.affair ? 'เธอพูดขอโทษเบา ๆ แล้วเงียบไป สายตายังอยู่ที่ของในมือ ไม่ยอมสบตาผม' : 'เธอบอกว่ามีคนนัดไว้แล้ว คุยได้แค่นี้ จากนั้นก็ลุกไป';
     }
     if (choice.end && p.committed && !p.intimacy) {
       p.committed = false;
-      response += ' ผมบอกให้ชัดว่าขอจบความสัมพันธ์ตรงนี้';
+      response += ' ผมบอกเธอว่าเราคงต้องเลิกกันตรงนี้';
     }
     const record = state.records.at(-1);
     record.selected = choice.label;

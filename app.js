@@ -105,7 +105,7 @@
     const exists = slots.some(id => readSlot(id));
     app.innerHTML = `<section class="hero"><img class="hero-img" src="${art('cover')}" alt="" fetchpriority="high">
       <div class="site-width hero-copy"><div><p class="small-label" lang="en">LOVE · THE GLASS HOUSE</p><h1 tabindex="-1">${title}</h1>
-      <p class="lead">ผมกลับมาช่วยเปิดบ้านของอา แล้วพบว่าระหว่างที่ผมอยู่กับคนหนึ่ง อีกสองคนก็มีคำตอบของตัวเองรออยู่</p>
+      <p class="lead">ผมกลับมาช่วยอาจัดงานที่บ้านกระจก ได้เจอทั้งคนที่เพิ่งรู้จักและคนที่ไม่ได้คุยกันมาหลายปี พอถึงคืนที่ทั้งสามคนต้องการความช่วยเหลือ ผมกลับมีเวลาอยู่ข้างใครได้แค่คนเดียว</p>
       <div class="actions"><button type="button" class="button primary" data-action="new">เริ่มเรื่องใหม่</button><button type="button" class="button ghost" data-action="saves">${exists ? 'เล่นต่อ' : 'ช่องเซฟ'}</button></div>
       <p class="caption">จากฮาโลวีนถึงปีใหม่ · คุณมีเวลาช่วยได้เพียงคนเดียว</p></div></div></section>
       <section class="cast-section site-width"><h2>คนที่กานต์จะได้พบ</h2><div class="cast-grid">${keys.map(id => castCard(id)).join('')}</div></section>`;
