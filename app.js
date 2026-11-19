@@ -1,10 +1,11 @@
 (() => {
-  const {characters,rivals,title,house,timeline} = globalThis.LoveBrain;
+  const {characters,rivals,title,house,timeline,past} = globalThis.LoveBrain;
   const game = globalThis.LoveGame;
   const keys = Object.keys(characters);
   const app = document.querySelector('#app');
   const panel = document.querySelector('#panel');
   const panelBody = document.querySelector('#panel-body');
+  const zoomPanel = document.querySelector('#zoom-panel');
   const keyPrefix = 'love-glass-house-v1-';
   const slots = [1,2,3,4];
   const memory = new Map();
@@ -23,7 +24,7 @@
     if (memory.has(index)) return memory.get(index);
     try {
       const entry = JSON.parse(localStorage.getItem(keyPrefix + index));
-      if (entry?.run?.version === 1 && entry.run.records?.length && entry.run.people && entry.run.notes && entry.run.evidence) return entry;
+      if ([1,2].includes(entry?.run?.version) && entry.run.records?.length && entry.run.people && entry.run.notes && entry.run.evidence) return entry;
     } catch {
       return null;
     }
@@ -70,6 +71,31 @@
       <span class="card-meta"><strong>${option ? escape(option.label) : character.name}</strong><small>${option ? character.link : character.job}</small></span></button>`;
   }
 
+  function scenePicture(image, label) {
+    return `<button type="button" class="scene-picture" data-action="zoom" data-value="${image}" data-title="${escape(label)}" aria-label="ขยายภาพ${escape(label)}">
+      <img src="${art(image)}" alt="${escape(label)}" loading="lazy"><span class="zoom-badge" aria-hidden="true">ขยายภาพ</span></button>`;
+  }
+
+  function zoom(image, label) {
+    if (!/^[a-z0-9-]+$/.test(image)) return;
+    const picture = document.querySelector('#zoom-image');
+    document.querySelector('#zoom-title').textContent = label;
+    picture.src = art(image);
+    picture.alt = label;
+    if (!zoomPanel.open) zoomPanel.showModal();
+    magnify(false);
+  }
+
+  function magnify(enabled) {
+    const area = zoomPanel.querySelector('.zoom-viewport');
+    const toggle = zoomPanel.querySelector('[data-action=toggle-zoom]');
+    area.classList.toggle('magnified',enabled);
+    toggle.setAttribute('aria-pressed',String(enabled));
+    toggle.textContent = enabled ? 'ย่อให้พอดี' : 'ขยาย 2 เท่า';
+    area.scrollTop = enabled ? (area.scrollHeight - area.clientHeight) / 2 : 0;
+    area.scrollLeft = enabled ? (area.scrollWidth - area.clientWidth) / 2 : 0;
+  }
+
   function home() {
     state = null;
     slot = null;
@@ -97,9 +123,9 @@
     app.innerHTML = `<section class="reader site-width">
       <div class="reader-meta"><span>${game.dateLabel(record.day)} · ${record.time} น.</span><button type="button" class="button small ghost" data-action="flow">ผังเส้นทาง</button></div>
       <div class="reader-meter" aria-hidden="true"><span style="width:${pct}%"></span></div>
-      <header class="chapter-banner${festivalPortrait ? ' festival-portrait' : ''}"><img src="${art(record.art)}" alt="ภาพฉาก${escape(record.title)}" fetchpriority="high"><div>
+      <header class="chapter-banner${festivalPortrait ? ' festival-portrait' : ''}"><img src="${art(record.art)}" alt="ภาพฉาก${escape(record.title)}" fetchpriority="high">
+        <button type="button" class="banner-zoom" data-action="zoom" data-value="${record.art}" data-title="${escape(record.title)}" aria-label="ขยายภาพ${escape(record.title)}"><span class="zoom-badge" aria-hidden="true">ขยายภาพ</span></button><div>
         <p>${escape([who?.name, tag || record.place].filter(Boolean).join(' · '))}</p><h1 tabindex="-1">${escape(record.title)}</h1></div></header>
-      ${festivalPortrait ? `<div class="image-actions"><a href="${art(record.art)}" target="_blank" rel="noopener">ดูภาพฉากเต็ม</a></div>` : ''}
       <div class="chapter-text">${record.reply ? `<aside class="reply"><strong>ต่อจากที่คุยกับ${escape(record.reply.who)}</strong><p>${escape(record.reply.text)}</p></aside>` : ''}
         <article class="prose">${paragraphs(record.text)}</article>${controls(record)}</div></section>`;
     atTop();
@@ -114,14 +140,14 @@
       return `<section class="next"><button type="button" class="button primary" data-action="step" data-value="begin">ไปวันที่ ${game.dateLabel(house[1].day)}</button></section>`;
     }
     if (record.phase === 'house') {
-      return `<section class="next">${record.aidNight ? '<h2>คืนนี้ผมจะรับปากช่วยใคร</h2><p class="aid-explain">เลือกได้คนเดียวต่อเซฟ กานต์ต้องลงมือคืนนี้ กลับมาตามนัดในตลาดปลายปี และคุยให้จบในคืนคริสต์มาส</p>' : '<h2>ตอนนี้ผมจะไปหาใคร</h2>'}
+      return `<section class="next">${record.aidNight ? '<h2>คืนนี้ผมจะรับปากช่วยใคร</h2><p class="aid-explain">เลือกได้คนเดียวต่อเซฟ ลงมือคืนนี้ กลับมาตามนัดในตลาดปลายปี คุยตรง ๆ ในวันพักริมสระ แล้วกลับมาคุยให้จบในคืนคริสต์มาส</p>' : '<h2>ตอนนี้ผมจะไปหาใคร</h2>'}
         <div class="cast-grid">${record.options.filter(item => item.who).map(item => castCard(item.who,item)).join('')}</div>
         ${record.aidNight ? '<button type="button" class="button ghost ending-actions" data-action="step" data-value="decline-help">ให้ทั้งสามคนจัดการเอง</button>' : ''}</section>`;
     }
     if (record.phase === 'ending') {
       const legacy = !state.resolutions && state.episode < timeline.aid;
       return `<section class="next">${routeOutcomes()}
-        <div class="actions"><button type="button" class="button primary" data-action="${legacy ? 'extend' : 'flow'}">${legacy ? 'เล่นต่อคืนฮาโลวีน' : 'ดูผังเส้นทางที่เล่น'}</button>
+        <div class="actions"><button type="button" class="button${legacy ? ' primary' : ''}" data-action="${legacy ? 'extend' : 'flow'}">${legacy ? 'เล่นต่อคืนฮาโลวีน' : 'ดูผังเส้นทางที่เล่น'}</button>${behindButton()}
         <button type="button" class="button" data-action="new">เริ่มเรื่องใหม่</button><button type="button" class="button ghost" data-action="home">กลับหน้าหลัก</button></div></section>`;
     }
     return `<section class="next"><h2>ผมจะตอบอย่างไร</h2><div class="response-list">${record.options.map(item => `<button type="button" class="response" data-action="step" data-value="${item.id}">${escape(item.label)}</button>`).join('')}</div></section>`;
@@ -135,7 +161,7 @@
       const saved = state.resolutions[id] === 'together';
       const alt = saved ? c.name : `${c.name}กับ${rival.name}`;
       const heading = saved ? `${c.name} · ช่วยสำเร็จ` : `${c.name}กับ${rival.name}`;
-      return `<figure class="outcome-card ${saved ? 'saved-route' : ''}" data-route="${id}"><img src="${art(saved ? `11-${id}` : rival.art)}" alt="${alt}" loading="lazy">
+      return `<figure class="outcome-card ${saved ? 'saved-route' : ''}" data-route="${id}">${scenePicture(saved ? `11-${id}` : rival.art,alt)}
         <figcaption><strong>${heading}</strong><small>${saved ? id === 'f' ? 'เฟื่องเลือกคุยต่อกับคนในบ้าน' : 'เลือกเดินต่อกับกานต์' : 'คู่ที่เกิดขึ้นเมื่อเส้นนี้พลาด'}</small></figcaption></figure>`;
     }).join('')}</div></div>`;
   }
@@ -162,7 +188,7 @@
     const helpText = !help?.decided ? 'คืนฮาโลวีนจะมีจุดให้เลือกช่วยหนึ่งคน' : help.id ? `คนที่รับปากช่วย · ${characters[help.id].name}` : 'คืนฮาโลวีนกานต์ให้ทั้งสามคนจัดการเอง';
     dialog('ผังเส้นทางของเซฟนี้',`<p class="caption">${helpText} · กดช่องสีทองเพื่อย้อนอ่านฉาก</p><ol class="flow-list">
       <li class="flow-day started"><button type="button" class="flow-date visited" data-action="history" data-value="${opening.step}">${game.dateLabel(opening.day)} · บทนำ</button></li>
-      ${days.join('')}${end}</ol>${routeOutcomes()}`);
+      ${days.join('')}${end}</ol>${routeOutcomes()}${behindButton()}`);
     const current = panelBody.querySelector('[aria-current="step"]');
     current?.scrollIntoView({block:'nearest'});
   }
@@ -194,9 +220,36 @@
   function profile(id) {
     const c = characters[id];
     if (!c) return;
-    dialog(c.name,`<div class="profile"><img src="${art(c.image)}" alt="ภาพ${c.name}"><p class="caption">${c.age} ปี · ${c.job} · ${c.link}</p><p>${escape(c.bio)}</p>
+    dialog(c.name,`<div class="profile">${scenePicture(c.image,c.name)}<p class="caption">${c.age} ปี · ${c.job} · ${c.link}</p><p>${escape(c.bio)}</p>
       <details><summary>เปิดดูนิสัยที่เธอไม่พูดตรง ๆ</summary><p>${escape(c.secret)}</p></details>
-      <div class="actions"><button type="button" class="button small" data-action="cast">ตัวละครทั้งหมด</button><a class="button small ghost" href="${c.ref}" target="_blank" rel="noopener">ดูภาพอ้างอิง</a></div></div>`);
+      <div class="actions"><button type="button" class="button primary small" data-action="past" data-value="${id}">อ่านเรื่องก่อนมาบ้านกระจก</button><button type="button" class="button small" data-action="cast">ตัวละครทั้งหมด</button><a class="button small ghost" href="${c.ref}" target="_blank" rel="noopener">ดูภาพอ้างอิง</a></div></div>`);
+  }
+
+  function showPast(id) {
+    const scene = past[id];
+    if (!scene) return;
+    dialog(scene.title,`${scenePicture(scene.art,scene.title)}<article class="prose bonus-text">${paragraphs(scene.text)}</article>
+      <button type="button" class="button small ending-actions" data-action="profile" data-value="${id}">กลับไปที่ประวัติ${characters[id].name}</button>`);
+  }
+
+  function behindButton() {
+    return keys.some(id => game.behind(state,id)) ? '<button type="button" class="button primary" data-action="behind-list">อ่านเรื่องหลังจบ</button>' : '';
+  }
+
+  function behindList() {
+    const entries = keys.flatMap(id => {
+      const scene = game.behind(state,id);
+      if (!scene) return [];
+      return [`<li class="note"><strong>${characters[id].name}กับ${rivals[id].name}</strong><p class="caption">${game.dateLabel(scene.day)} · ${escape(scene.title)}</p><button type="button" class="button small" data-action="behind" data-value="${id}">อ่านฉากลับ</button></li>`];
+    });
+    if (entries.length) dialog('เรื่องหลังจบ',`<p class="caption">เหตุการณ์ที่เกิดขึ้นในเซฟนี้ ขณะที่กานต์ไม่ได้อยู่ด้วย</p><ol class="journal-list">${entries.join('')}</ol>`);
+  }
+
+  function behind(id) {
+    const scene = game.behind(state,id);
+    if (!scene) return;
+    dialog(scene.title,`${scenePicture(scene.art,scene.title)}<p class="caption bonus-date">${game.dateLabel(scene.day)} · ${characters[id].name}กับ${rivals[id].name}</p>
+      <article class="prose bonus-text">${paragraphs(scene.text)}</article><button type="button" class="button small ending-actions" data-action="behind-list">กลับไปเรื่องหลังจบ</button>`);
   }
 
   function showCast() {
@@ -235,9 +288,15 @@
       case 'new': saves('new'); break;
       case 'saves': saves(); break;
       case 'close': panel.close(); break;
+      case 'close-zoom': zoomPanel.close(); break;
+      case 'zoom': zoom(value,button.dataset.title); break;
+      case 'toggle-zoom': magnify(button.getAttribute('aria-pressed') === 'false'); break;
       case 'cast': showCast(); break;
       case 'flow': flow(); break;
       case 'profile': profile(value); break;
+      case 'past': showPast(value); break;
+      case 'behind-list': behindList(); break;
+      case 'behind': behind(value); break;
       case 'journal': journal(value); break;
       case 'history':
         if (state?.records[index]) { historyView = index; panel.close(); read(); }
@@ -254,7 +313,13 @@
       case 'confirm-start': start(index); break;
       case 'resume': {
         const entry = readSlot(index);
-        if (entry) { state = structuredClone(entry.run); slot = index; historyView = null; panel.close(); read(); }
+        if (entry) {
+          state = game.restore(entry.run);
+          slot = index;
+          historyView = null;
+          if (entry.run.version !== state.version) writeSlot(slot,state);
+          panel.close(); read();
+        }
         break;
       }
       case 'copy':

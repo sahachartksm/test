@@ -26,6 +26,13 @@
     <div class="panel-head"><h2 id="panel-title"></h2><button type="button" data-action="close" class="icon-button" aria-label="ปิด">×</button></div>
     <div class="panel-body" id="panel-body"></div>
   </dialog>
+  <dialog id="zoom-panel" class="zoom-panel" aria-labelledby="zoom-title">
+    <div class="panel-head"><h2 id="zoom-title">ภาพฉาก</h2><div class="zoom-tools">
+      <button type="button" data-action="toggle-zoom" class="button small" aria-pressed="false">ขยาย 2 เท่า</button>
+      <button type="button" data-action="close-zoom" class="icon-button" aria-label="ปิดภาพ">×</button>
+    </div></div>
+    <div class="zoom-viewport" tabindex="0" aria-label="พื้นที่ภาพแบบเลื่อนได้"><img id="zoom-image" alt=""></div>
+  </dialog>
   <div class="toast" id="toast" role="status" hidden></div>
 </body>
 </html>

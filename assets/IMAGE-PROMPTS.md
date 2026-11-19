@@ -311,3 +311,67 @@
 [pair-f.webp](scenes/pair-f.webp) · ภาพหลัก [3.jpg](../3.jpg) · [6.jpg](../6.jpg)
 
 > Photorealistic natural live-action film still for a Thai visual novel set in a small Bangkok house with a glass annex. Image reference 1 is the heroine and image reference 2 is the male partner. Keep both faces distinct and closely recognizable. Adult 26-year-old Fueang: recognizable oval face, warm smile, chestnut hair in a loose low bun from first reference. Second adult Phim: recognizable deep brown skin, clean shaven bald head and smiling eyes, from second reference. Scene: Fueang in an ivory blouse with a copper work apron and her signature hair, Phim in a muted brick red polo and dark trousers; two adults holding the door of her independently owned flower shop with a bundle of stems, one thoughtful smile and one relaxed smile, sunrise inside courtyard. Horizontal editorial shot with high visibility of faces or location, natural eye-level. Real material textures, believable warm practical lighting and restrained green-gold color, subtle film grain. Fully clothed, no glamour retouching, no typography, no watermarks, no horror or sensationalism.
+
+## ภาพวันพักริมสระ อดีตตัวละคร และเรื่องหลังจบ
+
+สร้างด้วย ImageGen แบบ built-in และเก็บที่ `assets/scenes/`
+
+### เช้าริมสระที่บ้านพักริมน้ำ
+
+[pool-house.webp](scenes/pool-house.webp)
+
+> Create a photorealistic natural live-action landscape 3:2 film still for a Thai adult literary visual novel. Scene: Small private lodging with an outdoor tiled blue swimming pool in metropolitan Bangkok's river bend, no branded signs. A wood and glass pool pavilion with three chairs, towels drying on a teak railing, a sealed envelope on a side table, tropical light caustics and greenery, air after a light morning shower. No people. Natural human proportions, real skin and surfaces, warm editorial Bangkok light, candid emotional expression, at eye level, no text or logos, no watermarks, no sexual posing.
+
+### ดารินริมสระ
+
+[pool-d.webp](scenes/pool-d.webp) · ภาพหลัก [1.png](../1.png)
+
+> Create a photorealistic natural live-action landscape 3:2 film still for a Thai adult literary visual novel. The referenced photo is the facial identity of the fictional adult woman. Darin, a 29-year-old adult woman, oval face, dark loose long waves and wispy full fringe, cool observant expression. Preserve the visual identity and realistic proportions across scenes. She is the only person in frame. Scene: Darin in a modest matte black athletic one-piece swimsuit with cream open linen shirt and hair still dry, sitting close to a tiled pool ladder, holding a closed film envelope in one hand above the water. Adult recreational swimming scene, honest relaxed posture, grounded journalistic distance, natural light on face and architecture. Natural human proportions, real skin and surfaces, warm editorial Bangkok light, candid emotional expression, at eye level, no text or logos, no watermarks, no sexual posing.
+
+### ใบชาริมสระ
+
+[pool-b.webp](scenes/pool-b.webp) · ภาพหลัก [2.jpg](../2.jpg)
+
+> Create a photorealistic natural live-action landscape 3:2 film still for a Thai adult literary visual novel. The referenced photo is the facial identity of the fictional adult woman. Baicha, a 28-year-old adult woman, gentle eyes, slight natural build and long dark layered straight hair with side-swept fringe. Preserve her visual identity and realistic proportions. She is the only person in frame. Scene: Baicha in a modest slate-blue athletic swimdress with short swimming skirt, wrapped ivory towel around her shoulder, sitting at a pale wooden table beside a bright outdoor pool, pushes a small jar of handmade orange jam gently away from the sun. Adult recreational swim setting, plain unposed posture, airy silver blue daylight. Natural human proportions, real skin and surfaces, warm editorial Bangkok light, candid emotional expression, at eye level, no text or logos, no watermarks, no sexual posing.
+
+### เฟื่องริมสระ
+
+[pool-f.webp](scenes/pool-f.webp) · ภาพหลัก [3.jpg](../3.jpg)
+
+> Create a photorealistic natural live-action landscape 3:2 film still for a Thai adult literary visual novel. The referenced photo is the facial identity of the fictional adult woman. Fueang, a 26-year-old adult woman with expressive eyes, warm face and a low loose chestnut bun with wisps. Preserve natural proportions. She is the only person in frame. Scene: Fueang in a modest forest green athletic swimsuit with a rust floral swim wrap at the waist and low chestnut bun, standing by pool pavilion with two folded towels and a blank room keycard, looking across the water. Focus on her face, soft candid smile and story objects, relaxed unposed adult recreation. Natural human proportions, real skin and surfaces, warm editorial Bangkok light, candid emotional expression, at eye level, no text or logos, no watermarks, no sexual posing.
+
+### อดีตดารินในร้านล้างรูป
+
+[past-d.webp](scenes/past-d.webp) · ภาพหลัก [1.png](../1.png)
+
+> Create a photorealistic natural live-action landscape 3:2 film still for a Thai adult literary visual novel. The referenced photo is the facial identity of the fictional adult woman. Darin, a 29-year-old adult woman, oval face, dark loose long waves and wispy full fringe, cool observant expression. Preserve the visual identity and realistic proportions across scenes. She is the only person in frame. Scene: Darin a few years earlier, still a recognizable adult photographer, wearing a charcoal shirt and rolling up ordinary sleeves, under a warm task lamp in a lived-in Bangkok photo shop. She sets a single printed photograph and a handwritten paper facedown beside a worn envelope, sharp face and natural skin, soft daylight from back door. Natural human proportions, real skin and surfaces, warm editorial Bangkok light, candid emotional expression, at eye level, no text or logos, no watermarks, no sexual posing.
+
+### อดีตใบชาในครัวหลังร้าน
+
+[past-b.webp](scenes/past-b.webp) · ภาพหลัก [2.jpg](../2.jpg)
+
+> Create a photorealistic natural live-action landscape 3:2 film still for a Thai adult literary visual novel. The referenced photo is the facial identity of the fictional adult woman. Baicha, a 28-year-old adult woman, gentle eyes, slight natural build and long dark layered straight hair with side-swept fringe. Preserve her visual identity and realistic proportions. She is the only person in frame. Scene: Baicha as an adult, same face and straight dark hair, wearing a pale lavender long-sleeve t-shirt and cream kitchen apron. She sits at a small bakery table with an open orange and a book of recipes in early morning, waiting by a warm oven. Focus on her face, intimate candid everyday still. Natural human proportions, real skin and surfaces, warm editorial Bangkok light, candid emotional expression, at eye level, no text or logos, no watermarks, no sexual posing.
+
+### อดีตเฟื่องตอนหัดทำร้านของตัวเอง
+
+[past-f.webp](scenes/past-f.webp) · ภาพหลัก [3.jpg](../3.jpg)
+
+> Create a photorealistic natural live-action landscape 3:2 film still for a Thai adult literary visual novel. The referenced photo is the facial identity of the fictional adult woman. Fueang, a 26-year-old adult woman with expressive eyes, warm face and a low loose chestnut bun with wisps. Preserve natural proportions. She is the only person in frame. Scene: Fueang a few years earlier as a clearly adult florist in a warm cream blouse and neutral canvas apron, kneeling beside a small group of buckets in a quiet flower market shop before business opens, putting an old brass key in a clay bowl. Natural adult face with distinct loose low chestnut bun, green light through glass. Natural human proportions, real skin and surfaces, warm editorial Bangkok light, candid emotional expression, at eye level, no text or logos, no watermarks, no sexual posing.
+
+### จูบแรกนอกแสงแฟลช
+
+[secret-d.webp](scenes/secret-d.webp) · ภาพหลัก [1.png](../1.png) · [4.jpg](../4.jpg)
+
+> Create a photorealistic natural live-action landscape 3:2 film still for a Thai adult literary visual novel. Reference 1 anchors the woman and reference 2 anchors the man; show the two fictional adults as distinct people. Darin, a 29-year-old adult woman, oval face, dark loose long waves and wispy full fringe, cool observant expression. Preserve the visual identity and realistic proportions across scenes. Nat is a 30-year-old adult man with recognizable dark parted hair, slim physique and sharp eyes. Scene: Two recognizable fully clothed adults, Darin in dark buttoned shirt and Nat in black jacket, outside a small photographic studio at blue twilight. They stand close with foreheads lightly touching after a brief mutual kiss in this adult romance. A graphite key and a paper print can be seen in foreground, restrained tenderness and quiet gravity, no bedroom. Natural human proportions, real skin and surfaces, warm editorial Bangkok light, candid emotional expression, at eye level, no text or logos, no watermarks, no sexual posing.
+
+### หน้าร้านหลังเก็บถาด
+
+[secret-b.webp](scenes/secret-b.webp) · ภาพหลัก [2.jpg](../2.jpg) · [5.png](../5.png)
+
+> Create a photorealistic natural live-action landscape 3:2 film still for a Thai adult literary visual novel. Reference 1 anchors the woman and reference 2 anchors the man; show the two fictional adults as distinct people. Baicha, a 28-year-old adult woman, gentle eyes, slight natural build and long dark layered straight hair with side-swept fringe. Preserve her visual identity and realistic proportions. Tawan is a stocky 49-year-old adult man with receding dark and gray hair and kind features. Scene: Two recognizable fully clothed adults, Baicha in an ivory shirt under a blue apron, Tawan in a pale blue cotton shirt, outside a shuttered bakery just after closing. Quiet mutual romantic closeness just after their first brief kiss, their hands resting together near a paper bag on a table, natural expressions, no bedroom. Natural human proportions, real skin and surfaces, warm editorial Bangkok light, candid emotional expression, at eye level, no text or logos, no watermarks, no sexual posing.
+
+### หน้าต่างร้านที่เปิดไว้
+
+[secret-f.webp](scenes/secret-f.webp) · ภาพหลัก [3.jpg](../3.jpg) · [6.jpg](../6.jpg)
+
+> Create a photorealistic natural live-action landscape 3:2 film still for a Thai adult literary visual novel. Reference 1 anchors the woman and reference 2 anchors the man; show the two fictional adults as distinct people. Fueang, a 26-year-old adult woman with expressive eyes, warm face and a low loose chestnut bun with wisps. Preserve natural proportions. Phim is a 43-year-old adult man with deep brown skin, shaved head and a warm relaxed look. Scene: Two recognizable fully clothed adults, Fueang in a linen work shirt with an olive apron and Phim in a muted brick-red polo, at the doorway of an independent flower workshop. A tender mutual moment after a brief first kiss, a key clasped in her hand and clearly visible faces, warm overhead light and night jasmine outside, no bedroom. Natural human proportions, real skin and surfaces, warm editorial Bangkok light, candid emotional expression, at eye level, no text or logos, no watermarks, no sexual posing.

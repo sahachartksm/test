@@ -2,19 +2,19 @@
   const brain = globalThis.LoveBrain;
   const ids = Object.keys(brain.characters);
   const last = brain.house.length - 1;
-  const {aid,follow,epilogue:endDay,start:firstDate} = brain.timeline;
+  const {aid,follow,pool,epilogue:endDay,start:firstDate} = brain.timeline;
   const baseDate = Date.parse(firstDate + 'T00:00:00Z');
   const dateFormat = new Intl.DateTimeFormat('th-TH',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'});
   const dateLabel = day => dateFormat.format(baseDate + day * 86400000);
-  const newHelp = () => ({id:null,decided:false,acted:false,followed:false});
+  const newHelp = () => ({id:null,decided:false,acted:false,followed:false,poolTalk:false});
   const clamp = (value, low, high) => Math.max(low, Math.min(high, value));
-  const sceneArt = (turn, id) => `${String(turn).padStart(2,'0')}-${id}`;
+  const sceneArt = (turn, id) => `${brain.house[turn].artGroup ?? String(turn).padStart(2,'0')}-${id}`;
 
   function create() {
     return {
-      version:1, episode:0, phase:'prologue', focus:null, records:[], notes:[], evidence:[], reply:null, help:newHelp(),
+      version:2, episode:0, phase:'prologue', focus:null, records:[], notes:[], evidence:[], reply:null, help:newHelp(),
       people:Object.fromEntries(ids.map(id => [id,{love:0, risk:0, mood:0, visits:0, lastSeen:0, kept:0,
-        missed:0, away:0, appointment:null, committed:false, other:false, truthShown:false}]))
+        missed:0, away:0, appointment:null, committed:false, other:false, truthShown:false, intimacy:null}]))
     };
   }
 
@@ -28,6 +28,50 @@
     p.love = clamp(p.love + love,0,30);
     p.risk = clamp(p.risk + risk,0,20);
     p.mood = clamp(p.mood + mood,-8,8);
+  }
+
+  function markIntimacy(person, day) {
+    person.intimacy ??= {day,affair:person.committed};
+    person.other = true;
+  }
+
+  function stillHasTime(state, id, requiresPoolTalk) {
+    const {id:chosen,acted,followed,poolTalk} = state.help;
+    return chosen === id && acted && followed && !state.people[id].other && (!requiresPoolTalk || poolTalk);
+  }
+
+  function relationshipsDuringGap(state) {
+    if (state.phase !== 'house' || ![pool,last].includes(state.episode)) return;
+    const day = brain.house[state.episode].day - 1;
+    for (const id of ids) {
+      if (!stillHasTime(state,id,state.episode === last)) markIntimacy(state.people[id],day);
+    }
+  }
+
+  function restore(saved) {
+    const state = structuredClone(saved);
+    if (state.version === 2) return state;
+    state.version = 2;
+    state.help = {...newHelp(), ...state.help};
+    for (const p of Object.values(state.people)) p.intimacy ??= null;
+    const christmas = brain.house[last];
+    if (state.episode === pool && state.records.some(r => r.day === christmas.day)) {
+      state.episode = last;
+      for (const record of [...state.records,...state.notes,...state.evidence]) {
+        if (record.episode === pool) record.episode = last;
+      }
+      for (const p of Object.values(state.people)) {
+        if (p.lastSeen === pool) p.lastSeen = last;
+        if (p.appointment === pool) p.appointment = last;
+      }
+      state.help.poolTalk = state.help.acted && state.help.followed;
+      for (const id of ids) {
+        if (state.resolutions ? state.resolutions[id] === 'other' : !stillHasTime(state,id,true)) {
+          markIntimacy(state.people[id],christmas.day - 1);
+        }
+      }
+    }
+    return state;
   }
 
   function advanceLives(state, stamp) {
@@ -102,10 +146,14 @@
       const mode = p.other ? 'other' : p.missed > 0 && p.mood < 3 ? 'missed' : p.love >= 9 ? 'steady' : 'neutral';
       if (event.branch[mode]) text.push(event.branch[mode]);
     }
-    if (episode >= follow && event.festival) {
+    if (episode >= follow && event.festival && !p.intimacy) {
       const helped = state.help?.id === id && state.help.acted;
       const line = helped ? event.festival.helped : event.festival.away;
       if (line) text.push(line);
+    }
+    if (p.intimacy) {
+      const speech = brain.voice[id];
+      text.push(p.intimacy.affair ? episode === last ? speech.hesitation : speech.affair : episode === last ? speech.boundary : speech.partner);
     }
     return {
       title:event.title, place:brain.scenePlaces[id][episode - 1], text, art:sceneArt(episode,id),
@@ -118,9 +166,11 @@
     const {focus, outcome} = state;
     const ending = brain.endings[focus][outcome];
     const text = ending.text.slice();
-    if (outcome === 'other' && state.people[focus].committed && brain.endings[focus].committed) text.push(brain.endings[focus].committed);
+    const p = state.people[focus];
+    if (outcome === 'other' && p.intimacy?.affair && brain.endings[focus].committed) text.push(brain.endings[focus].committed);
     if (outcome === 'other') {
-      const reflection = state.people[focus].truthShown ? brain.endings[focus].known : brain.endings[focus].hidden;
+      if (p.intimacy?.day > brain.house[last].day) text.push(p.intimacy.affair ? brain.voice[focus].hesitation : brain.voice[focus].boundary);
+      const reflection = p.truthShown ? brain.endings[focus].known : brain.endings[focus].hidden;
       if (reflection) text.push(reflection);
     }
     const art = outcome === 'other' ? brain.rivals[focus].art : 'newyear-house';
@@ -128,6 +178,7 @@
   }
 
   function openScene(state) {
+    relationshipsDuringGap(state);
     const scene = state.phase === 'ending' ? epilogue(state) : state.phase === 'personal' ? personal(state) : opening(state);
     const stamp = {step:state.records.length,episode:state.episode,day:scene.day,time:scene.time};
     state.records.push({...scene, ...stamp, phase:state.phase, focus:state.focus, reply:state.reply});
@@ -178,6 +229,17 @@
         response += ` เรานัดคุยผลอีกครั้ง ${dateLabel(brain.house[follow].day)}`;
       }
       if (state.episode === follow && state.help.acted && choice.aidFollow) state.help.followed = true;
+      if (state.episode === pool && choice.poolTalk && stillHasTime(state,id,false)) state.help.poolTalk = true;
+    }
+    if (p.intimacy) {
+      const speech = brain.voice[id];
+      response = state.episode === pool
+        ? p.intimacy.affair ? speech.hesitation : speech.boundary
+        : p.intimacy.affair ? 'เธอขอโทษแล้วเก็บคำตอบที่เหลือไว้ สายตาค้างอยู่ที่ของในมือแทนที่จะมองผม' : 'เธอบอกว่าจะกลับไปหาคนที่นัดไว้ แล้วลุกไปโดยยังไม่มีนัดครั้งถัดไปของเรา';
+    }
+    if (choice.end && p.committed && !p.intimacy) {
+      p.committed = false;
+      response += ' ผมบอกให้ชัดว่าขอจบความสัมพันธ์ตรงนี้';
     }
     const record = state.records.at(-1);
     record.selected = choice.label;
@@ -188,12 +250,12 @@
   }
 
   function resolveRoutes(state, requested) {
-    const {id,acted,followed} = state.help;
+    const {id} = state.help;
     const p = state.people[id];
-    const saved = id && state.focus === id && acted && followed && !requested && !p.other && p.love >= 14 && p.mood >= 2;
+    const saved = id && state.focus === id && stillHasTime(state,id,true) && !requested && p.love >= 14 && p.mood >= 2;
     state.resolutions = Object.fromEntries(ids.map(person => {
       const outcome = saved && person === id ? 'together' : 'other';
-      state.people[person].other = outcome === 'other';
+      if (outcome === 'other') markIntimacy(state.people[person],brain.house[last].day + 1);
       return [person,outcome];
     }));
     state.outcome = state.resolutions[state.focus];
@@ -202,8 +264,7 @@
   function step(previous, action) {
     const option = previous.records.at(-1).options.find(option => option.id === action);
     if (!option) throw new Error('ทางเลือกนี้ใช้กับฉากปัจจุบันไม่ได้');
-    const state = structuredClone(previous);
-    state.help ??= newHelp();
+    const state = restore(previous);
     state.records.at(-1).selected = option.label;
     if (state.phase === 'prologue') {
       state.episode = 1;
@@ -237,7 +298,7 @@
 
   function extend(previous) {
     if (previous.phase !== 'ending' || previous.resolutions || previous.episode >= aid) throw new Error('เซฟนี้อยู่ในฉบับเทศกาลแล้ว');
-    const state = structuredClone(previous);
+    const state = restore(previous);
     const oldEnding = state.records.pop();
     state.notes = state.notes.filter(note => note.step !== oldEnding.step);
     state.reply = oldEnding.reply;
@@ -250,5 +311,14 @@
     return state;
   }
 
-  globalThis.LoveGame = {start,step,extend,last,dateLabel};
+  function behind(state,id) {
+    if (state?.phase !== 'ending' || state.resolutions?.[id] !== 'other') return null;
+    const event = state.people[id]?.intimacy;
+    if (!event) return null;
+    const story = brain.hidden[id];
+    const text = event.affair && story.affair ? [...story.text,story.affair] : story.text;
+    return {...story,text,day:event.day};
+  }
+
+  globalThis.LoveGame = {start,step,extend,restore,behind,last,dateLabel};
 })();
