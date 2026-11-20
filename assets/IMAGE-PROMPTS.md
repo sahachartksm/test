@@ -421,3 +421,39 @@
 [alpha-photo-sea.webp](scenes/alpha/alpha-photo-sea.webp)
 
 > Use case: photorealistic-natural. One travel photograph of a rocky coast seen from its edge on a dark moonlit night, distant flat horizon, a thin silver trail over textured small waves, subtle haze, naturally exposed travel photography in shades of cool blue and charcoal. No people or writing. Landscape 3:2.
+
+## ภาพบทต่อของบ้านกระจก
+
+ImageGen ใน Codex สร้างภาพใหม่ 27 ภาพ เก็บใน [assets/scenes/novel](scenes/novel/) เป็น WebP
+
+ทุกภาพใช้คำสั่งร่วมต่อไปนี้ แล้วใส่รายละเอียดตามชื่อไฟล์
+
+> Photoreal cinematic environment still for the Thai visual novel Love: The Glass House, horizontal 3:2, first-person viewing angle, natural realistic 35mm grain and simple central subject for banner cropping. [Scene details] Empty space, no visible people, faces, logos, or legible text.
+
+- `alpha-return.webp` — A river ferry arriving at a tiny Bangkok landing at dusk, damp wooden bench with two plain paper ferry tickets side by side and a small camera bag. Soft gray sky and warm lights on water.
+- `alpha-promise.webp` — Inside a Thai glass-front cafe after closing, a printed photo of a ferry beside two ceramic cups, a spare key tucked under one corner of the photo, intimate warm table lamp.
+- `alpha-clue.webp` — A photographer's lit workroom seen from the open door, two overlapping transit tickets and film contact sheets left on a table, one ticket folded under the other, a zipped camera bag in soft shadow.
+- `alpha-truth.webp` — A small Thai photographer's workroom at night, two print sleeves sit next to a single printed photo turned face down on a worn wood worktable, harsh little desk lamp, bluish window.
+- `alpha-decision.webp` — At night at a Thai ferry landing, empty bench and a brown envelope left on the seat, lights across dark water, closing dock gate, strong clean central composition.
+- `alpha-ask.webp` — A pale bordered photograph flipped face down beside a drained cup, faint wet ring under both, cafe table by glass after rain, cool white dawn.
+- `alpha-rebuild.webp` — Two individual ferry tickets separated by a little gap on one pale cafe table next to a camera on a slow self-timer, dawn through a glass window, modest tender but uneasy.
+- `alpha-carry.webp` — An understated white civil wedding invitation with blank card and silver ring laid on a glass-front Bangkok cafe table, half hidden photograph of a small ferry behind it, elegant but melancholy muted dusk.
+- `alpha-leave.webp` — Bangkok apartment hallway at night, closed third floor door and old brown photo envelope sitting below it, sliver of street light, quiet narrow hall.
+- `beta-return.webp` — The landing outside a small second-floor apartment in old Bangkok in early morning, bakery paper bag tied with thin brown string, one handwritten-looking but unreadable tag, warm light from the open door.
+- `beta-promise.webp` — A corner table in a tiny Thai bakery at night, open old school notebook with blurred writing, one orange bun neatly torn in two on a white plate and two mugs.
+- `beta-clue.webp` — An industrial oven in a small Bangkok bakery after closing, two bakery bags with very different folds and a clean oven mitt, one warm light still burning deep inside.
+- `beta-truth.webp` — An almost empty tiny Thai bakery at closing, two coffee mugs on a metal tray beside an open small shipping box of buns, scuffed flour-covered counter, fluorescent light.
+- `beta-decision.webp` — At noon in an intimate Bangkok bakery, warm shop window fills plain paper order slips, a folded takeaway bag between two empty chairs and a bread knife on the side.
+- `beta-ask.webp` — Close view of one banana leaf wrapped orange bun torn carefully in half on a plain white plate in a Bangkok bakery, one half left untouched, bright low morning light.
+- `beta-rebuild.webp` — A modest Thai bakery counter with two new date tags and an untouched pair of orange buns in a simple box, brushed metal, morning window, cautious optimism.
+- `beta-carry.webp` — A few folded paper bakery bags and a single silver wedding band by a mixing bowl, Thai bakery kitchen after a small wedding party, tired fluorescent light.
+- `beta-leave.webp` — At a dim Bangkok bus stop in fine rain, an unopened kraft bakery bag on a nearby wooden bench, soft out-of-focus tail lights and muted street colors.
+- `gamma-return.webp` — Early morning inside a small Bangkok glass-front cafe, two cafe chairs at the same table, a mug and cut orange flowers in a simple water glass, a little folded blanket.
+- `gamma-promise.webp` — A rooftop at a small Bangkok home at sunset with a worn low wooden table, handwritten-looking but unreadable date book, two glasses of water, a single bright orange flower.
+- `gamma-clue.webp` — A modest flower workshop after dark in Bangkok, empty orange flower bucket, a spare brass key on the workboard, unmade bouquets on paper near a half closed door.
+- `gamma-truth.webp` — A tiny Thai independent flower studio on a rainy night, two chairs by one lamp, damp green coat hanging with a bag, orange flowers in a bucket, lived-in real textures.
+- `gamma-decision.webp` — A glass-front Thai cafe, florist's scissors and orange stem diagonally between two empty place settings at a cafe table, cool late afternoon sky outside.
+- `gamma-ask.webp` — Bouquet of orange flowers in brown paper left on a cafe chair upstairs beside a window, tie loosely undone, midday shadows in a small Bangkok home.
+- `gamma-rebuild.webp` — Two keys on separate small hooks near the front window of a Bangkok flower studio, one orange flower in a water glass, careful intimate natural daylight.
+- `gamma-carry.webp` — A dinner table in a modest Bangkok home after a small civil wedding, vase of orange flowers and simple silver ring, one place set but empty under a warm overhead bulb.
+- `gamma-leave.webp` — Inside a Bangkok glass-front cafe at night, empty sofa beside folded blanket and a small orange flower withered in a plain glass, lights turned off except door glass glow.

@@ -8,6 +8,9 @@
   const zoomPanel = document.querySelector('#zoom-panel');
   const keyPrefix = 'love-glass-house-v1-';
   const slots = [1,2,3,4];
+  const endingKey = 'love-glass-house-endings';
+  const endingScenes = Object.values(opening.scenes).filter(scene => scene.ending);
+  const unlockedEndings = new Set();
   const memory = new Map();
   let state = null;
   let slot = null;
@@ -49,6 +52,38 @@
       toast('เบราว์เซอร์นี้บันทึกลงเครื่องไม่ได้ ความคืบหน้าจะอยู่จนกว่าจะโหลดหน้าใหม่',6000);
       return false;
     }
+  }
+
+  function endingProgress(newEnding) {
+    try {
+      const stored = JSON.parse(localStorage.getItem(endingKey));
+      if (Array.isArray(stored)) stored.forEach(id => unlockedEndings.add(id));
+    } catch {
+      // Recover any endings that are still in a readable save slot.
+    }
+    for (const index of slots) {
+      const id = readSlot(index)?.run.records.at(-1).ending;
+      if (id) unlockedEndings.add(id);
+    }
+    if (newEnding) {
+      unlockedEndings.add(newEnding);
+      try { localStorage.setItem(endingKey,JSON.stringify([...unlockedEndings])); } catch {}
+    }
+    return unlockedEndings;
+  }
+
+  function showEndings() {
+    const found = endingProgress();
+    const sections = Object.entries(opening.routes).map(([id,route]) => {
+      const endings = endingScenes.filter(scene => scene.route === id);
+      const count = endings.filter(scene => found.has(scene.ending)).length;
+      const cards = endings.map(scene => found.has(scene.ending)
+        ? `<figure class="outcome-card">${scenePicture(scene.art,scene.title)}<figcaption><strong>${escape(scene.title)}</strong></figcaption></figure>`
+        : '<div class="ending-locked">ยังไม่พบ</div>').join('');
+      return `<section class="ending-group"><h3>${route.name} · ${characters[route.person].name} <small>${count} / ${endings.length}</small></h3><div class="ending-grid">${cards}</div></section>`;
+    }).join('');
+    const foundCount = endingScenes.filter(scene => found.has(scene.ending)).length;
+    dialog('ฉากจบ',`<p class="caption">พบแล้ว ${foundCount} จาก ${endingScenes.length} แบบ</p>${sections}`);
   }
 
   function toast(text,duration=2100) {
@@ -121,6 +156,7 @@
           <button type="button" class="button" data-action="saves">${exists ? 'เล่นต่อ' : 'ช่องเซฟ'}</button>
           <button type="button" class="button" data-action="flow">ผังเส้นทาง</button>
           <button type="button" class="button" data-action="cast">ตัวละคร</button>
+          <button type="button" class="button" data-action="endings">ฉากจบ</button>
         </nav>
       </div>
       <div class="title-image"><img src="${art('cafe-arrival')}" alt="คาเฟ่บ้านกระจกหลังฝนตก" fetchpriority="high"></div>
@@ -173,6 +209,14 @@
   }
 
   function openingControls(record) {
+    if (record.ending) {
+      return `<section class="next"><div class="actions">
+        <button type="button" class="button primary" data-action="endings">ดูฉากจบที่พบ</button>
+        <button type="button" class="button" data-action="journal" data-value="offscreen">อ่านเรื่องที่กานต์ไม่เห็น</button>
+        <button type="button" class="button" data-action="new">เริ่มเรื่องใหม่</button>
+        <button type="button" class="button ghost" data-action="home">กลับหน้าหลัก</button>
+      </div></section>`;
+    }
     if (!record.options.length) {
       const heading = record.prompt ?? `จบบทเปิด ${opening.routes[record.route]?.name ?? ''}`;
       return `<section class="next"><h2>${escape(heading)}</h2><div class="actions">
@@ -232,39 +276,20 @@
   }
 
   function openingFlow() {
-    const visited = new Map(state?.records.map(record => [record.sceneId,record]));
     const activeStep = historyView ?? state?.records.at(-1).step;
-    const shown = new Set();
-    const availableRoutes = new Set();
-
-    function stage(id) {
-      if (shown.has(id)) return '';
-      shown.add(id);
-      const scene = opening.scenes[id];
-      const record = visited.get(id);
-      const name = escape(scene.title);
-      const label = record
-        ? `<button type="button" class="flow-date visited" data-action="history" data-value="${record.step}"${record.step === activeStep ? ' aria-current="step"' : ''}>${name}</button>`
-        : `<span class="flow-date">${name}</span>`;
-      const choices = scene.options.map(option => {
-        const route = opening.routes[option.route];
-        if (route && !option.disabled) availableRoutes.add(option.route);
-        const status = option.disabled ? 'ยังไม่เปิด' : route ? `เข้า ${route.name}` : '';
-        const picked = record?.selected === option.label;
-        return `<li class="route-option${option.disabled ? ' locked' : ''}${picked ? ' picked' : ''}">${escape(option.label)}${status ? `<small>${escape(status)}</small>` : ''}</li>`;
-      });
-      const branches = choices.length ? `<ul class="route-options">${choices.join('')}</ul>` : '';
-      const waiting = !choices.length && scene.prompt ? `<p class="flow-choice">${escape(scene.prompt)}</p>` : '';
-      return `<li class="flow-day started">${label}${branches}${waiting}</li>` +
-        scene.options.filter(option => !option.disabled).map(option => stage(option.next)).join('');
-    }
-
-    const stages = stage(opening.start);
-    const routes = Object.entries(opening.routes).map(([id,route]) => `<li class="${availableRoutes.has(id) ? 'available' : ''}">
-      <strong>${escape(route.name)} · ${escape(characters[route.person].name)}</strong><small>${availableRoutes.has(id) ? 'เปิดเล่นบทแรก' : 'ยังไม่เปิด'}</small></li>`);
-    dialog('ผังเส้นทาง',`<ul class="route-key">${routes.join('')}</ul>
-      ${state ? '<p class="caption">กดฉากที่ผ่านแล้วเพื่อย้อนอ่าน</p>' : ''}
-      <ol class="flow-list opening-flow">${stages}</ol>`);
+    const found = endingProgress();
+    const routes = Object.entries(opening.routes).map(([id,route]) => {
+      const endings = endingScenes.filter(scene => scene.route === id);
+      const count = endings.filter(scene => found.has(scene.ending)).length;
+      return `<li class="available"><strong>${escape(route.name)} · ${escape(characters[route.person].name)}</strong>
+        <small>${escape(route.entry)}</small><small>${count} / ${endings.length} ฉากจบ</small></li>`;
+    }).join('');
+    const visits = state?.records.map(record => `<li class="flow-day started">
+      <button type="button" class="flow-date visited" data-action="history" data-value="${record.step}"${record.step === activeStep ? ' aria-current="step"' : ''}>
+        ${game.dateLabel(record.day)} · ${escape(record.title)}</button>
+      ${record.selected ? `<p class="flow-choice">${escape(record.selected)}</p>` : ''}</li>`).join('');
+    const history = visits ? `<p class="caption">กดวันที่เพื่อย้อนอ่านฉากที่ผ่านแล้ว</p><ol class="flow-list opening-flow">${visits}</ol>` : '';
+    dialog('ผังเส้นทาง',`<ul class="route-key">${routes}</ul>${history}`);
     panelBody.querySelector('[aria-current="step"]')?.scrollIntoView({block:'nearest'});
   }
 
@@ -346,12 +371,21 @@
     dialog('ตัวละคร',`${cast}<details class="partner-details"><summary>ตัวละคร 4–6</summary><div class="cast-grid">${partners.join('')}</div></details>`);
   }
 
+  function modernOffstage() {
+    const logs = state.offstage.filter(note => note.person === journalPerson).slice().reverse();
+    dialog('เรื่องที่กานต์ไม่เห็น',`<div class="actions journal-switch"><button type="button" class="button small" data-action="journal" data-value="history">ฉากที่อ่านแล้ว</button></div>
+      <label class="journal-select">ตัวละคร <select id="journal-person">${keys.map(id => `<option value="${id}"${journalPerson === id ? ' selected' : ''}>${characters[id].name}</option>`).join('')}</select></label>
+      <ol class="journal-list">${logs.map(note => `<li class="note"><strong>${game.dateLabel(note.day)} · ${note.time} น.</strong><p>${escape(note.text)}</p></li>`).join('')}</ol>`);
+  }
+
   function journal(mode='known') {
     if (!state) return;
     const modern = isOpening(state);
+    const modernEnding = modern && state.records.at(-1).ending;
+    if (modernEnding && mode === 'offscreen') return modernOffstage();
     if (modern) mode = 'history';
     const views = [ ['known','เบาะแส'], ['history','ฉากที่อ่านแล้ว'], ['offscreen','เปิดเรื่องนอกฉาก'] ];
-    const nav = modern ? '' : `<div class="actions journal-switch">${views.map(([id,name]) => `<button type="button" class="button small${mode === id ? ' primary' : ''}" aria-pressed="${mode === id}" data-action="journal" data-value="${id}">${name}</button>`).join('')}</div>`;
+    const nav = modern ? (modernEnding ? '<div class="actions journal-switch"><button type="button" class="button small" data-action="journal" data-value="offscreen">เรื่องที่กานต์ไม่เห็น</button></div>' : '') : `<div class="actions journal-switch">${views.map(([id,name]) => `<button type="button" class="button small${mode === id ? ' primary' : ''}" aria-pressed="${mode === id}" data-action="journal" data-value="${id}">${name}</button>`).join('')}</div>`;
     let content;
     if (mode === 'history') {
       content = `<ol class="journal-list">${state.records.slice().reverse().map(record => `<li class="note"><strong>${escape(record.title)}</strong><p class="caption">${game.dateLabel(record.day)} · ${record.time} น.${record.selected ? ` · ${escape(record.selected)}` : ''}</p>
@@ -381,6 +415,7 @@
       case 'toggle-zoom': magnify(button.getAttribute('aria-pressed') === 'false'); break;
       case 'cast': showCast(); break;
       case 'flow': flow(); break;
+      case 'endings': showEndings(); break;
       case 'profile': profile(value); break;
       case 'past': showPast(value); break;
       case 'behind-list': behindList(); break;
@@ -420,6 +455,8 @@
         if (state && historyView === null) {
           state = game.step(state,value);
           writeSlot(slot,state);
+          const ending = state.records.at(-1).ending;
+          if (ending) endingProgress(ending);
           read();
         }
         break;

@@ -222,3 +222,13 @@ select { color:var(--ink); background:#171f19; border:1px solid var(--line); bor
   .outcome-card small,.flow-node small { font-size:.76rem; }
   .partner-details .cast-grid { grid-template-columns:1fr; }
 }
+
+.ending-group { margin-block-start: 20px; }
+.ending-group h3 { margin-block-end: 8px; }
+.ending-group h3 small { margin-inline-start: 8px; font-weight: normal; }
+.ending-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; }
+.ending-grid figcaption { padding: 7px 8px; }
+.ending-locked { display: grid; min-height: 88px; place-items: center; border: 1px solid currentColor; border-radius: 4px; opacity: .66; }
+@media (max-width: 560px) {
+  .ending-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
