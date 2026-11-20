@@ -2,6 +2,12 @@
   const {characters,rivals,title,house,timeline,past,opening} = globalThis.LoveBrain;
   const game = globalThis.LoveGame;
   const keys = Object.keys(characters);
+  const castStills = {
+    d:'cinematic/parcel-a', b:'cinematic/beta-return-a', f:'cinematic/back-home-a'
+  };
+  const partnerStills = {
+    d:'cinematic/alpha-rival-a', b:'cinematic/beta-rival-a', f:'cinematic/gamma-rival-a'
+  };
   const app = document.querySelector('#app');
   const panel = document.querySelector('#panel');
   const panelBody = document.querySelector('#panel-body');
@@ -109,7 +115,7 @@
   function castCard(id, option) {
     const character = characters[id];
     return `<button type="button" class="cast-card" data-action="${option ? 'step' : 'profile'}" data-value="${option?.id ?? id}">
-      <img src="${art(character.image)}" alt="" loading="lazy" style="background:${character.color}">
+      <img src="${art(!state || isOpening(state) ? castStills[id] : character.image)}" alt="" loading="lazy" style="background:${character.color}">
       <span class="card-meta"><strong>${option ? escape(option.label) : character.name}</strong><small>${option ? character.link : character.job}</small></span></button>`;
   }
 
@@ -119,7 +125,7 @@
   }
 
   function zoom(image, label) {
-    if (!/^[a-z0-9-]+$/.test(image)) return;
+    if (!/^(?:(?:cinematic|novel)\/)?[a-z0-9-]+$/.test(image)) return;
     const picture = document.querySelector('#zoom-image');
     document.querySelector('#zoom-title').textContent = label;
     picture.src = art(image);
@@ -159,8 +165,17 @@
           <button type="button" class="button" data-action="endings">ฉากจบ</button>
         </nav>
       </div>
-      <div class="title-image"><img src="${art('cafe-arrival')}" alt="คาเฟ่บ้านกระจกหลังฝนตก" fetchpriority="high"></div>
+      <div class="title-image"><img src="${art('cinematic/back-home-a')}" alt="เฟื่องเปิดประตูคาเฟ่บ้านกระจกหลังฝนตก" fetchpriority="high"></div>
     </section>`;
+  }
+
+  function illustratedText(record, inlineArt) {
+    if (!inlineArt) return paragraphs(record.text);
+    const middle = Math.ceil(record.text.length / 2);
+    const label = `อีกจังหวะในฉาก${record.title}`;
+    return `${paragraphs(record.text.slice(0,middle))}
+      <figure class="inline-still">${scenePicture(inlineArt,label)}</figure>
+      ${paragraphs(record.text.slice(middle))}`;
   }
 
   function read() {
@@ -169,6 +184,7 @@
     const latest = state.records.at(-1);
     const record = historyView === null ? latest : state.records[historyView];
     const modern = isOpening(state);
+    const visuals = modern ? opening.scenes[record.sceneId] : record;
     const tag = opening.routes[record.route]?.name ?? record.occasion ?? (record.phase === 'prologue' ? 'บทนำ' : record.phase === 'ending' ? 'บทส่งท้าย' : '');
     const who = characters[record.focus];
     const festivalPortrait = record.phase === 'personal' && record.occasion;
@@ -177,11 +193,11 @@
     app.innerHTML = `<section class="reader site-width">
       <div class="reader-meta"><span>${game.dateLabel(record.day)} · ${record.time} น.</span><button type="button" class="button small ghost" data-action="flow">ผังเส้นทาง</button></div>
       ${modern ? '' : `<div class="reader-meter" aria-hidden="true"><span style="width:${pct}%"></span></div>`}
-      <header class="chapter-banner${festivalPortrait ? ' festival-portrait' : ''}"><img src="${art(record.art)}" alt="ภาพฉาก${escape(record.title)}" fetchpriority="high">
-        <button type="button" class="banner-zoom" data-action="zoom" data-value="${record.art}" data-title="${escape(record.title)}" aria-label="ขยายภาพ${escape(record.title)}"><span class="zoom-badge" aria-hidden="true">ขยายภาพ</span></button><div>
+      <header class="chapter-banner${festivalPortrait ? ' festival-portrait' : ''}"><img src="${art(visuals.art)}" alt="ภาพฉาก${escape(record.title)}" fetchpriority="high">
+        <button type="button" class="banner-zoom" data-action="zoom" data-value="${visuals.art}" data-title="${escape(record.title)}" aria-label="ขยายภาพ${escape(record.title)}"><span class="zoom-badge" aria-hidden="true">ขยายภาพ</span></button><div>
         <p>${escape((modern ? [tag,record.place] : [who?.name,tag || record.place]).filter(Boolean).join(' · '))}</p><h1 tabindex="-1">${escape(record.title)}</h1></div></header>
       <div class="chapter-text">${record.reply ? `<aside class="reply"><strong>ต่อจากที่คุยกับ${escape(record.reply.who)}</strong><p>${escape(record.reply.text)}</p></aside>` : ''}
-        <article class="prose">${paragraphs(record.text)}</article>${controls(record)}</div></section>`;
+        <article class="prose">${illustratedText(record,visuals.inlineArt)}</article>${controls(record)}</div></section>`;
     atTop();
   }
 
@@ -322,7 +338,7 @@
     const c = characters[id];
     if (!c) return;
     if (!state || isOpening(state)) {
-      dialog(c.name,`<div class="profile">${scenePicture(id === 'd' ? 'alpha-parcel' : c.image,c.name)}<p class="caption">${c.age} ปี · ${c.job} · ${c.link}</p><p>${escape(opening.profiles[id])}</p>
+      dialog(c.name,`<div class="profile">${scenePicture(castStills[id],c.name)}<p class="caption">${c.age} ปี · ${c.job} · ${c.link}</p><p>${escape(opening.profiles[id])}</p>
         <div class="actions"><button type="button" class="button small" data-action="cast">ตัวละครทั้งหมด</button><a class="button small ghost" href="${c.ref}" target="_blank" rel="noopener">ดูภาพอ้างอิง</a></div></div>`);
       return;
     }
@@ -360,15 +376,14 @@
 
   function showCast() {
     const cast = `<div class="cast-grid">${keys.map(id => castCard(id)).join('')}</div>`;
-    if (!state || isOpening(state)) {
-      dialog('ตัวละคร',cast);
-      return;
-    }
+    const modern = !state || isOpening(state);
     const partners = keys.map(id => {
       const person = rivals[id];
-      return `<figure class="outcome-card"><img src="${person.ref}" alt="ภาพ${person.name}" loading="lazy"><figcaption><strong>${person.name}</strong><small>${person.age} ปี · ${person.job}</small><p>${escape(person.bio)}</p></figcaption></figure>`;
+      const picture = modern ? scenePicture(partnerStills[id],person.name) : `<img src="${person.ref}" alt="ภาพ${person.name}" loading="lazy">`;
+      return `<figure class="outcome-card">${picture}<figcaption><strong>${person.name}</strong><small>${person.age} ปี · ${person.job}</small><p>${escape(person.bio)}</p></figcaption></figure>`;
     });
-    dialog('ตัวละคร',`${cast}<details class="partner-details"><summary>ตัวละคร 4–6</summary><div class="cast-grid">${partners.join('')}</div></details>`);
+    const roster = `<div class="cast-grid partner-cast">${partners.join('')}</div>`;
+    dialog('ตัวละคร',cast + (modern ? roster : `<details class="partner-details"><summary>ตัวละคร 4–6</summary>${roster}</details>`));
   }
 
   function modernOffstage() {

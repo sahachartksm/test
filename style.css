@@ -232,3 +232,8 @@ select { color:var(--ink); background:#171f19; border:1px solid var(--line); bor
 @media (max-width: 560px) {
   .ending-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
+
+.inline-still { margin: 1.5rem 0; }
+.inline-still .scene-picture { width: 100%; }
+.inline-still img { width: 100%; aspect-ratio: 3/2; object-fit: cover; object-position: center 43%; }
+.partner-cast { margin-block-start: 16px; }
