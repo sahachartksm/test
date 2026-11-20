@@ -186,7 +186,7 @@
     const latest = state.records.at(-1);
     const after = afterView === null ? null : game.afterStory(state);
     const bonus = after?.chapters[afterView];
-    const base = historyView === null ? latest : state.records[historyView];
+    const base = historyView === null ? latest : game.historyScene(state,historyView);
     const record = bonus && afterView === 0
       ? {...bonus,text:[after.introduction,...bonus.text]}
       : bonus ?? base;

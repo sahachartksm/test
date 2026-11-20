@@ -23,6 +23,23 @@
     return {...scene,text:[line(variant),...scene.text,line(after)].filter(Boolean)};
   }
 
+  function historyScene(state, index) {
+    const record = state.records[index];
+    if (state.version !== openingVersion || !record?.sceneId?.startsWith('gamma-')) return record;
+
+    const flags = {};
+    for (const previous of state.records.slice(0,index)) {
+      if (!previous.selected) continue;
+      const choice = previous.options.find(option => option.label === previous.selected);
+      if (!choice) return record;
+      if (choice.flag) flags[choice.flag] = true;
+    }
+    const revised = modernScene({flags},record.sceneId);
+    const choice = record.options.find(option => option.label === record.selected);
+    const updatedLabel = revised.options.find(option => option.id === choice?.id)?.label;
+    return {...record,time:revised.time,text:revised.text,selected:updatedLabel ?? record.selected};
+  }
+
   function openNewScene(state, id) {
     const scene = modernScene(state,id);
     const previousDay = state.records.at(-1)?.day ?? -1;
@@ -361,5 +378,5 @@
     return {...story,text,day:event.day};
   }
 
-  globalThis.LoveGame = {start,step,extend,restore,afterStory,behind,last,dateLabel,openingVersion};
+  globalThis.LoveGame = {start,step,extend,restore,historyScene,afterStory,behind,last,dateLabel,openingVersion};
 })();

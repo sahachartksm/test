@@ -134,3 +134,28 @@ test('after-stories unlock for the featured pair only when she ends up with her 
     }
   }
 });
+
+test('Gamma rereads use the choices saved before each scene and preserve the original run', () => {
+  const porch = replay(entries.gamma);
+  const firstVisit = advance(porch,{},scene => scene.sceneId === 'gamma-morning');
+  const morningIndex = firstVisit.records.length - 1;
+  for (const [answer, expected] of [
+    ['let-her',/พยักหน้าให้ผมนั่งอยู่ด้วย/],
+    ['offer-call',/เสนอจะโทรให้/]
+  ]) {
+    const next = game.step(firstVisit,answer);
+    const saved = JSON.parse(JSON.stringify(next));
+    const morning = saved.records[morningIndex];
+    const option = morning.options.find(item => item.id === answer);
+    option.label = morning.selected = 'คำตอบจากเซฟฉบับก่อน';
+    morning.text = ['ข้อความฉบับก่อน'];
+    saved.records[morningIndex + 1].text = ['ข้อความฉบับก่อน'];
+
+    const reread = game.historyScene(saved,morningIndex);
+    assert.match(reread.text.join(' '),/เก้าโมง.*นัดดูห้องเช่า/);
+    assert.notEqual(reread.selected,'คำตอบจากเซฟฉบับก่อน');
+    assert.match(game.historyScene(saved,morningIndex + 1).text[0],expected);
+    assert.equal(morning.selected,'คำตอบจากเซฟฉบับก่อน');
+    assert.deepEqual(morning.text,['ข้อความฉบับก่อน']);
+  }
+});
