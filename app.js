@@ -1,5 +1,5 @@
 (() => {
-  const {characters,rivals,title,house,timeline,past} = globalThis.LoveBrain;
+  const {characters,rivals,title,house,timeline,past,opening} = globalThis.LoveBrain;
   const game = globalThis.LoveGame;
   const keys = Object.keys(characters);
   const app = document.querySelector('#app');
@@ -16,15 +16,22 @@
   let toastTimer;
 
   const escape = value => String(value ?? '').replace(/[&<>"']/g,character => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[character]));
-  const art = id => `assets/scenes/${id}.webp`;
+  const art = id => {
+    const folder = id === 'cafe-arrival' || id.startsWith('alpha-') ? 'alpha/' : '';
+    return `assets/scenes/${folder}${id}.webp`;
+  };
   const two = value => String(value).padStart(2,'0');
   const paragraphs = items => items.map(item => `<p>${escape(item)}</p>`).join('');
+  const isOpening = run => run?.version === game.openingVersion;
 
   function readSlot(index) {
     if (memory.has(index)) return memory.get(index);
     try {
       const entry = JSON.parse(localStorage.getItem(keyPrefix + index));
-      if ([1,2].includes(entry?.run?.version) && entry.run.records?.length && entry.run.people && entry.run.notes && entry.run.evidence) return entry;
+      const run = entry?.run;
+      if (!run?.records?.length) return null;
+      if (isOpening(run) && opening.scenes[run.records.at(-1).sceneId]) return entry;
+      if ([1,2].includes(run.version) && run.people && run.notes && run.evidence) return entry;
     } catch {
       return null;
     }
@@ -100,32 +107,43 @@
     state = null;
     slot = null;
     historyView = null;
+    document.body.classList.add('title-page');
     document.querySelector('#journal-nav').hidden = true;
     document.title = `${title} · Love`;
     const exists = slots.some(id => readSlot(id));
-    app.innerHTML = `<section class="hero"><img class="hero-img" src="${art('cover')}" alt="" fetchpriority="high">
-      <div class="site-width hero-copy"><div><p class="small-label" lang="en">LOVE · THE GLASS HOUSE</p><h1 tabindex="-1">${title}</h1>
-      <p class="lead">ผมกลับมาช่วยอาจัดงานที่บ้านกระจก ได้เจอทั้งคนที่เพิ่งรู้จักและคนที่ไม่ได้คุยกันมาหลายปี พอถึงคืนที่ทั้งสามคนต้องการความช่วยเหลือ ผมกลับมีเวลาอยู่ข้างใครได้แค่คนเดียว</p>
-      <div class="actions"><button type="button" class="button primary" data-action="new">เริ่มเรื่องใหม่</button><button type="button" class="button ghost" data-action="saves">${exists ? 'เล่นต่อ' : 'ช่องเซฟ'}</button></div>
-      <p class="caption">จากฮาโลวีนถึงปีใหม่ · คุณมีเวลาช่วยได้เพียงคนเดียว</p></div></div></section>
-      <section class="cast-section site-width"><h2>คนที่กานต์จะได้พบ</h2><div class="cast-grid">${keys.map(id => castCard(id)).join('')}</div></section>`;
+    app.innerHTML = `<section class="title-screen" aria-labelledby="game-title">
+      <div class="title-panel">
+        <p class="title-wordmark" lang="en"><span class="brand-mark" aria-hidden="true"></span>Love</p>
+        <h1 id="game-title" tabindex="-1">${title}</h1>
+        <p class="title-summary">หลังตกงาน ผมกลับมาขอพักกับญาติ ที่คาเฟ่ของอามีที่ให้ผมนอนหนึ่งคืน และพัสดุหนึ่งซองที่ต้องเอาขึ้นไปส่งชั้นสาม</p>
+        <nav class="title-actions" aria-label="เมนูหน้าหลัก">
+          <button type="button" class="button primary" data-action="new">เริ่มเรื่องใหม่</button>
+          <button type="button" class="button" data-action="saves">${exists ? 'เล่นต่อ' : 'ช่องเซฟ'}</button>
+          <button type="button" class="button" data-action="flow">ผังเส้นทาง</button>
+          <button type="button" class="button" data-action="cast">ตัวละคร</button>
+        </nav>
+      </div>
+      <div class="title-image"><img src="${art('cafe-arrival')}" alt="คาเฟ่บ้านกระจกหลังฝนตก" fetchpriority="high"></div>
+    </section>`;
   }
 
   function read() {
+    document.body.classList.remove('title-page');
     document.querySelector('#journal-nav').hidden = false;
     const latest = state.records.at(-1);
     const record = historyView === null ? latest : state.records[historyView];
-    const tag = record.occasion ?? (record.phase === 'prologue' ? 'บทนำ' : record.phase === 'ending' ? 'บทส่งท้าย' : '');
+    const modern = isOpening(state);
+    const tag = opening.routes[record.route]?.name ?? record.occasion ?? (record.phase === 'prologue' ? 'บทนำ' : record.phase === 'ending' ? 'บทส่งท้าย' : '');
     const who = characters[record.focus];
     const festivalPortrait = record.phase === 'personal' && record.occasion;
     const pct = record.phase === 'ending' ? 100 : Math.min(100, (record.step / (game.last * 2 + 1)) * 100);
     document.title = `${record.title} · ${title}`;
     app.innerHTML = `<section class="reader site-width">
       <div class="reader-meta"><span>${game.dateLabel(record.day)} · ${record.time} น.</span><button type="button" class="button small ghost" data-action="flow">ผังเส้นทาง</button></div>
-      <div class="reader-meter" aria-hidden="true"><span style="width:${pct}%"></span></div>
+      ${modern ? '' : `<div class="reader-meter" aria-hidden="true"><span style="width:${pct}%"></span></div>`}
       <header class="chapter-banner${festivalPortrait ? ' festival-portrait' : ''}"><img src="${art(record.art)}" alt="ภาพฉาก${escape(record.title)}" fetchpriority="high">
         <button type="button" class="banner-zoom" data-action="zoom" data-value="${record.art}" data-title="${escape(record.title)}" aria-label="ขยายภาพ${escape(record.title)}"><span class="zoom-badge" aria-hidden="true">ขยายภาพ</span></button><div>
-        <p>${escape([who?.name, tag || record.place].filter(Boolean).join(' · '))}</p><h1 tabindex="-1">${escape(record.title)}</h1></div></header>
+        <p>${escape((modern ? [tag,record.place] : [who?.name,tag || record.place]).filter(Boolean).join(' · '))}</p><h1 tabindex="-1">${escape(record.title)}</h1></div></header>
       <div class="chapter-text">${record.reply ? `<aside class="reply"><strong>ต่อจากที่คุยกับ${escape(record.reply.who)}</strong><p>${escape(record.reply.text)}</p></aside>` : ''}
         <article class="prose">${paragraphs(record.text)}</article>${controls(record)}</div></section>`;
     atTop();
@@ -136,6 +154,7 @@
       return `<section class="next">${record.selected ? `<p class="played-choice">ทางเลือกที่บันทึกไว้ · ${escape(record.selected)}</p>` : ''}
         <div class="actions"><button type="button" class="button primary" data-action="current">กลับไปฉากปัจจุบัน</button><button type="button" class="button" data-action="journal">เปิดบันทึก</button></div></section>`;
     }
+    if (record.phase === 'opening') return openingControls(record);
     if (record.phase === 'prologue') {
       return `<section class="next"><button type="button" class="button primary" data-action="step" data-value="begin">ไปวันที่ ${game.dateLabel(house[1].day)}</button></section>`;
     }
@@ -153,6 +172,22 @@
     return `<section class="next"><h2>ผมจะตอบอย่างไร</h2><div class="response-list">${record.options.map(item => `<button type="button" class="response" data-action="step" data-value="${item.id}">${escape(item.label)}</button>`).join('')}</div></section>`;
   }
 
+  function openingControls(record) {
+    if (!record.options.length) {
+      const heading = record.prompt ?? `จบบทเปิด ${opening.routes[record.route]?.name ?? ''}`;
+      return `<section class="next"><h2>${escape(heading)}</h2><div class="actions">
+        <button type="button" class="button primary" data-action="flow">ดูผังเส้นทาง</button>
+        <button type="button" class="button" data-action="home">กลับหน้าหลัก</button>
+      </div></section>`;
+    }
+    const photos = record.options.some(option => option.image);
+    const choices = record.options.map(option => {
+      const button = `<button type="button" class="response" data-action="step" data-value="${escape(option.id)}"${option.disabled ? ' disabled' : ''}>${escape(option.label)}</button>`;
+      return option.image ? `<figure class="photo-choice${option.disabled ? ' locked' : ''}">${scenePicture(option.image,option.label)}${button}</figure>` : button;
+    });
+    return `<section class="next"><h2>${escape(record.prompt)}</h2><div class="${photos ? 'photo-choices' : 'response-list'}">${choices.join('')}</div></section>`;
+  }
+
   function routeOutcomes() {
     if (!state.resolutions) return '';
     return `<div class="route-outcomes"><h2>เรื่องของทั้งสามคน</h2><div class="cast-grid">${keys.map(id => {
@@ -167,7 +202,10 @@
   }
 
   function flow() {
-    if (!state) return;
+    if (!state || isOpening(state)) {
+      openingFlow();
+      return;
+    }
     const activeStep = historyView ?? state.records.at(-1).step;
     const opening = state.records[0];
     const help = state.help;
@@ -193,11 +231,49 @@
     current?.scrollIntoView({block:'nearest'});
   }
 
+  function openingFlow() {
+    const visited = new Map(state?.records.map(record => [record.sceneId,record]));
+    const activeStep = historyView ?? state?.records.at(-1).step;
+    const shown = new Set();
+    const availableRoutes = new Set();
+
+    function stage(id) {
+      if (shown.has(id)) return '';
+      shown.add(id);
+      const scene = opening.scenes[id];
+      const record = visited.get(id);
+      const name = escape(scene.title);
+      const label = record
+        ? `<button type="button" class="flow-date visited" data-action="history" data-value="${record.step}"${record.step === activeStep ? ' aria-current="step"' : ''}>${name}</button>`
+        : `<span class="flow-date">${name}</span>`;
+      const choices = scene.options.map(option => {
+        const route = opening.routes[option.route];
+        if (route && !option.disabled) availableRoutes.add(option.route);
+        const status = option.disabled ? 'ยังไม่เปิด' : route ? `เข้า ${route.name}` : '';
+        const picked = record?.selected === option.label;
+        return `<li class="route-option${option.disabled ? ' locked' : ''}${picked ? ' picked' : ''}">${escape(option.label)}${status ? `<small>${escape(status)}</small>` : ''}</li>`;
+      });
+      const branches = choices.length ? `<ul class="route-options">${choices.join('')}</ul>` : '';
+      const waiting = !choices.length && scene.prompt ? `<p class="flow-choice">${escape(scene.prompt)}</p>` : '';
+      return `<li class="flow-day started">${label}${branches}${waiting}</li>` +
+        scene.options.filter(option => !option.disabled).map(option => stage(option.next)).join('');
+    }
+
+    const stages = stage(opening.start);
+    const routes = Object.entries(opening.routes).map(([id,route]) => `<li class="${availableRoutes.has(id) ? 'available' : ''}">
+      <strong>${escape(route.name)} · ${escape(characters[route.person].name)}</strong><small>${availableRoutes.has(id) ? 'เปิดเล่นบทแรก' : 'ยังไม่เปิด'}</small></li>`);
+    dialog('ผังเส้นทาง',`<ul class="route-key">${routes.join('')}</ul>
+      ${state ? '<p class="caption">กดฉากที่ผ่านแล้วเพื่อย้อนอ่าน</p>' : ''}
+      <ol class="flow-list opening-flow">${stages}</ol>`);
+    panelBody.querySelector('[aria-current="step"]')?.scrollIntoView({block:'nearest'});
+  }
+
   function saves(mode='manage') {
     const body = slots.map(index => {
       const entry = readSlot(index);
       const scene = entry?.run.records.at(-1);
-      const status = !scene ? 'ช่องว่าง' : `${scene.phase === 'ending' ? 'จบแล้ว · ' : ''}${game.dateLabel(scene.day)} · ${scene.title}`;
+      const edition = isOpening(entry?.run) ? opening.routes[scene.route]?.name ?? 'บทเปิด' : 'บทเดิม';
+      const status = !scene ? 'ช่องว่าง' : `${edition} · ${game.dateLabel(scene.day)} · ${scene.title}`;
       return `<div class="save-row"><div><strong>ช่อง ${two(index)}${slot === index ? ' · กำลังเล่น' : ''}</strong><small class="caption">${escape(status)}</small></div><div class="actions">
         ${entry && mode === 'manage' ? `<button type="button" class="button primary small" data-action="resume" data-value="${index}">เล่นต่อ</button>` : ''}
         ${state && !entry && mode === 'manage' ? `<button type="button" class="button small" data-action="copy" data-value="${index}">คัดลอกเซฟ</button>` : ''}
@@ -220,6 +296,11 @@
   function profile(id) {
     const c = characters[id];
     if (!c) return;
+    if (!state || isOpening(state)) {
+      dialog(c.name,`<div class="profile">${scenePicture(id === 'd' ? 'alpha-parcel' : c.image,c.name)}<p class="caption">${c.age} ปี · ${c.job} · ${c.link}</p><p>${escape(opening.profiles[id])}</p>
+        <div class="actions"><button type="button" class="button small" data-action="cast">ตัวละครทั้งหมด</button><a class="button small ghost" href="${c.ref}" target="_blank" rel="noopener">ดูภาพอ้างอิง</a></div></div>`);
+      return;
+    }
     dialog(c.name,`<div class="profile">${scenePicture(c.image,c.name)}<p class="caption">${c.age} ปี · ${c.job} · ${c.link}</p><p>${escape(c.bio)}</p>
       <details><summary>เปิดดูนิสัยที่เธอไม่พูดตรง ๆ</summary><p>${escape(c.secret)}</p></details>
       <div class="actions"><button type="button" class="button primary small" data-action="past" data-value="${id}">อ่านเรื่องก่อนมาบ้านกระจก</button><button type="button" class="button small" data-action="cast">ตัวละครทั้งหมด</button><a class="button small ghost" href="${c.ref}" target="_blank" rel="noopener">ดูภาพอ้างอิง</a></div></div>`);
@@ -253,17 +334,24 @@
   }
 
   function showCast() {
+    const cast = `<div class="cast-grid">${keys.map(id => castCard(id)).join('')}</div>`;
+    if (!state || isOpening(state)) {
+      dialog('ตัวละคร',cast);
+      return;
+    }
     const partners = keys.map(id => {
       const person = rivals[id];
       return `<figure class="outcome-card"><img src="${person.ref}" alt="ภาพ${person.name}" loading="lazy"><figcaption><strong>${person.name}</strong><small>${person.age} ปี · ${person.job}</small><p>${escape(person.bio)}</p></figcaption></figure>`;
     });
-    dialog('ตัวละคร',`<div class="cast-grid">${keys.map(id => castCard(id)).join('')}</div><details class="partner-details"><summary>ตัวละคร 4–6</summary><div class="cast-grid">${partners.join('')}</div></details>`);
+    dialog('ตัวละคร',`${cast}<details class="partner-details"><summary>ตัวละคร 4–6</summary><div class="cast-grid">${partners.join('')}</div></details>`);
   }
 
   function journal(mode='known') {
     if (!state) return;
+    const modern = isOpening(state);
+    if (modern) mode = 'history';
     const views = [ ['known','เบาะแส'], ['history','ฉากที่อ่านแล้ว'], ['offscreen','เปิดเรื่องนอกฉาก'] ];
-    const nav = `<div class="actions journal-switch">${views.map(([id,name]) => `<button type="button" class="button small${mode === id ? ' primary' : ''}" aria-pressed="${mode === id}" data-action="journal" data-value="${id}">${name}</button>`).join('')}</div>`;
+    const nav = modern ? '' : `<div class="actions journal-switch">${views.map(([id,name]) => `<button type="button" class="button small${mode === id ? ' primary' : ''}" aria-pressed="${mode === id}" data-action="journal" data-value="${id}">${name}</button>`).join('')}</div>`;
     let content;
     if (mode === 'history') {
       content = `<ol class="journal-list">${state.records.slice().reverse().map(record => `<li class="note"><strong>${escape(record.title)}</strong><p class="caption">${game.dateLabel(record.day)} · ${record.time} น.${record.selected ? ` · ${escape(record.selected)}` : ''}</p>
@@ -280,7 +368,7 @@
 
   document.addEventListener('click',event => {
     const button = event.target.closest('button[data-action]');
-    if (!button) return;
+    if (!button || button.disabled) return;
     const {action,value} = button.dataset;
     const index = Number(value);
     switch (action) {

@@ -1,5 +1,6 @@
 (() => {
   const brain = globalThis.LoveBrain;
+  const openingVersion = 3;
   const ids = Object.keys(brain.characters);
   const last = brain.house.length - 1;
   const {aid,follow,pool,epilogue:endDay,start:firstDate} = brain.timeline;
@@ -10,18 +11,15 @@
   const clamp = (value, low, high) => Math.max(low, Math.min(high, value));
   const sceneArt = (turn, id) => `${brain.house[turn].artGroup ?? String(turn).padStart(2,'0')}-${id}`;
 
-  function create() {
-    return {
-      version:2, episode:0, phase:'prologue', focus:null, records:[], notes:[], evidence:[], reply:null, help:newHelp(),
-      people:Object.fromEntries(ids.map(id => [id,{love:0, risk:0, mood:0, visits:0, lastSeen:0, kept:0,
-        missed:0, away:0, appointment:null, committed:false, other:false, truthShown:false, intimacy:null}]))
-    };
+  function start() {
+    const state = {version:openingVersion, route:null, records:[]};
+    openNewScene(state,brain.opening.start);
+    return state;
   }
 
-  function start() {
-    const state = create();
-    openScene(state);
-    return state;
+  function openNewScene(state, id) {
+    const scene = brain.opening.scenes[id];
+    state.records.push({...scene, sceneId:id, phase:'opening', step:state.records.length, route:state.route});
   }
 
   function updatePerson(p, love, risk, mood) {
@@ -50,6 +48,14 @@
 
   function restore(saved) {
     const state = structuredClone(saved);
+    if (state.version === openingVersion) {
+      const current = state.records.at(-1);
+      const scene = brain.opening.scenes[current.sceneId];
+      current.text = scene.text;
+      current.options = scene.options;
+      current.prompt = scene.prompt;
+      return state;
+    }
     if (state.version === 2) return state;
     state.version = 2;
     state.help = {...newHelp(), ...state.help};
@@ -262,10 +268,16 @@
   }
 
   function step(previous, action) {
-    const option = previous.records.at(-1).options.find(option => option.id === action);
-    if (!option) throw new Error('ทางเลือกนี้ใช้กับฉากปัจจุบันไม่ได้');
     const state = restore(previous);
-    state.records.at(-1).selected = option.label;
+    const current = state.records.at(-1);
+    const option = current.options.find(option => option.id === action);
+    if (!option || option.disabled) throw new Error('ทางเลือกนี้ใช้กับฉากปัจจุบันไม่ได้');
+    current.selected = option.label;
+    if (state.version === openingVersion) {
+      state.route = option.route ?? state.route;
+      openNewScene(state,option.next);
+      return state;
+    }
     if (state.phase === 'prologue') {
       state.episode = 1;
       state.phase = 'house';
@@ -320,5 +332,5 @@
     return {...story,text,day:event.day};
   }
 
-  globalThis.LoveGame = {start,step,extend,restore,behind,last,dateLabel};
+  globalThis.LoveGame = {start,step,extend,restore,behind,last,dateLabel,openingVersion};
 })();

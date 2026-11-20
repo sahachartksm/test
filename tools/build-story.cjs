@@ -10,7 +10,16 @@ if (!match) throw new Error('STORY_BRAIN.md is missing its JavaScript story sect
 const code = match[1];
 const sandbox = {};
 vm.runInNewContext(code, sandbox, {filename:'STORY_BRAIN.md'});
-const {house, routes, endings, rivals, scenePlaces, timeline, past, hidden, voice} = sandbox.LoveBrain;
+const {opening, house, routes, endings, rivals, scenePlaces, timeline, past, hidden, voice} = sandbox.LoveBrain;
+if (!opening.scenes[opening.start]) throw new Error('Missing opening scene');
+for (const [id, scene] of Object.entries(opening.scenes)) {
+  if (!scene.art || !scene.text.length || (scene.options.length > 0 && !scene.prompt)) throw new Error(`Incomplete opening scene ${id}`);
+  const ids = new Set();
+  for (const option of scene.options) {
+    if (ids.has(option.id) || !option.label || (!option.disabled && !opening.scenes[option.next])) throw new Error(`Invalid choice in opening scene ${id}`);
+    ids.add(option.id);
+  }
+}
 if (!Number.isFinite(Date.parse(timeline.start)) || timeline.follow !== timeline.aid + 1 || timeline.pool !== timeline.follow + 1 || !house[timeline.pool]) throw new Error('Invalid festival calendar');
 if (!house.slice(1).every((day,index) => day.day > (house[index]?.day ?? 0)) || timeline.epilogue <= house.at(-1).day) throw new Error('Dates must move forward');
 for (const id of ['d','b','f']) {
