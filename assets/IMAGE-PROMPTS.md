@@ -616,3 +616,289 @@ ImageGen ใน Codex สร้างภาพใหม่ 18 ภาพใน [�
 
 - `beta-kitchen-b.webp` · ใช้ภาพ `beta-kitchen-a.webp` รักษาหน้าและชุดในฉากเดียวกัน · Adjust this bakery shot to the next tender moment. Preserve the exact same woman and older man, their faces, ages, hairstyles, and especially both exact outfits. The woman keeps the same fully covering, long-sleeved washed blue button-up shirt and charcoal apron seen in the image. The man keeps the same pale blue work shirt with cuffs and glasses. He leans over to gently kiss her cheek; she closes her eyes and smiles, holding his sleeve. Warm mid-day light and the same bakery counter, from a new slightly lower medium-close side angle. Show both familiar adult faces. One independent horizontal photoreal story still. Keep the scene duet only.
 - `gamma-courtyard-b.webp` · ใช้ภาพ `gamma-courtyard-a.webp` รักษาหน้าและชุดในฉากเดียวกัน · Adjust this courtyard shot to the next tender moment. Preserve the exact same two adults, their faces, hair, skin shades, builds, and exact outfits. She keeps the same forest-green cotton overshirt over a cream tee; he keeps the same burgundy short-sleeved polo, no sweater or jacket. They now try a clumsy slow dance by the same Thai flower workshop under warm bulbs, holding one hand each, she laughs against the side of his shoulder and he grins back. New natural medium three-quarter angle, both adult faces visible. Independent horizontal photoreal cinematic still.
+
+## จอกเหนือทะเลเมฆ
+
+ภาพแนว realistic แบบภาพถ่าย ใช้ ImageGen แบบ built-in สร้างทีละเฟรม แล้วจัดเก็บเป็น WebP ใน `assets/scenes/isekai/` รหัสไฟล์เรียงตามตอน ฉาก และลำดับภาพ เช่น `06-01-03.webp`
+
+### พรอมป์หลัก
+
+> Single landscape 3:2 photorealistic cinematic frame from the original live-action fantasy novel The Chalice Above the Sea of Clouds. Original Japanese isekai-inspired costumes and world design, captured as live-action, real adult actors, natural skin, practical textured tailoring, real stone, copper and timber with soft sky haze. Warm brass and slate teal, occasional ivory and scarlet. Match shot size, angle, focal depth and position described. One coherent composition. Subtle film grain. No text, graphic overlays, anime drawing, collage, watermark or branding.
+
+สำหรับช็อตที่มีเซริน (Serin) แนบ `1.png` เอลวา (Elva) แนบ `2.jpg` และลูเมีย (Lumia) แนบ `3.jpg` จาก `assets/references/` ใช้ภาพเดิมเป็นส่วนอ้างอิงใบหน้าและรูปร่าง ผู้หญิงทั้งสามเป็นผู้ใหญ่และชุดในแต่ละช็อตใช้ตาม [แผนโลกอิเซไก](../ISEKAI_PLAN.md) เติมประโยคต่อท้ายตัวละครอ้างอิงแต่ละคนว่า “Preserve her facial features and natural silhouette. Reimagine the pose, hair styling, clothes and lighting according to this shot.”
+
+### ภาพปก
+
+> An extra-wide cliffside fantasy city named Selvara divided into an upper citadel and lower market by a gigantic ocean of clouds, suspended bronze railway elevator and its vertical rail leading through the gap. Large battered copper chalice etched with a circular route symbol stands sharply in foreground on a small weathered altar at edge of the cliff. Black ring eclipse high above, copper sunlight on hand-built terraces and hanging cloth in the wind. Dominant chalice at right of center and soft negative space toward left, high-end realistic fantasy film photography, immense palpable scale.
+
+### ช็อตตามตอน
+
+#### ตอนที่ 1
+
+- `01-01-01` Ray waiting for a nearly empty modern Bangkok elevated train at night, extra-wide end-of-platform composition
+- `01-01-02` Directly overhead single macro insert looking down at a small aged copper-brown paper transit ticket with TWO obvious punched holes, resting on a matte charcoal METAL bench at a completely modern and realistic elevated Bangkok public train station at night. Cool fluorescent platform light strips reflected in shallow rain droplets on the bench, with a few pastel blue city bokeh shapes near the upper edge. The ticket is the sole fantastical object. Contemporary stainless steel, clean modern materials. Ticket has faint copper geometric lines and two circular holes, NO legible text. No people, wooden textures, historic architecture, lamp or candles. Landscape 3:2, practical realistic film macro with precise detail.
+- `01-01-03` Contemporary modern Bangkok mass transit passenger train at night on an elevated line. Photorealistic cinematic 3:2 composition from inside a modern commuter carriage, dim steel and laminate. The close diagonal window reflects the face of a Taiwanese/Thai-looking adult Thai man age 30 with wavy black hair and tan skin, wearing a plain charcoal jacket, while blurred rectangular concrete city lights sweep past outside. One rail passenger alone, quiet tension. Focus on his reflection, near side of window falls away diagonally. A completely modern mass transit electric carriage. No lanterns, candles, fantasy ornament, logos, readable words, text overlay or people in foreground.
+- `01-01-04` view over Ray's shoulder as electric train doors open onto a medieval cliffside station in rolling clouds
+
+- `01-02-01` extreme wide aerial establishing view of Selvara, two levels of sandstone architecture divided by mist with a vertical copper elevator shaft
+- `01-02-02` boot-level approach across ancient rail ties outside a cloud station
+- `01-02-03` rope marker with tarnished brass triangle by cliff edge, rack focus
+- `01-02-04` gold shaft of dawn through enormous station arches onto Ray's small back
+
+- `01-03-01` ticket booth under titanic station vault, Serin blocking empty side doorway, cool midday backlight
+- `01-03-02` profile of Serin in tailored charcoal guard coat, short burgundy half cape, dark hair tied high
+- `01-03-03` extreme close-up of antique ticket punch cutting an extra circular hole in Ray's ticket
+- `01-03-04` low view of locked stair door with copper ring patterns and drifting clouds behind it
+
+- `01-04-01` Elva and Ray by the counter of an ivory stone wayfarer hall, Elva quietly offers him a glass of water
+- `01-04-02` overhead of lodge counter with three copper tokens and a used glass
+- `01-04-03` Lumia in a moss expedition jacket sweeping windblown papers like catching leaves on the lodge balcony
+- `01-04-04` Ray looking down from a timber guest-room window at the copper lift and faint lights below
+
+- `01-05-01` Serin looking over her shoulder at Ray at the end of a sunlit passage lined with portage gear
+- `01-05-02` rough hand-drawn line map of two cliff levels and four stops, no legible letters
+- `01-05-03` two workers guiding bulky stone baskets onto suspended freight platform, eye-level distant
+- `01-05-04` tiny copper reflection from Ray's ticket on windowsill under late blue sky
+
+#### ตอนที่ 2
+
+- `02-01-01` Serin standing rigid in wind on a high loading terrace in charcoal guard clothes and cropped crimson cape, half profile
+- `02-01-02` frogged brass fasteners and red fabric tugged by wind, macro insert
+- `02-01-03` symmetrical gate inspection station, long lens tracking framed by cargo ropes
+- `02-01-04` Serin handing Ray a copper tally at arm length under slanting light
+
+- `02-02-01` high crescent balcony with two figures Serin and Ray sitting close against enormous cloudscape at sunset
+- `02-02-02` Serin half smiling across a bowl of stew, amber candlelight and dark hair in loose bun
+- `02-02-03` two forearms at opposite edges of tabletop, one hand offering a ring of red thread
+- `02-02-04` bronze street lamps blooming over cliff town at sundown, aerial slight tilt
+
+- `02-03-01` Serin in original fitted black fantasy dance outfit with bare shoulders, one cropped scarlet jacket and silvery belt, full-body low ballroom-level lens
+- `02-03-02` close texture of crimson cropped jacket and copper clasp set on a cloakroom table
+- `02-03-03` glittering ballroom photographed through foreground crystal from a balcony, scene framed in foreground bokeh
+- `02-03-04` Kiel with chestnut hair in rust coat watching upper ballroom from beneath arch, oblique candid
+
+- `02-04-01` Serin and Kiel talking across the space of a column, medium over-the-shoulder angle, both adults in formal clothes
+- `02-04-02` Kiel's thumb covering a folded-wing copper brooch, macro
+- `02-04-03` an untouched glass on a balustrade as red cloth passes far behind
+- `02-04-04` Ray's back silhouetted at edge of bright ballroom, crowd drifting away blurred
+
+- `02-05-01` pair of metal supply crates loaded onto a platform under dark stairs, handheld eye-level wide
+- `02-05-02` torn freight card held against shallow brazier candle, labels indistinct
+- `02-05-03` Kiel in rust coat walking away through wind as Serin pauses far behind on upper catwalk
+- `02-05-04` Serin's crimson cape hanging on a peg outside a narrow stone guardroom door
+
+#### ตอนที่ 3
+
+- `03-01-01` Ray approaching a closed guardroom door, camera from bottom of sloping stairs
+- `03-01-02` oil lantern swinging on an iron door hook, canted detail
+- `03-01-03` two soup bowls resting on cold crate in vestibule, side light
+- `03-01-04` Serin's gloved hand reaching from inside to ease the door almost closed
+
+- `03-02-01` Serin fully dressed in charcoal laced jacket, resting her head against Kiel's shoulder on a window bench in private guardroom, framed through partially open door
+- `03-02-02` tight detail of Serin's clothed shoulder and her fingers clutching the sleeve of Kiel's rust-colored coat
+- `03-02-03` Kiel glancing back toward a hall from an amber-lit seat, cropped at chest
+- `03-02-04` single dropped copper key on dark floor under the door
+
+- `03-03-01` Serin in charcoal guard uniform speaking to Ray across cold dawn open courtyard, strong architectural gap between them
+- `03-03-02` Serin lowering her gaze by arched stone window while loose dark locks blow across her face, very close medium profile
+- `03-03-03` Ray's hand tightening around the rim of soup bowl, low angle
+- `03-03-04` seat by private window seen from courtyard in daylight, red scarf over wooden arm
+
+- `03-04-01` open guard log with small copper tally and feather quill, unused line accentuated, overhead
+- `03-04-02` Serin moving a hand to indicate a lower floor number on official gate diagram, distant desktop view
+- `03-04-03` carrier climbing with a full basket along concealed maintenance ledge seen from above, green landscape far off
+- `03-04-04` worn stairs leading down toward thin strip of lit lower port
+
+- `03-05-01` Serin receiving a thin red thread ring back from Ray under a suspended lamp, medium side-on
+- `03-05-02` red thread ring on her open glove against copper wall, insert
+- `03-05-03` Ray heading down switchback marketplace street alone, strong high-angle line
+- `03-05-04` white shutters lit in a small archive office across narrow street at dawn
+
+#### ตอนที่ 4
+
+- `04-01-01` Elva with pinned dark hair and fine gold drop earrings cataloguing papers in ivory and lilac archivist robe, captured through a library aisle
+- `04-01-02` worn violet cloth book spine pressed into wooden shelf by long fingers, raking light
+- `04-01-03` white stone archive ceiling with golden lattices viewed straight upwards
+- `04-01-04` Elva winding a soft lavender sash over her everyday robe in amber reading room, quiet three-quarter profile
+
+- `04-02-01` Elva moving her cup nearer to Ray's at a tiny alcove table, natural afternoon scene
+- `04-02-02` extreme overhead of two cloudy glasses and an untouched sugared biscuit
+- `04-02-03` Elva on a corridor bench in ivory robe, shy half smile directed just outside frame, shot through translucent curtain
+- `04-02-04` wide archive reading room with just two pools of candlelight and low shadows on floor
+
+- `04-03-01` Elva in elegant fitted lilac-and-ivory costume with draped sleeves, gold corsage and flowing slit skirt at masquerade entrance, full figure front three-quarter, professional fashion still
+- `04-03-02` macro silver thread and small gold ornament on ivory costume belt
+- `04-03-03` elaborate masks displayed backlit on a vendor's stall, eye-level color layers
+- `04-03-04` streamers, costumes and copper fog from above a traveling theater at night, aerial
+
+- `04-04-01` Oren, adult male theater director in star-cuff indigo vest, welcoming Elva and Ray backstage from between hanging velvets
+- `04-04-02` Elva lifting a simple faceted masquerade mask with hand, profile against footlights
+- `04-04-03` four shadowy adults at a far private table through a row of suspended empty masks
+- `04-04-04` floor-up view of wax-sealed little theater tag dangling on curtain beside timber steps
+
+- `04-05-01` Elva pressing a folded playbill into her sleeve while standing in empty theater aisle, reverse angle from stage
+- `04-05-02` Oren's hands setting a blue glass on a banister near screen, close wide-aperture
+- `04-05-03` empty theater seats under dying bulbs after show, diagonal composition
+- `04-05-04` stage rope, white mask and folded card still life with deep sunset-red shadows
+
+#### ตอนที่ 5
+
+- `05-01-01` Ray at closed theater ticket window with blinds and heavy blue door after midnight, seen obliquely from across wet street
+- `05-01-02` four mismatched cups at private upstairs table after an evening gathering, overhead
+- `05-01-03` discarded silver mask spun on the end of a dark wood banister in dawn beam
+- `05-01-04` Oren parting a blue door curtain to let light into empty salon, rear angle
+
+- `05-02-01` Elva in cream robe and violet mantle walking out theater side alley at dawn, quiet serious face and slightly loose hairstyle
+- `05-02-02` close detail of Elva returning a gold pin to the edge of her collar, side light
+- `05-02-03` white paper wrapped around rolled blue theater ticket on street bollard, strong side shadow
+- `05-02-04` Elva and Ray sitting on distant ends of a bench in morning light between curtain and stone
+
+- `05-03-01` Elva speaking calmly but visibly hurt in white and mauve at archive bench, first-person reverse framing from Ray's side
+- `05-03-02` close shot of Elva's fingers holding flat at table edge, warm reflection
+- `05-03-03` bowls of cooling tea divided by shadow from window frame, overhead
+- `05-03-04` empty corridor outside archive with another figure indistinct far away, desaturated
+
+- `05-04-01` Elva arranging a private folded theater ticket and faded signed petition on heavy archive desk, eye-level from behind
+- `05-04-02` transparent pale watermark ring on faded folded page, side light macro with no readable words
+- `05-04-03` Oren alone bringing old prop trunk out of the wings, straight documentary view
+- `05-04-04` flipped brass holder with a missing official seal by a closed ledger, sloped macro
+
+- `05-05-01` Elva handing her official archivist medallion back to a stern official in high stone atrium, distant wide
+- `05-05-02` close rear view of Elva walking away with folded ivory sleeves, strong window sidelight
+- `05-05-03` cloak over an empty archive stool with golden arches in soft focus
+- `05-05-04` Ray on exposed high walkway with black cloud band moving behind him, minimal
+
+#### ตอนที่ 6
+
+- `06-01-01` Lumia in moss-green scout doublet and leather tool pouches pointing toward hidden trail across fog, three-quarter scenic landscape
+- `06-01-02` Lumia retying long dark hair into a low ponytail beside weathered brass guide marker, medium profile
+- `06-01-03` high boots moving cautiously on an old timber cargo step, close angled perspective
+- `06-01-04` overhead view of zigzag freight track between upper and lower city, soft light in clouds
+
+- `06-02-01` Lumia and Ray entering crowded lower neighborhood under shafts of golden light, wide from an open freight gate
+- `06-02-02` Nol in indigo technician coat setting down brass wrench in sunlit lift workshop, portrait over shoulder
+- `06-02-03` wooden water ration counter with mismatched battered copper cups, eye-level over bench
+- `06-02-04` a hand checking the last quarter of a threaded emergency tank, macro texture
+
+- `06-03-01` Lumia laughing while braiding two marker ribbons on elevated ledge, lively dark chestnut braid and moss clothes
+- `06-03-02` Ray's hands passing a tiny red screwdriver back across the workbench, foreground texture
+- `06-03-03` two uneven stools arranged in parallel at a tool counter at amber sunset, no people
+- `06-03-04` a cloth drying line cutting through cloud above lower settlement, distant flat composition
+
+- `06-04-01` Lumia and Ray seated on counterfort above Selvara, closeness shown in silhouette, sunset behind
+- `06-04-02` Lumia's hand carefully winding golden glow-thread around a small lantern frame
+- `06-04-03` small protected lantern on a rail as fog pours over cliff, wide aperture
+- `06-04-04` Nol observing a worn lift route map alone in cramped workshop below, centered high angle
+
+- `06-05-01` Lumia pulling a sketch of a tiny coastal room from her scout pouch while leaning beside Ray, candlelit tilt sideways
+- `06-05-02` two paper lanterns and two ferry-size copper tokens placed near each other, overhead
+- `06-05-03` side profile of Lumia smiling across workshop window, her dark hair half-up, muted moss collar
+- `06-05-04` thin trail of copper lights marking shut lift platform deep below, long focal length
+
+#### ตอนที่ 7
+
+- `07-01-01` Lumia in an original fitted moss wrap dress with open back, long wood-colored shawl, and gilded decorations under cloud lanterns, head-to-toe medium long
+- `07-01-02` behind-three-quarter fashion detail of Lumia's original moss dress fabric and brass shoulder clasp, fully dressed adult
+- `07-01-03` overhead sky festival with luminous lanterns lifting toward night clouds
+- `07-01-04` Nol passing a strut at the edge of festival crowd in plain indigo and worn work gloves
+
+- `07-02-01` Ray at empty corner stool of lantern launch terrace, seen from behind and above with other guests far away
+- `07-02-02` two paper lanterns resting on a bench, one lit one dark, macro
+- `07-02-03` sky lanterns moving through cloud beneath a weathered brass rail, upward view
+- `07-02-04` Lumia walking in moss festival gown toward the lift workshop instead of terrace, distant silhouette
+
+- `07-03-01` Lumia and Nol full clothed sitting close on a wooden settee in private lamp-lit room, her shy expression and a pause before hands meet
+- `07-03-02` two adult hands waiting near one another on wooden armrest with an indigo sleeve, extremely close
+- `07-03-03` Lumia glancing aside quietly with hair pinned to one side, eye-level amber side light
+- `07-03-04` paper window from outside with gold glow spilling across empty stone step in blue rain
+
+- `07-04-01` Lumia and Ray under workshop eaves next morning, she looks aside and he grips the door, three-quarter scene
+- `07-04-02` Lumia folding her hair over her shoulder against moss coat, very close rear view at dawn
+- `07-04-03` unlit unused paper lantern pressed flat next to empty coffee bowl on bench
+- `07-04-04` door gap separating two long shadows on wooden floor, high direct sun
+
+- `07-05-01` Nol showing worn original lift plan in indigo coat under depot lamp, shot from over Ray's shoulder
+- `07-05-02` four stops marked by different geometric copper pins on antique engineering sheet, overhead macro no text
+- `07-05-03` Lumia letting small workshop key lie on a ledge before she walks away, natural light
+- `07-05-04` old paper wrapped in rough red cord held by Ray against blue clouds, medium insert
+
+#### ตอนที่ 8
+
+- `08-01-01` Serin Elva and Lumia with Ray at different sides of square evidence table in old ticket hall, overhead at angle
+- `08-01-02` open freight ledger, torn violet petition and brass lift route aligned on diagonal table, close overhead
+- `08-01-03` gold shadow of escalator or hoist route projected across cold plaster wall under bright lantern
+- `08-01-04` thin crowd of adults from both tiers under ticket hall columns, quiet candid documentary
+
+- `08-02-01` Marven silver-haired older regent in black copper-ring clothing visiting high station at blue dusk, frontal lens
+- `08-02-02` copper ring on weathered official hand sliding across tabletop, extreme close
+- `08-02-03` Marven and Ray across a high terrace with cloud gulf down center, strong leading line
+- `08-02-04` town gates reflected in little window behind tall Marven, layered perspective
+
+- `08-03-01` passengers climbing single-file across old freight platform under massive stone rift, aerial downward view
+- `08-03-02` working pulley lifting a near-empty wooden maintenance gondola, machinery detail only
+- `08-03-03` guard station and lower port seen in one high long-lens frame, people small in silhouette
+- `08-03-04` lantern reflected in wet ladder rungs, vertical line inside landscape composition
+
+- `08-04-01` Elva speaking to the guard line while holding the old petition in ivory and mauve, medium eye-level among listening adults
+- `08-04-02` Serin pulling open heavy shrine door in charcoal uniform and scarlet short cloak, rear three-quarter
+- `08-04-03` Lumia guiding travelers with raised lantern toward open stone shrine, medium wide from behind
+- `08-04-04` crowd looking through tall open gate up at ring-shaped eclipse, distant wide
+
+- `08-05-01` aged upright bronze shrine on cliff top with a narrow bridge above cloud ocean, monumental wide shot
+- `08-05-02` torn railway ticket held between fingers at threshold with ring eclipse in background, shallow focus
+- `08-05-03` blackened copper chalice on stone plinth in green light, still life with circular tally motif
+- `08-05-04` Ray approaching the altar, seen behind from further stairs as people wait far outside
+
+#### ตอนที่ 9
+
+- `09-01-01` Ray lifting the single copper chalice before black shrine plinth in eclipse dust, eye level from across curved chamber
+- `09-01-02` extreme crop of round copper handle tally motif and fingers catching ring light
+- `09-01-03` shadow of a chalice and shadow of a commuter ticket crossing an ancient stone wall
+- `09-01-04` reflection of an adult man in dark liquid, subtle inverted image
+
+- `09-02-01` otherworldly portal shaped like commuter train doorway, empty Bangkok platform on other side, shot from Selvara altar
+- `09-02-02` an old transit clock viewed through fog beyond faint shard of portal, no legible numbers
+- `09-02-03` Ray holding the ticket between altar to left and warm portal to right, medium from behind
+- `09-02-04` empty bench on original station with cold fluorescent light and rails disappearing
+
+- `09-03-01` three blurred reflections of Serin Elva Lumia, each in separate surfaces of a tarnished shrine mirror wall, no body contact
+- `09-03-02` tight still life of red thread ring, discarded mask and unlit paper lantern arranged in line
+- `09-03-03` Ray's eyes and brow visible only softly as he looks down past copper cup, tight side profile
+- `09-03-04` far shot of ivory blue hallway lined with empty stone seats, solitary setting
+
+- `09-04-01` close side shot of ordinary torn rail ticket falling toward an old copper chalice rim, sharp fast motion and realistic light
+- `09-04-02` Ray's empty palm as transit portal fades onto dark wall, on the inside of the room
+- `09-04-03` long panorama of copper-and-stone elevator lowering past clouds for the first time, sunrise ray
+- `09-04-04` crowd looking up quietly from the lower terminal as a small cabin arrives, back view
+
+- `09-05-01` Elva opening the old ledger at the public witness table, ivory clothing, gray morning
+- `09-05-02` Serin escorting older Marven down wide official stair with two witnesses, wide oblique crowd-level lens
+- `09-05-03` Nol watching bronze door mechanism align with the lower station, bright workroom dawn
+- `09-05-04` Ray's lone shadow where portal was, sunlight falls through round aperture
+
+#### ตอนที่ 10
+
+- `10-01-01` upper and lower terminals with one moving copper elevator cabin, expansive warm sunrise establishing panorama
+- `10-01-02` adult worker's hand offering ordinary copper ticket to another hand over a lower station counter, macro detail
+- `10-01-03` adult lower district vendor waiting with covered basket alongside upper worker, street eye level natural scene
+- `10-01-04` paper timetable being pinned to a station board, no legible words, worker mostly offscreen
+
+- `10-02-01` Serin in charcoal holding quiet eye contact with Kiel as he adjusts her crimson collar, fully dressed at crowded windy platform
+- `10-02-02` Elva in lavender telling Oren something over empty theater desk before rehearsal, open shutters and warm soft light
+- `10-02-03` Lumia and Nol sitting together at underside of cabin doorway in work clothes, her quiet shy smile, candid
+- `10-02-04` Ray's view from inside a cabin as people on platform fall away out of sight, negative space
+
+- `10-03-01` Ray alone at a new table in small rail-side room, back-facing wide, pale bluish windowlight
+- `10-03-02` simple empty envelope, pencil and a little copper ticket punch on weathered desk, macro
+- `10-03-03` cold cup waiting beside freshly poured one, strong isolation of two objects
+- `10-03-04` sunlit dust from lifted blind at a window over bustling lower market
+
+- `10-04-01` unlit lantern on station bench at twilight, diagonal long lens
+- `10-04-02` Ray climbing steps into empty upper station hall, small figure with layered arches
+- `10-04-03` closed stone door reflecting a faint train-like light from street, realistic flat framing
+- `10-04-04` cloud bank moving beyond the railing under a single oil light, blue hour
+
+- `10-05-01` morning warm sun over Selvara, lower city shops open to shared stair street, wide low viewpoint from street
+- `10-05-02` hand opening a copper rail gate with plain ticket catching early light, macro shallow depth
+- `10-05-03` Ray in plain dark travel clothes facing distant arc of sky above suspended platform, from far left rear three-quarter
+- `10-05-04` empty wooden seat beside a sunlit lift window, little clouds beyond it, quiet final still

@@ -54,3 +54,40 @@ for (const id of ['d','b','f']) {
 const out = path.join(root, 'story');
 fs.mkdirSync(out, {recursive:true});
 fs.writeFileSync(path.join(out, 'brain.js'), '// Generated from STORY_BRAIN.md by tools/build-story.cjs.\n' + code);
+
+
+const isekaiMarker = '<!-- isekai-chapters -->';
+const isekaiStart = source.indexOf(isekaiMarker);
+if (isekaiStart < 0) throw new Error('STORY_BRAIN.md is missing the isekai chapters');
+
+const numberedTitle = /^(\d{2}) · (.+)$/;
+const formatId = value => String(value).padStart(2,'0');
+const sections = source.slice(isekaiStart + isekaiMarker.length).replace(/\r\n/g,'\n');
+const chapters = sections.split(/^## ตอนที่ /m).slice(1).map((section,chapterIndex) => {
+  const [header,...sceneSections] = section.split(/^### /m);
+  const [heading,time,summary] = header.trim().split(/\n\s*\n/);
+  const [,id,title] = heading.match(numberedTitle) ?? [];
+  if (id !== formatId(chapterIndex + 1) || !time?.startsWith('**เวลา** ') || !summary?.startsWith('**คำโปรย** ')) {
+    throw new Error('Invalid isekai chapter: ' + heading);
+  }
+  if (sceneSections.length !== 5) throw new Error('Expected 5 scenes in isekai chapter ' + id);
+
+  const scenes = sceneSections.map((block,sceneIndex) => {
+    const [heading,caption,...paragraphs] = block.trim().split(/\n\s*\n/);
+    const [,number,title] = heading.match(numberedTitle) ?? [];
+    const labels = caption?.startsWith('> ') ? caption.slice(2).split(' | ') : [];
+    if (number !== formatId(sceneIndex + 1) || labels.length !== 4 || labels.some(label => !label.trim()) || paragraphs.length < 3) {
+      throw new Error('Invalid isekai scene in chapter ' + id + ': ' + heading);
+    }
+    const frames = labels.map((label,frameIndex) => ({
+      id:[id,number,formatId(frameIndex + 1)].join('-'),
+      label
+    }));
+    return {title,paragraphs,frames};
+  });
+  return {id,title,time:time.slice('**เวลา** '.length),summary:summary.slice('**คำโปรย** '.length),scenes};
+});
+if (chapters.length !== 10) throw new Error('Expected all 10 isekai chapters');
+fs.writeFileSync(path.join(out,'isekai.js'),
+  '// Generated from STORY_BRAIN.md by tools/build-story.cjs.\n' +
+  'globalThis.SelvaraNovel = ' + JSON.stringify(chapters,null,2) + ';\n');

@@ -165,6 +165,7 @@
           <button type="button" class="button" data-action="flow">ผังเส้นทาง</button>
           <button type="button" class="button" data-action="cast">ตัวละคร</button>
           <button type="button" class="button" data-action="endings">ฉากจบ</button>
+          <a class="button isekai-entry" href="isekai.html">โลกอิเซไก <span aria-hidden="true">↗</span></a>
         </nav>
       </div>
       <div class="title-image"><img src="${art('cinematic/back-home-a')}" alt="เฟื่องเปิดประตูคาเฟ่บ้านกระจกหลังฝนตก" fetchpriority="high"></div>

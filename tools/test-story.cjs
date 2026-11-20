@@ -197,3 +197,38 @@ test('Gamma rereads use the choices saved before each scene and preserve the ori
     assert.deepEqual(morning.text,['ข้อความฉบับก่อน']);
   }
 });
+
+
+test('the isekai book links ten sequential chapters to 200 distinct scene photographs', () => {
+  require('../story/isekai.js');
+  const chapters = globalThis.SelvaraNovel;
+  assert.equal(chapters.length,10);
+  assert.deepEqual(chapters.map(chapter => Number(chapter.id)),Array.from({length:10},(_,i) => i + 1));
+
+  const imageRoot = join(root,'assets','scenes','isekai');
+  const identifiers = new Set();
+  const hashes = new Set();
+  const {createHash} = require('node:crypto');
+  const webp = id => {
+    const file = fs.readFileSync(join(imageRoot,id + '.webp'));
+    assert.equal(file.subarray(0,4).toString(),'RIFF',id);
+    assert.equal(file.subarray(8,12).toString(),'WEBP',id);
+    return createHash('sha256').update(file).digest('hex');
+  };
+  for (const chapter of chapters) {
+    assert.equal(chapter.scenes.length,5);
+    for (const scene of chapter.scenes) {
+      assert(scene.paragraphs.length >= 3,scene.title);
+      assert.equal(scene.frames.length,4);
+      for (const frame of scene.frames) {
+        assert(frame.label.trim(),frame.id);
+        assert(!identifiers.has(frame.id),frame.id);
+        identifiers.add(frame.id);
+        hashes.add(webp(frame.id));
+      }
+    }
+  }
+  assert.equal(identifiers.size,200);
+  assert.equal(hashes.size,200);
+  assert(!hashes.has(webp('cover')));
+});
