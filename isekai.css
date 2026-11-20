@@ -14,6 +14,7 @@
 .isekai-bar nav { display:flex; min-height:61px; align-items:center; justify-content:space-between; gap:16px; }
 .isekai-bar a { display:inline-flex; align-items:center; gap:9px; min-height:44px; text-decoration:none; }
 .isekai-home { font:1.35rem/1 var(--roman); }
+.isekai-menu { display:flex; gap:clamp(12px,3vw,24px); }
 .isekai-index { color:var(--ink); }
 .isekai-index:hover { color:var(--gold); }
 .isekai-cover {
@@ -34,11 +35,19 @@
 .isekai-label { color:var(--gold); font-size:.94rem; font-weight:700; }
 .isekai-cover h1 { font-size:clamp(2.65rem,6vw,5.6rem); line-height:1.12; margin:.15em 0 .28em; text-wrap:balance; }
 .isekai-cover h1 span { white-space:nowrap; }
+.isekai-subtitle { color:var(--gold); font-weight:700; margin:0 0 6px; }
 .isekai-blurb { max-width:30rem; color:var(--prose); font-size:clamp(1.04rem,2vw,1.22rem); }
 .isekai-cover .actions { margin-top:20px; }
 .isekai-content-note { margin-top:12px; color:var(--muted); font-size:.88rem; }
+.isekai-recap { max-width:760px; margin:36px auto 0; padding:clamp(18px,4vw,34px); background:var(--panel); border:1px solid var(--line); border-radius:8px; }
+.isekai-recap .isekai-content-note { margin:3px 0 12px; }
+.isekai-recap .prose { margin:0 0 14px; }
+.isekai-recap a { color:var(--gold); }
 .isekai-contents { padding:35px 0 62px; }
-.isekai-contents h2 { font-size:1.65rem; margin-bottom:16px; }
+.isekai-contents h2, .isekai-recap h2 { font-size:1.65rem; }
+.isekai-contents h2, .isekai-book h3 { margin-bottom:12px; }
+.isekai-book + .isekai-book { margin-top:32px; }
+.isekai-book h3 { color:var(--gold); font-size:1.14rem; }
 .isekai-chapters { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
 .isekai-chapters li { min-width:0; }
 .isekai-card { display:grid; grid-template-columns:clamp(98px,15vw,162px) minmax(0,1fr); height:100%; color:var(--ink); background:var(--panel); border:1px solid var(--line); border-radius:6px; overflow:hidden; text-decoration:none; }
@@ -60,6 +69,7 @@
 .isekai-main-photo img { aspect-ratio:auto; max-height:min(72vh,650px); object-fit:contain; }
 .isekai-prose { max-width:690px; margin:24px auto; }
 .isekai-details { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+.isekai-details-four { grid-template-columns:repeat(4,minmax(0,1fr)); }
 .isekai-steps { border-top:1px solid var(--line); margin-top:39px; padding-top:19px; }
 .isekai-steps p { margin-left:auto; color:var(--gold); }
 .isekai-lightbox { border-color:var(--line); background:#101920; }
@@ -70,11 +80,12 @@
   .isekai-width { width:calc(100% - 32px); }
   .isekai-bar { position:sticky; top:0; z-index:2; }
   .isekai-bar nav { min-height:52px; }
-  #contents-title { scroll-margin-top:64px; }
+  #contents-title, #recap, .isekai-book h3 { scroll-margin-top:64px; }
   .isekai-cover { margin-top:15px; min-height:470px; }
   .isekai-cover > img { object-position:60% 33%; }
   .isekai-cover::after { background:linear-gradient(0deg,#0b1319 4%,#0d171de8 38%,#111a212e 79%); }
   .isekai-chapters { grid-template-columns:1fr; }
+  .isekai-details-four { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .isekai-reader { padding-top:23px; }
   .isekai-prose { margin:18px auto; line-height:1.9; }
   .isekai-scene + .isekai-scene { margin-top:31px; padding-top:23px; }

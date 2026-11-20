@@ -1,6 +1,8 @@
 (() => {
-  const chapters = globalThis.SelvaraNovel;
   const title = 'จอกเหนือทะเลเมฆ';
+  const sequel = globalThis.SelvaraSequel;
+  const originalBook = {id:'part-1', label:'ภาคแรก', title, prefix:'chapter-', chapters:globalThis.SelvaraNovel};
+  const sequelBook = {id:'part-2', label:'ภาค 2', title:sequel.title, prefix:'part-2-chapter-', chapters:sequel.chapters};
   const key = 'love-selvara-last-chapter-v1';
   const app = document.querySelector('#novel');
   const lightbox = document.querySelector('#isekai-image');
@@ -9,42 +11,35 @@
   const escape = value => String(value).replace(/[&<>"']/g, mark => ({
     '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
   })[mark]);
-  const chapterUrl = chapter => '#chapter-' + chapter.id;
+  const chapterUrl = (book, chapter) => '#' + book.prefix + chapter.id;
+  const routes = new Map([originalBook,sequelBook].flatMap(book => book.chapters.map((chapter,index) => [
+    chapterUrl(book,chapter), {book,chapter,index}
+  ])));
   const photoUrl = id => 'assets/scenes/isekai/' + id + '.webp';
-  let lastChapter;
+  let lastRead;
 
   try {
     const saved = localStorage.getItem(key);
-    lastChapter = chapters.find(chapter => chapter.id === saved);
+    if (saved) lastRead = routes.get(saved.startsWith('#') ? saved : '#chapter-' + saved);
   } catch {
     // Reading and navigation still work when storage is unavailable.
   }
 
-  function remember(chapter) {
-    lastChapter = chapter;
+  function remember(entry) {
+    lastRead = entry;
+    const {book,chapter} = entry;
     try {
-      localStorage.setItem(key, chapter.id);
+      localStorage.setItem(key, book === originalBook ? chapter.id : chapterUrl(book,chapter));
     } catch {
       // Keep the current session's place in memory.
     }
   }
 
-  function cover() {
-    const resume = lastChapter ? `<a class="button" href="${chapterUrl(lastChapter)}">อ่านต่อ ตอนที่ ${Number(lastChapter.id)}</a>` : '';
-    app.innerHTML = `<section class="isekai-cover" aria-labelledby="novel-title">
-      <img src="${photoUrl('cover')}" alt="จอกทองแดงบนผาเหนือเมืองเซลวารา ขณะเกิดคราส" fetchpriority="high">
-      <div class="isekai-cover-copy">
-        <p class="isekai-label">โลกอิเซไก</p>
-        <h1 id="novel-title" tabindex="-1">จอกเหนือ<wbr><span>ทะเลเมฆ</span></h1>
-        <p class="isekai-blurb">ตั๋วรถไฟเที่ยวสุดท้ายพาเรย์ไปถึงเมืองเหนือเมฆ ที่นั่นมีสถานีหนึ่งที่ทุกคนพยายามลืม และมีจอกหนึ่งใบที่ยอมให้เขาขอพรได้ครั้งเดียว</p>
-        <div class="actions"><a class="button primary" href="${chapterUrl(chapters[0])}">เริ่มอ่าน</a>${resume}</div>
-        <p class="isekai-content-note">เนื้อหาสำหรับผู้ใหญ่ · ความสัมพันธ์และการนอกใจ</p>
-      </div>
-    </section>
-    <section class="isekai-contents" id="contents" aria-labelledby="contents-title">
-      <h2 id="contents-title" tabindex="-1">เลือกตอน</h2>
-      <ol class="isekai-chapters">${chapters.map(chapter => `<li>
-        <a class="isekai-card" href="${chapterUrl(chapter)}">
+  function chapterList(book) {
+    return `<section class="isekai-book" aria-labelledby="${book.id}">
+      <h3 id="${book.id}" tabindex="-1">${book.label} · ${escape(book.title)}</h3>
+      <ol class="isekai-chapters">${book.chapters.map(chapter => `<li>
+        <a class="isekai-card" href="${chapterUrl(book,chapter)}">
           <img src="${photoUrl(chapter.scenes[0].frames[0].id)}" alt="" loading="lazy" width="3" height="2">
           <span class="isekai-card-copy"><small>ตอนที่ ${Number(chapter.id)}</small>
             <strong>${escape(chapter.title)}</strong>
@@ -55,6 +50,39 @@
     </section>`;
   }
 
+  function cover() {
+    const sequelStart = chapterUrl(sequelBook,sequelBook.chapters[0]);
+    const resume = lastRead && chapterUrl(lastRead.book,lastRead.chapter) !== sequelStart
+      ? `<a class="button" href="${chapterUrl(lastRead.book,lastRead.chapter)}">อ่านต่อ ${lastRead.book.label} ตอนที่ ${Number(lastRead.chapter.id)}</a>`
+      : '';
+    app.innerHTML = `<section class="isekai-cover" aria-labelledby="novel-title">
+      <img src="${photoUrl('cover')}" alt="จอกทองแดงบนผาเหนือเมืองเซลวารา ขณะเกิดคราส" fetchpriority="high">
+      <div class="isekai-cover-copy">
+        <p class="isekai-label">โลกอิเซไก</p>
+        <h1 id="novel-title" tabindex="-1">จอกเหนือ<wbr><span>ทะเลเมฆ</span></h1>
+        <p class="isekai-subtitle">ภาค 2 · ${escape(sequel.title)}</p>
+        <p class="isekai-blurb">สามสัปดาห์หลังคืนคราส ท่าล่างกำลังจะจมน้ำ เรย์มีโอกาสย้อนกลับไปถึงวันแรกในเซลวาราเพียงครั้งเดียว</p>
+        <div class="actions">
+          <a class="button primary" href="${sequelStart}">เริ่มภาค 2</a>
+          <a class="button" href="#recap">สรุปภาคแรก</a>
+          ${resume}
+        </div>
+        <p class="isekai-content-note">เนื้อหาสำหรับผู้ใหญ่ · ความสัมพันธ์และการนอกใจ</p>
+      </div>
+    </section>
+    <section class="isekai-recap" aria-labelledby="recap">
+      <h2 id="recap" tabindex="-1">สรุปภาคแรก</h2>
+      <p class="isekai-content-note">เปิดเผยเหตุการณ์ถึงตอนจบภาคแรก</p>
+      <div class="prose">${sequel.recap.map(line => `<p>${escape(line)}</p>`).join('')}</div>
+      <a href="${chapterUrl(originalBook,originalBook.chapters[0])}">อ่านภาคแรกตั้งแต่ต้น</a>
+    </section>
+    <section class="isekai-contents" id="contents" aria-labelledby="contents-title">
+      <h2 id="contents-title" tabindex="-1">สารบัญ</h2>
+      ${chapterList(sequelBook)}
+      ${chapterList(originalBook)}
+    </section>`;
+  }
+
   function photo(frame, main, eager) {
     const label = escape(frame.label);
     return `<button class="isekai-photo ${main ? 'isekai-main-photo' : ''}" type="button"
@@ -62,13 +90,16 @@
       <img src="${photoUrl(frame.id)}" alt="${label}" width="3" height="2"${eager ? ' fetchpriority="high"' : ' loading="lazy"'}></button>`;
   }
 
-  function read(chapter) {
-    const number = Number(chapter.id);
-    const previous = chapters[number - 2];
-    const next = chapters[number];
+  function read(entry) {
+    const {book,chapter,index:chapterIndex} = entry;
+    const previous = book.chapters[chapterIndex - 1];
+    const next = book.chapters[chapterIndex + 1];
+    const endingLink = book === originalBook
+      ? `<a class="button primary" href="${chapterUrl(sequelBook,sequelBook.chapters[0])}">อ่านภาค 2 ›</a>`
+      : '<p>จบภาค 2</p>';
     app.innerHTML = `<article class="isekai-reader">
       <header class="isekai-reader-head">
-        <p class="isekai-label">${title} · ตอนที่ ${number} / ${chapters.length}</p>
+        <p class="isekai-label">${book.label} · ${escape(book.title)} · ตอนที่ ${chapterIndex + 1} / ${book.chapters.length}</p>
         <h1 tabindex="-1">${escape(chapter.title)}</h1>
         <p class="isekai-time">${escape(chapter.time)}</p>
       </header>
@@ -76,25 +107,26 @@
         <h2 id="scene-${index}">${escape(scene.title)}</h2>
         ${photo(scene.frames[0], true, index === 0)}
         <div class="prose isekai-prose">${scene.paragraphs.map(line => `<p>${escape(line)}</p>`).join('')}</div>
-        <div class="isekai-details" aria-label="ภาพประกอบเพิ่มเติม">${scene.frames.slice(1).map(frame => photo(frame, false, false)).join('')}</div>
+        <div class="isekai-details${scene.frames.length === 5 ? ' isekai-details-four' : ''}" aria-label="ภาพประกอบเพิ่มเติม">${scene.frames.slice(1).map(frame => photo(frame, false, false)).join('')}</div>
       </section>`).join('')}
       <nav class="isekai-steps actions" aria-label="เปลี่ยนตอน">
-        ${previous ? `<a class="button" href="${chapterUrl(previous)}">‹ ตอนก่อนหน้า</a>` : ''}
-        <a class="button" href="#contents">เลือกตอน</a>
-        ${next ? `<a class="button primary" href="${chapterUrl(next)}">ตอนถัดไป ›</a>` : '<p>จบเรื่อง</p>'}
+        ${previous ? `<a class="button" href="${chapterUrl(book,previous)}">‹ ตอนก่อนหน้า</a>` : ''}
+        <a class="button" href="#${book.id}">เลือกตอน</a>
+        ${next ? `<a class="button primary" href="${chapterUrl(book,next)}">ตอนถัดไป ›</a>` : endingLink}
       </nav>
     </article>`;
-    remember(chapter);
+    remember(entry);
   }
 
   function render(moveFocus) {
-    const chapter = chapters.find(entry => chapterUrl(entry) === location.hash);
+    const entry = routes.get(location.hash);
     if (lightbox.open) lightbox.close();
-    if (chapter) read(chapter);
+    if (entry) read(entry);
     else cover();
-    document.title = chapter ? `${chapter.title} · ${title}` : `${title} · Love`;
-    if (location.hash === '#contents') {
-      const heading = document.querySelector('#contents-title');
+    document.title = entry ? `${entry.chapter.title} · ${entry.book.title}` : `${title} · Love`;
+    const anchor = location.hash === '#contents' ? 'contents-title' : location.hash.slice(1);
+    const heading = entry ? null : document.getElementById(anchor);
+    if (heading) {
       if (moveFocus) heading.focus({preventScroll:true});
       heading.scrollIntoView();
     } else if (moveFocus) {

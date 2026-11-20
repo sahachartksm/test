@@ -59,35 +59,51 @@ fs.writeFileSync(path.join(out, 'brain.js'), '// Generated from STORY_BRAIN.md b
 const isekaiMarker = '<!-- isekai-chapters -->';
 const isekaiStart = source.indexOf(isekaiMarker);
 if (isekaiStart < 0) throw new Error('STORY_BRAIN.md is missing the isekai chapters');
+const sequelMarker = '<!-- isekai-sequel -->';
+const sequelStart = source.indexOf(sequelMarker, isekaiStart);
+if (sequelStart < 0) throw new Error('STORY_BRAIN.md is missing the isekai sequel');
 
 const numberedTitle = /^(\d{2}) · (.+)$/;
 const formatId = value => String(value).padStart(2,'0');
-const sections = source.slice(isekaiStart + isekaiMarker.length).replace(/\r\n/g,'\n');
-const chapters = sections.split(/^## ตอนที่ /m).slice(1).map((section,chapterIndex) => {
-  const [header,...sceneSections] = section.split(/^### /m);
-  const [heading,time,summary] = header.trim().split(/\n\s*\n/);
-  const [,id,title] = heading.match(numberedTitle) ?? [];
-  if (id !== formatId(chapterIndex + 1) || !time?.startsWith('**เวลา** ') || !summary?.startsWith('**คำโปรย** ')) {
-    throw new Error('Invalid isekai chapter: ' + heading);
-  }
-  if (sceneSections.length !== 5) throw new Error('Expected 5 scenes in isekai chapter ' + id);
+const pages = sections => sections.replace(/\r\n/g,'\n').split(/^## ตอนที่ /m);
+const paragraphsOf = block => block.trim().split(/\n\s*\n/);
 
-  const scenes = sceneSections.map((block,sceneIndex) => {
-    const [heading,caption,...paragraphs] = block.trim().split(/\n\s*\n/);
-    const [,number,title] = heading.match(numberedTitle) ?? [];
-    const labels = caption?.startsWith('> ') ? caption.slice(2).split(' | ') : [];
-    if (number !== formatId(sceneIndex + 1) || labels.length !== 4 || labels.some(label => !label.trim()) || paragraphs.length < 3) {
-      throw new Error('Invalid isekai scene in chapter ' + id + ': ' + heading);
+function parseChapters(sections, count, imageFolder = '') {
+  if (sections.length !== count) throw new Error(`Expected ${count} isekai chapters`);
+  return sections.map((section,chapterIndex) => {
+    const [header,...sceneSections] = section.split(/^### /m);
+    const [heading,time,summary] = paragraphsOf(header);
+    const [,id,title] = heading.match(numberedTitle) ?? [];
+    if (id !== formatId(chapterIndex + 1) || !time?.startsWith('**เวลา** ') || !summary?.startsWith('**คำโปรย** ')) {
+      throw new Error('Invalid isekai chapter: ' + heading);
     }
-    const frames = labels.map((label,frameIndex) => ({
-      id:[id,number,formatId(frameIndex + 1)].join('-'),
-      label
-    }));
-    return {title,paragraphs,frames};
+    if (sceneSections.length !== 5) throw new Error('Expected 5 scenes in isekai chapter ' + id);
+
+    const scenes = sceneSections.map((block,sceneIndex) => {
+      const [sceneHeading,caption,...paragraphs] = paragraphsOf(block);
+      const [,number,sceneTitle] = sceneHeading.match(numberedTitle) ?? [];
+      const labels = caption?.startsWith('> ') ? caption.slice(2).split(' | ') : [];
+      const validFrameCount = labels.length === 4 || (imageFolder && labels.length === 5);
+      if (number !== formatId(sceneIndex + 1) || !validFrameCount || labels.some(label => !label.trim()) || paragraphs.length < 3) {
+        throw new Error('Invalid isekai scene in chapter ' + id + ': ' + sceneHeading);
+      }
+      const frames = labels.map((label,frameIndex) => ({
+        id:imageFolder + [id,number,formatId(frameIndex + 1)].join('-'),
+        label
+      }));
+      return {title:sceneTitle,paragraphs,frames};
+    });
+    return {id,title,time:time.slice('**เวลา** '.length),summary:summary.slice('**คำโปรย** '.length),scenes};
   });
-  return {id,title,time:time.slice('**เวลา** '.length),summary:summary.slice('**คำโปรย** '.length),scenes};
-});
-if (chapters.length !== 10) throw new Error('Expected all 10 isekai chapters');
+}
+
+const chapters = parseChapters(pages(source.slice(isekaiStart + isekaiMarker.length,sequelStart)).slice(1),10);
+const [sequelHeader,...sequelSections] = pages(source.slice(sequelStart + sequelMarker.length));
+const [sequelHeading,...recap] = paragraphsOf(sequelHeader);
+const title = sequelHeading.match(/^## ภาค 2 · (.+)$/)?.[1];
+if (!title || recap.length < 3) throw new Error('Expected the isekai sequel title and recap');
+const sequel = {title,recap,chapters:parseChapters(sequelSections,5,'part-2/')};
 fs.writeFileSync(path.join(out,'isekai.js'),
   '// Generated from STORY_BRAIN.md by tools/build-story.cjs.\n' +
-  'globalThis.SelvaraNovel = ' + JSON.stringify(chapters,null,2) + ';\n');
+  'globalThis.SelvaraNovel = ' + JSON.stringify(chapters,null,2) + ';\n' +
+  'globalThis.SelvaraSequel = ' + JSON.stringify(sequel,null,2) + ';\n');

@@ -199,11 +199,15 @@ test('Gamma rereads use the choices saved before each scene and preserve the ori
 });
 
 
-test('the isekai book links ten sequential chapters to 200 distinct scene photographs', () => {
+test('both isekai books link numbered chapters to distinct scene photographs', () => {
   require('../story/isekai.js');
   const chapters = globalThis.SelvaraNovel;
+  const sequel = globalThis.SelvaraSequel;
   assert.equal(chapters.length,10);
   assert.deepEqual(chapters.map(chapter => Number(chapter.id)),Array.from({length:10},(_,i) => i + 1));
+  assert.equal(sequel.chapters.length,5);
+  assert.deepEqual(sequel.chapters.map(chapter => Number(chapter.id)),[1,2,3,4,5]);
+  assert(sequel.title && sequel.recap.length >= 3);
 
   const imageRoot = join(root,'assets','scenes','isekai');
   const identifiers = new Set();
@@ -215,20 +219,22 @@ test('the isekai book links ten sequential chapters to 200 distinct scene photog
     assert.equal(file.subarray(8,12).toString(),'WEBP',id);
     return createHash('sha256').update(file).digest('hex');
   };
-  for (const chapter of chapters) {
+  for (const chapter of [...chapters,...sequel.chapters]) {
     assert.equal(chapter.scenes.length,5);
     for (const scene of chapter.scenes) {
       assert(scene.paragraphs.length >= 3,scene.title);
-      assert.equal(scene.frames.length,4);
+      const isSequel = chapter === sequel.chapters[Number(chapter.id) - 1];
+      assert(scene.frames.length === 4 || (isSequel && scene.frames.length === 5),scene.title);
       for (const frame of scene.frames) {
         assert(frame.label.trim(),frame.id);
+        assert.equal(frame.id.startsWith('part-2/'),isSequel,frame.id);
         assert(!identifiers.has(frame.id),frame.id);
         identifiers.add(frame.id);
         hashes.add(webp(frame.id));
       }
     }
   }
-  assert.equal(identifiers.size,200);
-  assert.equal(hashes.size,200);
+  assert.equal(identifiers.size,301);
+  assert.equal(hashes.size,301);
   assert(!hashes.has(webp('cover')));
 });
