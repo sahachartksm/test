@@ -12,7 +12,7 @@ const current = state => state.records.at(-1);
 const replay = choices => choices.reduce((state,action) => game.step(state,action),game.start());
 const entries = {
   alpha:['sleep-cafe','pick-ferry','keep-appointment','meet-darin'],
-  beta:['sleep-cafe','pick-street'],
+  beta:['sleep-cafe','pick-street','keep-appointment','meet-baicha'],
   gamma:['sleep-with-fueang']
 };
 
@@ -52,7 +52,25 @@ test('all scenes are reachable and use at least 100 distinct stills', () => {
   assert(pictures.size >= 100);
 });
 
-test('all twelve endings play normally and each route is at least twice its previous length', () => {
+test('all photos continue the conversation, and each route is chosen by a named action', () => {
+  const destinations = {alpha:'meet-darin',beta:'meet-baicha',gamma:'meet-fueang'};
+  for (const photo of ['pick-ferry','pick-street','pick-sea']) {
+    const work = replay(['sleep-cafe',photo]);
+    assert.equal(current(work).sceneId,'alpha-work');
+    assert.equal(work.route,null);
+    const keep = game.step(work,'keep-appointment');
+    assert.equal(keep.route,null);
+    for (const [route,choice] of Object.entries(destinations)) {
+      const opened = game.step(keep,choice);
+      assert.equal(current(opened).sceneId,route + '-return');
+      assert.equal(opened.route,route);
+    }
+    assert.equal(game.step(work,'take-urgent-work').route,'alpha');
+  }
+  assert.equal(replay(entries.gamma).route,'gamma');
+});
+
+test('all twelve endings play normally and each route stays with its chosen character', () => {
   const previousLengths = {alpha:10,beta:8,gamma:7};
   for (const [route,entry] of Object.entries(entries)) {
     for (const [ending,lastChoice] of Object.entries({ask:'say',rebuild:'stay',carry:'stay',leave:'leave'})) {
@@ -61,11 +79,31 @@ test('all twelve endings play normally and each route is at least twice its prev
         [route + '-decision']:lastChoice
       });
       assert.equal(current(state).ending,route + '-' + ending);
+      assert.equal(current(state).options.length,0);
       assert(current(state).inlineArt,'second epilogue still');
       assert(state.records.length >= previousLengths[route] * 2);
+      assert(state.records.slice(entry.length).every(scene => scene.route === route));
       assert.equal(state.offstage.filter(note => note.day === 16).length,3);
       assert.equal(new Set(state.offstage.map(note => note.person + note.day)).size,state.offstage.length);
     }
+  }
+});
+
+test('the final offer describes the actual available response in each route', () => {
+  for (const [route,entry] of Object.entries(entries)) {
+    const finish = route + '-decision';
+    const speak = state => current(state).options.find(option => option.id === 'stay');
+    const atDecision = stop => advance(replay(entry),stop,scene => scene.sceneId === finish);
+    const ready = atDecision({});
+    assert.equal(speak(ready).next,route + '-rebuild');
+    assert.match(speak(ready).label,/ลองคบกันอีกครั้ง/);
+    for (const [scene,choice] of [['promise','open'],['clue','smooth'],['truth','hold']]) {
+      const unresolved = atDecision({[route + '-' + scene]:choice});
+      assert.equal(speak(unresolved).next,route + '-carry');
+      assert.match(speak(unresolved).label,/ยังค้างอยู่/);
+      assert.equal(current(game.step(unresolved,'stay')).ending,speak(unresolved).next);
+    }
+    assert.equal(current(game.step(ready,'stay')).ending,speak(ready).next);
   }
 });
 

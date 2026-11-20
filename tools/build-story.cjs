@@ -19,6 +19,7 @@ for (const [id, scene] of Object.entries(opening.scenes)) {
     if (ids.has(option.id) || !option.label || (!option.disabled && !opening.scenes[option.next])) throw new Error(`Invalid choice in opening scene ${id}`);
     for (const next of [option.next,option.alternate?.next].filter(Boolean)) {
       if (!opening.scenes[next] || opening.scenes[next].day < scene.day) throw new Error(`Invalid scene order ${id} -> ${next}`);
+      if (scene.route && opening.scenes[next].route !== scene.route) throw new Error(`Choice leaves its route ${id} -> ${next}`);
     }
     ids.add(option.id);
   }

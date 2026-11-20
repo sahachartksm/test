@@ -19,13 +19,19 @@
 
   function modernScene(state, id) {
     const {variant,after,...scene} = brain.opening.scenes[id];
-    const line = item => item?.[state.flags?.[item.flag] ? 'on' : 'off'];
-    return {...scene,text:[line(variant),...scene.text,line(after)].filter(Boolean)};
+    const hasFlag = flag => Boolean(state.flags?.[flag]);
+    const line = item => item?.[hasFlag(item.flag) ? 'on' : 'off'];
+    const options = scene.options.map(option => {
+      const {alternate} = option;
+      if (!alternate?.requires.every(hasFlag)) return option;
+      return {...option,next:alternate.next,label:alternate.label ?? option.label};
+    });
+    return {...scene,options,text:[line(variant),...scene.text,line(after)].filter(Boolean)};
   }
 
   function historyScene(state, index) {
     const record = state.records[index];
-    if (state.version !== openingVersion || !record?.sceneId?.startsWith('gamma-')) return record;
+    if (state.version !== openingVersion || !brain.opening.scenes[record?.sceneId]?.route) return record;
 
     const flags = {};
     for (const previous of state.records.slice(0,index)) {
@@ -42,6 +48,7 @@
 
   function openNewScene(state, id) {
     const scene = modernScene(state,id);
+    state.route = scene.route ?? null;
     const previousDay = state.records.at(-1)?.day ?? -1;
     for (const [person, schedule] of Object.entries(brain.opening.lives)) {
       for (const [day,time,text] of schedule) {
@@ -83,7 +90,9 @@
       const current = state.records.at(-1);
       state.flags ??= {};
       state.offstage ??= [];
-      Object.assign(current,modernScene(state,current.sceneId));
+      const scene = modernScene(state,current.sceneId);
+      state.route = scene.route ?? null;
+      Object.assign(current,scene,{route:state.route});
       return state;
     }
     if (state.version === 2) return state;
@@ -304,11 +313,8 @@
     if (!option || option.disabled) throw new Error('ทางเลือกนี้ใช้กับฉากปัจจุบันไม่ได้');
     current.selected = option.label;
     if (state.version === openingVersion) {
-      state.route = option.route ?? state.route;
       if (option.flag) state.flags[option.flag] = true;
-      const alternate = option.alternate;
-      const next = alternate?.requires.every(flag => state.flags[flag]) ? alternate.next : option.next;
-      openNewScene(state,next);
+      openNewScene(state,option.next);
       return state;
     }
     if (state.phase === 'prologue') {

@@ -194,7 +194,7 @@
     const visuals = modern && !bonus ? opening.scenes[record.sceneId] : record;
     const tag = bonus
       ? `เรื่องหลังจบ · ${after.title}`
-      : opening.routes[record.route]?.name ?? record.occasion ?? (record.phase === 'prologue' ? 'บทนำ' : record.phase === 'ending' ? 'บทส่งท้าย' : '');
+      : opening.routes[record.route]?.name ?? record.occasion ?? (modern || record.phase === 'prologue' ? 'บทนำ' : record.phase === 'ending' ? 'บทส่งท้าย' : '');
     const who = characters[record.focus];
     const festivalPortrait = record.phase === 'personal' && record.occasion;
     const pct = modern ? 0 : record.phase === 'ending' ? 100 : Math.min(100, (record.step / (game.last * 2 + 1)) * 100);
@@ -273,7 +273,9 @@
     }
     const photos = record.options.some(option => option.image);
     const choices = record.options.map(option => {
-      const button = `<button type="button" class="response" data-action="step" data-value="${escape(option.id)}"${option.disabled ? ' disabled' : ''}>${escape(option.label)}</button>`;
+      const route = !record.route && opening.routes[opening.scenes[option.next]?.route];
+      const routeLabel = route ? `<strong>${escape(route.name)} · ${escape(characters[route.person].name)}</strong><br>` : '';
+      const button = `<button type="button" class="response" data-action="step" data-value="${escape(option.id)}"${option.disabled ? ' disabled' : ''}>${routeLabel}${escape(option.label)}</button>`;
       return option.image ? `<figure class="photo-choice${option.disabled ? ' locked' : ''}">${scenePicture(option.image,option.label)}${button}</figure>` : button;
     });
     return `<section class="next"><h2>${escape(record.prompt)}</h2><div class="${photos ? 'photo-choices' : 'response-list'}">${choices.join('')}</div></section>`;
