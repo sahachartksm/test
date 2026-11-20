@@ -339,6 +339,19 @@
     return state;
   }
 
+  function afterStory(state) {
+    if (state?.version !== openingVersion) return null;
+    const story = brain.opening.afterStories[state.route];
+    const ending = state.records.at(-1)?.ending;
+    if (!story || !ending) return null;
+
+    if (ending === state.route + '-ask') return {...story,introduction:story.entry.ask};
+    if (ending === state.route + '-carry' && !state.flags?.bond) {
+      return {...story,introduction:story.entry.carry};
+    }
+    return null;
+  }
+
   function behind(state,id) {
     if (state?.phase !== 'ending' || state.resolutions?.[id] !== 'other') return null;
     const event = state.people[id]?.intimacy;
@@ -348,5 +361,5 @@
     return {...story,text,day:event.day};
   }
 
-  globalThis.LoveGame = {start,step,extend,restore,behind,last,dateLabel,openingVersion};
+  globalThis.LoveGame = {start,step,extend,restore,afterStory,behind,last,dateLabel,openingVersion};
 })();

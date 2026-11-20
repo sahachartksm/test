@@ -21,6 +21,7 @@
   let state = null;
   let slot = null;
   let historyView = null;
+  let afterView = null;
   let journalPerson = 'd';
   let toastTimer;
 
@@ -125,7 +126,7 @@
   }
 
   function zoom(image, label) {
-    if (!/^(?:(?:cinematic|novel)\/)?[a-z0-9-]+$/.test(image)) return;
+    if (!/^(?:(?:cinematic|novel|afterstory)\/)?[a-z0-9-]+$/.test(image)) return;
     const picture = document.querySelector('#zoom-image');
     document.querySelector('#zoom-title').textContent = label;
     picture.src = art(image);
@@ -148,6 +149,7 @@
     state = null;
     slot = null;
     historyView = null;
+    afterView = null;
     document.body.classList.add('title-page');
     document.querySelector('#journal-nav').hidden = true;
     document.title = `${title} · Love`;
@@ -171,7 +173,7 @@
 
   function illustratedText(record, inlineArt) {
     if (!inlineArt) return paragraphs(record.text);
-    const middle = Math.ceil(record.text.length / 2);
+    const middle = record.inlineAfter ?? Math.ceil(record.text.length / 2);
     const label = `อีกจังหวะในฉาก${record.title}`;
     return `${paragraphs(record.text.slice(0,middle))}
       <figure class="inline-still">${scenePicture(inlineArt,label)}</figure>
@@ -182,13 +184,20 @@
     document.body.classList.remove('title-page');
     document.querySelector('#journal-nav').hidden = false;
     const latest = state.records.at(-1);
-    const record = historyView === null ? latest : state.records[historyView];
+    const after = afterView === null ? null : game.afterStory(state);
+    const bonus = after?.chapters[afterView];
+    const base = historyView === null ? latest : state.records[historyView];
+    const record = bonus && afterView === 0
+      ? {...bonus,text:[after.introduction,...bonus.text]}
+      : bonus ?? base;
     const modern = isOpening(state);
-    const visuals = modern ? opening.scenes[record.sceneId] : record;
-    const tag = opening.routes[record.route]?.name ?? record.occasion ?? (record.phase === 'prologue' ? 'บทนำ' : record.phase === 'ending' ? 'บทส่งท้าย' : '');
+    const visuals = modern && !bonus ? opening.scenes[record.sceneId] : record;
+    const tag = bonus
+      ? `เรื่องหลังจบ · ${after.title}`
+      : opening.routes[record.route]?.name ?? record.occasion ?? (record.phase === 'prologue' ? 'บทนำ' : record.phase === 'ending' ? 'บทส่งท้าย' : '');
     const who = characters[record.focus];
     const festivalPortrait = record.phase === 'personal' && record.occasion;
-    const pct = record.phase === 'ending' ? 100 : Math.min(100, (record.step / (game.last * 2 + 1)) * 100);
+    const pct = modern ? 0 : record.phase === 'ending' ? 100 : Math.min(100, (record.step / (game.last * 2 + 1)) * 100);
     document.title = `${record.title} · ${title}`;
     app.innerHTML = `<section class="reader site-width">
       <div class="reader-meta"><span>${game.dateLabel(record.day)} · ${record.time} น.</span><button type="button" class="button small ghost" data-action="flow">ผังเส้นทาง</button></div>
@@ -197,8 +206,28 @@
         <button type="button" class="banner-zoom" data-action="zoom" data-value="${visuals.art}" data-title="${escape(record.title)}" aria-label="ขยายภาพ${escape(record.title)}"><span class="zoom-badge" aria-hidden="true">ขยายภาพ</span></button><div>
         <p>${escape((modern ? [tag,record.place] : [who?.name,tag || record.place]).filter(Boolean).join(' · '))}</p><h1 tabindex="-1">${escape(record.title)}</h1></div></header>
       <div class="chapter-text">${record.reply ? `<aside class="reply"><strong>ต่อจากที่คุยกับ${escape(record.reply.who)}</strong><p>${escape(record.reply.text)}</p></aside>` : ''}
-        <article class="prose">${illustratedText(record,visuals.inlineArt)}</article>${controls(record)}</div></section>`;
+        <article class="prose">${illustratedText(record,visuals.inlineArt)}</article>${bonus ? afterControls(after.chapters.length) : controls(record)}</div></section>`;
     atTop();
+  }
+
+  function readAfter(index = state?.afterChapter ?? 0) {
+    const story = game.afterStory(state);
+    if (!Number.isInteger(index) || !story?.chapters[index]) return;
+    state.afterChapter = index;
+    afterView = index;
+    historyView = null;
+    writeSlot(slot,state);
+    read();
+  }
+
+  function afterControls(total) {
+    const next = afterView + 1;
+    return `<section class="next"><p class="caption">เรื่องหลังจบ · ตอน ${next} / ${total}</p>
+      <div class="actions ending-actions">
+        ${next < total ? `<button type="button" class="button primary" data-action="after-page" data-value="${next}">อ่านตอนถัดไป</button>` : ''}
+        ${afterView > 0 ? `<button type="button" class="button" data-action="after-page" data-value="${afterView - 1}">ตอนก่อนหน้า</button>` : ''}
+        <button type="button" class="button ${next === total ? 'primary' : 'ghost'}" data-action="after-close">กลับไปฉากจบ</button>
+      </div></section>`;
   }
 
   function controls(record) {
@@ -226,8 +255,10 @@
 
   function openingControls(record) {
     if (record.ending) {
+      const after = game.afterStory(state);
       return `<section class="next"><div class="actions">
-        <button type="button" class="button primary" data-action="endings">ดูฉากจบที่พบ</button>
+        ${after ? `<button type="button" class="button primary" data-action="after-open">${state.afterChapter > 0 ? 'อ่านเรื่องหลังจบต่อ' : 'อ่านเรื่องหลังจบ'} · ${escape(after.title)}</button>` : ''}
+        <button type="button" class="button${after ? '' : ' primary'}" data-action="endings">ดูฉากจบที่พบ</button>
         <button type="button" class="button" data-action="journal" data-value="offscreen">อ่านเรื่องที่กานต์ไม่เห็น</button>
         <button type="button" class="button" data-action="new">เริ่มเรื่องใหม่</button>
         <button type="button" class="button ghost" data-action="home">กลับหน้าหลัก</button>
@@ -329,6 +360,7 @@
     state = game.start();
     slot = index;
     historyView = null;
+    afterView = null;
     writeSlot(slot,state);
     panel.close();
     read();
@@ -436,8 +468,11 @@
       case 'behind-list': behindList(); break;
       case 'behind': behind(value); break;
       case 'journal': journal(value); break;
+      case 'after-open': readAfter(); break;
+      case 'after-page': readAfter(index); break;
+      case 'after-close': afterView = null; read(); break;
       case 'history':
-        if (state?.records[index]) { historyView = index; panel.close(); read(); }
+        if (state?.records[index]) { historyView = index; afterView = null; panel.close(); read(); }
         break;
       case 'current': historyView = null; read(); break;
       case 'extend':
@@ -455,6 +490,7 @@
           state = game.restore(entry.run);
           slot = index;
           historyView = null;
+          afterView = null;
           if (entry.run.version !== state.version) writeSlot(slot,state);
           panel.close(); read();
         }

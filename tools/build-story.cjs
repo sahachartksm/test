@@ -23,6 +23,19 @@ for (const [id, scene] of Object.entries(opening.scenes)) {
     ids.add(option.id);
   }
 }
+for (const route of Object.keys(opening.routes)) {
+  const story = opening.afterStories[route];
+  if (!story?.title || !story.entry?.ask || !story.entry?.carry || !story.chapters?.length) {
+    throw new Error(`Incomplete after-story for ${route}`);
+  }
+  let previousDay = Math.max(opening.scenes[route + '-ask'].day,opening.scenes[route + '-carry'].day);
+  for (const chapter of story.chapters) {
+    if (chapter.day <= previousDay || !chapter.title || !chapter.art || chapter.text?.length < 2) {
+      throw new Error(`Incomplete or out-of-order after-story chapter for ${route}`);
+    }
+    previousDay = chapter.day;
+  }
+}
 if (!Number.isFinite(Date.parse(timeline.start)) || timeline.follow !== timeline.aid + 1 || timeline.pool !== timeline.follow + 1 || !house[timeline.pool]) throw new Error('Invalid festival calendar');
 if (!house.slice(1).every((day,index) => day.day > (house[index]?.day ?? 0)) || timeline.epilogue <= house.at(-1).day) throw new Error('Dates must move forward');
 for (const id of ['d','b','f']) {

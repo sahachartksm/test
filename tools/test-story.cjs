@@ -102,3 +102,35 @@ test('older Alpha saves load with new choices, and earlier reading remains recor
   assert.deepEqual(next.records.slice(0,3),legacy.records.slice(0,3));
   assert.deepEqual(current(game.restore(next)).text,current(next).text);
 });
+
+test('after-stories unlock for the featured pair only when she ends up with her rival', () => {
+  assert.equal(game.afterStory(game.start()),null);
+  for (const [route,entry] of Object.entries(entries)) {
+    const at = choices => advance(replay(entry),Object.fromEntries(
+      Object.entries(choices).map(([scene,choice]) => [route + '-' + scene,choice])
+    ));
+    const ask = at({decision:'say'});
+    const noPromise = at({promise:'open',decision:'stay'});
+    const implicit = at({clue:'smooth',decision:'stay'});
+    const together = at({decision:'stay'});
+    const leave = at({decision:'leave'});
+    const expected = opening.afterStories[route];
+    assert.equal(current(noPromise).ending,route + '-carry');
+    assert.equal(game.afterStory(ask).title,expected.title);
+    assert.equal(game.afterStory(noPromise).introduction,expected.entry.carry);
+    assert.equal(game.afterStory(ask).introduction,expected.entry.ask);
+    assert.deepEqual(game.afterStory(game.restore(JSON.parse(JSON.stringify(ask)))),game.afterStory(ask));
+    assert.equal(game.afterStory(implicit),null);
+    assert.equal(game.afterStory(together),null);
+    assert.equal(game.afterStory(leave),null);
+
+    assert.equal(expected.chapters.length,5);
+    assert(expected.chapters[0].day > current(noPromise).day);
+    for (const chapter of expected.chapters) {
+      for (const art of [chapter.art,chapter.inlineArt].filter(Boolean)) {
+        assert(art.startsWith('afterstory/' + route + '-'),art);
+        assert(fs.existsSync(join(root,'assets','scenes',art + '.webp')),art);
+      }
+    }
+  }
+});
