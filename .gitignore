@@ -1,1 +1,3 @@
-/assets/archive/unused-scenes/
+/references/
+__pycache__/
+*.tmp

@@ -2,37 +2,69 @@
 <html lang="th">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#161c17">
-  <meta name="description" content="บ้านกระจก นิยายโต้ตอบภาษาไทย เริ่มจากคืนที่กานต์กลับมาขอพักที่คาเฟ่ของอาน้อย">
-  <title>บ้านกระจก · Love</title>
-  <link rel="stylesheet" href="style.css?v=isekai">
-  <script defer src="story/brain.js?v=route-choice"></script>
-  <script defer src="story/engine.js?v=route-choice"></script>
-  <script defer src="app.js?v=isekai"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#182e29">
+  <title>คุณหนูใหญ่ซ่งอวิ๋น</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="reader.css">
+  <script src="reader.js" defer></script>
 </head>
-<body>
-  <header class="topbar"><div class="site-width top-inner">
-    <button class="brand" type="button" data-action="home" aria-label="บ้านกระจก หน้าหลัก"><span class="brand-mark" aria-hidden="true"></span><span>บ้านกระจก</span></button>
-    <nav aria-label="เมนูเกม">
-      <button type="button" class="nav-button" data-action="cast">ตัวละคร</button>
-      <button type="button" class="nav-button" data-action="journal" id="journal-nav" hidden>บันทึก</button>
-      <button type="button" class="nav-button outlined" data-action="saves">เซฟเกม</button>
-    </nav>
-  </div></header>
-  <main id="app"></main>
-  <footer class="site-footer"><div class="site-width"><span>บ้านกระจก</span><span>นิยายโต้ตอบ</span></div></footer>
-  <dialog id="panel" aria-labelledby="panel-title">
-    <div class="panel-head"><h2 id="panel-title"></h2><button type="button" data-action="close" class="icon-button" aria-label="ปิด">×</button></div>
-    <div class="panel-body" id="panel-body"></div>
-  </dialog>
-  <dialog id="zoom-panel" class="zoom-panel" aria-labelledby="zoom-title">
-    <div class="panel-head"><h2 id="zoom-title">ภาพฉาก</h2><div class="zoom-tools">
-      <button type="button" data-action="toggle-zoom" class="button small" aria-pressed="false">ขยาย 2 เท่า</button>
-      <button type="button" data-action="close-zoom" class="icon-button" aria-label="ปิดภาพ">×</button>
-    </div></div>
-    <div class="zoom-viewport" tabindex="0" aria-label="พื้นที่ภาพแบบเลื่อนได้"><img id="zoom-image" alt=""></div>
-  </dialog>
-  <div class="toast" id="toast" role="status" hidden></div>
+<body class="library">
+  <a class="skip-link" href="#main">ข้ามไปยังเนื้อหา</a>
+<header class="site-header">
+    <div class="header-inner"><a class="brand" href="index.html"><span aria-hidden="true">ซ</span>คุณหนูใหญ่ซ่งอวิ๋น</a><a href="#chapters">สารบัญ</a></div>
+  </header>
+  <main id="main">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="byline">นิยายโดย <a href="https://novel.dek-d.com/SaiphanParichat/profile/writer/">ซีอิ๋ง</a></p>
+          <h1>คุณหนูใหญ่ซ่งอวิ๋น</h1>
+          <p class="blurb">เมื่อรู้ว่าตัวเองเป็นเพียงตัวประกอบในนิยายที่มีจุดจบคือการสูญสิ้นทุกอย่าง ซ่งอวิ๋น จึงไม่มีวันยอมปล่อยให้โชคชะตาเป็นผู้กำหนดชีวิต</p>
+          <div class="hero-actions"><a class="button primary" href="read/01.html" id="start-reading">เริ่มอ่านตอนที่ 1</a><a class="button secondary" href="#chapters">ดูทุกตอน</a></div>
+        </div>
+        <figure class="book-cover"><img src="content/cover.webp" alt="ปกคุณหนูใหญ่ซ่งอวิ๋น" width="704" height="1000"></figure>
+      </div>
+    </section>
+    <div class="library-content">
+      <section id="chapters" aria-labelledby="chapters-title">
+        <div class="section-heading"><h2 id="chapters-title">สารบัญ</h2><p>30 ตอน</p></div>
+        <ol class="chapters" role="list"><li><a href="read/01.html"><span class="chapter-number">01</span><span>ฝันบอกเหตุ</span></a></li>
+<li><a href="read/02.html"><span class="chapter-number">02</span><span>ลูกสาวนอกสมรส</span></a></li>
+<li><a href="read/03.html"><span class="chapter-number">03</span><span>เหยียบหัวใจ</span></a></li>
+<li><a href="read/04.html"><span class="chapter-number">04</span><span>ทรยศ</span></a></li>
+<li><a href="read/05.html"><span class="chapter-number">05</span><span>เปลี่ยนแปลง</span></a></li>
+<li><a href="read/06.html"><span class="chapter-number">06</span><span>รอยร้าวเล็ก ๆ</span></a></li>
+<li><a href="read/07.html"><span class="chapter-number">07</span><span>ไร้ทางเลือก</span></a></li>
+<li><a href="read/08.html"><span class="chapter-number">08</span><span>หยัดยืน</span></a></li>
+<li><a href="read/09.html"><span class="chapter-number">09</span><span>ลืมมารยาท</span></a></li>
+<li><a href="read/10.html"><span class="chapter-number">10</span><span>แข่งขันฝ่ายเดียว</span></a></li>
+<li><a href="read/11.html"><span class="chapter-number">11</span><span>สร้างความแตกแยก</span></a></li>
+<li><a href="read/12.html"><span class="chapter-number">12</span><span>ตาชั่งเอนเอียง</span></a></li>
+<li><a href="read/13.html"><span class="chapter-number">13</span><span>มั่นใจ</span></a></li>
+<li><a href="read/14.html"><span class="chapter-number">14</span><span>แพ้พ่าย</span></a></li>
+<li><a href="read/15.html"><span class="chapter-number">15</span><span>ไม้เด็ด?</span></a></li>
+<li><a href="read/16.html"><span class="chapter-number">16</span><span>เพื่อนสนิท?</span></a></li>
+<li><a href="read/17.html"><span class="chapter-number">17</span><span>เหยื่อรายต่อไปเคี้ยวยาก</span></a></li>
+<li><a href="read/18.html"><span class="chapter-number">18</span><span>ชักชวน</span></a></li>
+<li><a href="read/19.html"><span class="chapter-number">19</span><span>ยกที่หนึ่ง</span></a></li>
+<li><a href="read/20.html"><span class="chapter-number">20</span><span>พลาดไปแล้ว</span></a></li>
+<li><a href="read/21.html"><span class="chapter-number">21</span><span>ไม่เคยกลัว</span></a></li>
+<li><a href="read/22.html"><span class="chapter-number">22</span><span>จี้ปม</span></a></li>
+<li><a href="read/23.html"><span class="chapter-number">23</span><span>มือมืด</span></a></li>
+<li><a href="read/24.html"><span class="chapter-number">24</span><span>หมดความอดทน</span></a></li>
+<li><a href="read/25.html"><span class="chapter-number">25</span><span>สองทางเลือก</span></a></li>
+<li><a href="read/26.html"><span class="chapter-number">26</span><span>พระเอกป่วยจิต</span></a></li>
+<li><a href="read/27.html"><span class="chapter-number">27</span><span>เพื่อนใหม่ที่คล้ายกัน</span></a></li>
+<li><a href="read/28.html"><span class="chapter-number">28</span><span>เหนือการควบคุม</span></a></li>
+<li><a href="read/29.html"><span class="chapter-number">29</span><span>ช่วยทางอ้อม</span></a></li>
+<li><a href="read/30.html"><span class="chapter-number">30</span><span>ฉินชาง</span></a></li></ol>
+      </section>
+      <details class="book-intro"><summary>ข้อมูลเบื้องต้น</summary><div class="intro-prose"><p>คุณหนูใหญ่ตระกูลซ่ง</p><p>ซ่งอวิ๋น คุณหนูใหญ่แห่งตระกูลซ่ง เติบโตมาอย่างสมบูรณ์แบบในฐานะหลานสาวเพียงคนเดียวของตระกูลมหาเศรษฐี จนคืนก่อนวันเกิดอายุครบสิบแปดปี เธอกลับฝันเห็นเรื่องราวของนิยายเรื่อง วาสนารัก พระเอกธงดำ และพบความจริงว่า ตัวเองคือน้องสาวของนางเอกผู้เป็นลูกสาวนอกสมรสของพ่อ</p><p>ในเนื้อเรื่อง พ่อเลือกพาพี่สาวต่างแม่มาเปิดตัวในวันเกิดของเธอ ทำลายครอบครัวจนแหลกสลาย ขณะที่พี่สาวซึ่งกลับมาเกิดใหม่พร้อมความแค้น ใช้พระเอกผู้แสนอันตรายเป็นเครื่องมือโค่นตระกูลซ่งจนไม่เหลือชิ้นดี</p><p>แต่เมื่อรู้อนาคตล่วงหน้า ซ่งอวิ๋นจะไม่ยอมเป็นเหยื่ออีกต่อไป</p><p>เธอจะปกป้องแม่ เปิดโปงพ่อผู้ทรยศ หยุดยั้งพี่สาวนอกสมรส และต่อกรกับพระเอกธงดำผู้พร้อมทำลายทุกคนเพื่อคนรัก</p><p>ครั้งนี้...ไม่ใช่นางเอกที่จะกำหนดชะตา หากแต่เป็นตัวประกอบที่ลุกขึ้นมาเขียนตอนจบใหม่ด้วยมือตัวเอง</p></div></details>
+    </div>
+  </main>
+  <footer class="site-footer"><a href="https://writer.dek-d.com/SaiphanParichat/writer/view.php?id=2689961">ต้นฉบับบน Dek-D</a></footer>
 </body>
 </html>

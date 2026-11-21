@@ -1,0 +1,194 @@
+{
+  "imageDirection": "Wide single landscape 3:2 live-action film still from an elegant contemporary mainland Chinese family drama. Photorealistic human skin and anatomy, thoughtful restrained emotion, naturalistic on-location light, subtly toned warm-neutral cinematic color. Use scene-appropriate contemporary China and actual monastic robes where specified. Show only the visual moment described and keep cast members visually distinct. Match each supplied character sheet's face, age, eye shape, nose, hair color, and lips exactly. Change expression, viewpoint, pose, and clothing as the scene requires. Use modest age-appropriate styling. No captions, logos, watermarks, separate panels or text. One full-bleed shot.",
+  "characters": {
+    "ซ่งอวิ๋น": {
+      "id": "song-yun",
+      "reference": "references/2.jpg",
+      "sheet": "assets/characters/song-yun.png",
+      "design": "18-year-old heroine; oval face, peach-blossom eyes, fair skin and very long lustrous black hair",
+      "sheetPrompt": "Create a photorealistic six-view character sheet for Song Yun (ซ่งอวิ๋น), the 18-year-old East Asian heroine of a present-day Chinese family drama. The provided image is the face identity reference for this one character. Keep her same softly oval face, long smooth black hair, fair skin, softly flared peach-blossom eyes, small slightly upturned high-bridge nose and subtle rose Cupid's bow. Use the same face and age in every panel, keeping the geometry consistent as it turns and emotes. Six clearly separated neutral-background panels of the same person: full-length head-to-toe in a pale blue blouse, cream cardigan and straight navy trousers, neutral straight-on headshot, neutral three-quarter headshot, true side profile, warm relaxed smile headshot and tense worried headshot. Fully clothed contemporary modest styling. Natural skin texture, muted warm gray studio, large panel faces with clean soft even lighting. Wide professional live-action film continuity sheet. No text, labels, logos, decorations or watermarks."
+    },
+    "ซ่งหว่าน": {
+      "id": "song-wan",
+      "reference": "references/1.png",
+      "sheet": "assets/characters/song-wan.png",
+      "design": "18-year-old half-sister; porcelain fair, taller and slender with phoenix eyes and dark wispy fringe",
+      "sheetPrompt": "Create a professional photoreal cinematic six-view character continuity sheet for ซ่งหว่าน, one East Asian cast member of a contemporary mainland Chinese family drama. 18-year-old taller half-sister, slender, porcelain fair, angular oval with fine chin, distinctive upward phoenix eyes and a still, composed expression. Long black hair with wispy fringe. Muted lilac blouse and dark slacks. The supplied image is a face identity reference. Match the distinctive eye spacing, jaw, nose, and lip geometry, with the age and hairstyle specified above. Keep the very same identity and facial proportions in all six panels, vary only view and expression. Show full-length body in stated clothing, neutral front headshot, neutral three-quarter headshot, side-profile headshot, natural small smile and serious worried headshot. Give each face generous size, balance the layout in a neat grid, soft gray-beige studio backdrop, true skin texture, grounded restrained photographic stills. Dressed modestly. No borders covered in type, no labels, no text, no watermark."
+    },
+    "โจวจิ่ว": {
+      "id": "zhou-jiu",
+      "reference": "references/3.jpg",
+      "sheet": "assets/characters/zhou-jiu.png",
+      "design": "Yun's elegant middle-aged mother; graceful oval face, protective observant eyes and black hair in low bun",
+      "sheetPrompt": "Create a professional photoreal cinematic six-view character continuity sheet for โจวจิ่ว, one East Asian cast member of a contemporary mainland Chinese family drama. Middle-aged East Asian executive and Song Yun's mother, age 46, natural adult facial maturity, graceful oval face with alert eyes, protective and poised. Black hair in an elegant low bun, ivory blouse and cocoa jacket. The supplied image is a face identity reference. Match the distinctive eye spacing, jaw, nose, and lip geometry, with the age and hairstyle specified above. Keep the very same identity and facial proportions in all six panels, vary only view and expression. Show full-length body in stated clothing, neutral front headshot, neutral three-quarter headshot, side-profile headshot, natural small smile and serious worried headshot. Give each face generous size, balance the layout in a neat grid, soft gray-beige studio backdrop, true skin texture, grounded restrained photographic stills. Dressed modestly. No borders covered in type, no labels, no text, no watermark."
+    },
+    "ซ่งเหวิน": {
+      "id": "song-wen",
+      "reference": null,
+      "sheet": "assets/characters/song-wen.png",
+      "design": "Midlife executive and father; sharp narrow eyes, rectangular jaw, broad back and neat dark hair graying at temples",
+      "sheetPrompt": "Create a professional photoreal cinematic six-view character continuity sheet for ซ่งเหวิน, one East Asian cast member of a contemporary mainland Chinese family drama. Middle-aged father and executive, age about 48, sharp observant narrow eyes, upright broad back, rectangular jaw, straight broad nose, neat black hair lightly graying at temples, clean-shaven. Modern dark charcoal suit, no tie.  Keep the very same identity and facial proportions in all six panels, vary only view and expression. Show full-length body in stated clothing, neutral front headshot, neutral three-quarter headshot, side-profile headshot, natural small smile and serious worried headshot. Give each face generous size, balance the layout in a neat grid, soft gray-beige studio backdrop, true skin texture, grounded restrained photographic stills. Dressed modestly. No borders covered in type, no labels, no text, no watermark."
+    },
+    "ซ่งเต๋อ": {
+      "id": "song-de",
+      "reference": null,
+      "sheet": "assets/characters/song-de.png",
+      "design": "Vigorous 73-year-old grandfather with silvery dark-streaked hair, weathered face and sharp commanding eyes",
+      "sheetPrompt": "Create a professional photoreal cinematic six-view character continuity sheet for ซ่งเต๋อ, one East Asian cast member of a contemporary mainland Chinese family drama. 73-year-old grandfather and patriarch, unusually vigorous upright frame, swept-back silver hair with black mixed in, weathered kind face, cloudy but sharp commanding eyes, prominent nose, wide strong brow. Austere navy mandarin-collar jacket, subtle cane where appropriate.  Keep the very same identity and facial proportions in all six panels, vary only view and expression. Show full-length body in stated clothing, neutral front headshot, neutral three-quarter headshot, side-profile headshot, natural small smile and serious worried headshot. Give each face generous size, balance the layout in a neat grid, soft gray-beige studio backdrop, true skin texture, grounded restrained photographic stills. Dressed modestly. No borders covered in type, no labels, no text, no watermark."
+    },
+    "แม่นมฝาง": {
+      "id": "nanny-fang",
+      "reference": "references/348ea2b772cf6bf1440ee57483ac09e2.jpg",
+      "sheet": "assets/characters/nanny-fang.png",
+      "design": "Kindly elderly nanny; mature rounded face and practical gray-black hair in low bun",
+      "sheetPrompt": "Create a professional photoreal cinematic six-view character continuity sheet for แม่นมฝาง, one East Asian cast member of a contemporary mainland Chinese family drama. Elderly Chinese household nanny age 64 based loosely on referenced eye and nose geometry, mature softly rounded face and smile lines, silver-streaked gray-black practical low bun, warm modest dark teal cardigan. Thoughtful kindly demeanor. The supplied image is a face identity reference. Match the distinctive eye spacing, jaw, nose, and lip geometry, with the age and hairstyle specified above. Keep the very same identity and facial proportions in all six panels, vary only view and expression. Show full-length body in stated clothing, neutral front headshot, neutral three-quarter headshot, side-profile headshot, natural small smile and serious worried headshot. Give each face generous size, balance the layout in a neat grid, soft gray-beige studio backdrop, true skin texture, grounded restrained photographic stills. Dressed modestly. No borders covered in type, no labels, no text, no watermark."
+    },
+    "จ้าวอิ๋น": {
+      "id": "zhao-yin",
+      "reference": "references/61ab78712e053965b7a18aa9b08dd455.jpg",
+      "sheet": "assets/characters/zhao-yin.png",
+      "design": "Elderly Buddhist nun, Yun's grandmother, perceptive eyes, charcoal monastic cap and plain robe",
+      "sheetPrompt": "Create a professional photoreal cinematic six-view character continuity sheet for จ้าวอิ๋น, one East Asian cast member of a contemporary mainland Chinese family drama. Elderly Chinese Buddhist nun age about 70, same basic facial geometry matured into a deeply lined kind face, calm sharp perceptive eyes, shaved head under modest plain charcoal monastic cap and dark unadorned robes. Quiet gentle dignity. The supplied image is a face identity reference. Match the distinctive eye spacing, jaw, nose, and lip geometry, with the age and hairstyle specified above. Keep the very same identity and facial proportions in all six panels, vary only view and expression. Show full-length body in stated clothing, neutral front headshot, neutral three-quarter headshot, side-profile headshot, natural small smile and serious worried headshot. Give each face generous size, balance the layout in a neat grid, soft gray-beige studio backdrop, true skin texture, grounded restrained photographic stills. Dressed modestly. No borders covered in type, no labels, no text, no watermark."
+    },
+    "ซ่งเซียง": {
+      "id": "song-xiang",
+      "reference": "references/9be4bbe4070ae2db6cb16f2f8356a57c.jpg",
+      "sheet": "assets/characters/song-xiang.png",
+      "design": "Sophisticated midlife aunt; neat black bob, mature oval face, contemporary business clothing",
+      "sheetPrompt": "Create a professional photoreal cinematic six-view character continuity sheet for ซ่งเซียง, one East Asian cast member of a contemporary mainland Chinese family drama. Elegant Chinese executive aunt in her mid-40s, naturally mature thin oval face, composed sharp eyes and shoulder-length neatly tucked black bob. Modern subdued deep cranberry suit. Use reference facial proportions only, no costume features. The supplied image is a face identity reference. Match the distinctive eye spacing, jaw, nose, and lip geometry, with the age and hairstyle specified above. Keep the very same identity and facial proportions in all six panels, vary only view and expression. Show full-length body in stated clothing, neutral front headshot, neutral three-quarter headshot, side-profile headshot, natural small smile and serious worried headshot. Give each face generous size, balance the layout in a neat grid, soft gray-beige studio backdrop, true skin texture, grounded restrained photographic stills. Dressed modestly. No borders covered in type, no labels, no text, no watermark."
+    },
+    "ซ่งจื้อ": {
+      "id": "song-zhi",
+      "reference": null,
+      "sheet": "assets/characters/song-zhi.png",
+      "design": "16-year-old teenage cousin and actor; distinctive sword-shaped brows, short tousled hair, youthful energetic face",
+      "sheetPrompt": "Create a professional photoreal cinematic six-view character continuity sheet for ซ่งจื้อ, one East Asian cast member of a contemporary mainland Chinese family drama. 16-year-old high school teenage cousin and young actor, age-appropriate tall broad-shouldered but youthful teenage build, strong sword-shaped brows and expressive dark eyes, rounded youthful jaw, short tousled black hair. Blue-gray varsity jacket over white T-shirt, fully dressed.  Keep the very same identity and facial proportions in all six panels, vary only view and expression. Show full-length body in stated clothing, neutral front headshot, neutral three-quarter headshot, side-profile headshot, natural small smile and serious worried headshot. Give each face generous size, balance the layout in a neat grid, soft gray-beige studio backdrop, true skin texture, grounded restrained photographic stills. Dressed modestly. No borders covered in type, no labels, no text, no watermark."
+    },
+    "เจียงเซิน": {
+      "id": "jiang-shen",
+      "reference": null,
+      "sheet": "assets/characters/jiang-shen.png",
+      "design": "20-year-old cousin with long narrow face, short brushed-up hair and focused eyes",
+      "sheetPrompt": "Create a professional photoreal cinematic six-view character continuity sheet for เจียงเซิน, one East Asian cast member of a contemporary mainland Chinese family drama. 20-year-old male university student, medium build, long narrow face, straight dark eyebrows, short brushed-up black hair, focused wary eyes, straight narrow nose. Slate-green contemporary overshirt over gray crewneck.  Keep the very same identity and facial proportions in all six panels, vary only view and expression. Show full-length body in stated clothing, neutral front headshot, neutral three-quarter headshot, side-profile headshot, natural small smile and serious worried headshot. Give each face generous size, balance the layout in a neat grid, soft gray-beige studio backdrop, true skin texture, grounded restrained photographic stills. Dressed modestly. No borders covered in type, no labels, no text, no watermark."
+    },
+    "เจียงซู": {
+      "id": "jiang-su",
+      "reference": null,
+      "sheet": "assets/characters/jiang-su.png",
+      "design": "22-year-old university student; taller, parted hair and fine rectangular glasses",
+      "sheetPrompt": "Create a professional photoreal cinematic six-view character continuity sheet for เจียงซู, one East Asian cast member of a contemporary mainland Chinese family drama. 22-year-old tall analytical male university student, mature for his age, longer squared jaw, parted neatly combed black hair, steady almond eyes, fine rectangular glasses and neat nose, dark navy blazer with white casual shirt.  Keep the very same identity and facial proportions in all six panels, vary only view and expression. Show full-length body in stated clothing, neutral front headshot, neutral three-quarter headshot, side-profile headshot, natural small smile and serious worried headshot. Give each face generous size, balance the layout in a neat grid, soft gray-beige studio backdrop, true skin texture, grounded restrained photographic stills. Dressed modestly. No borders covered in type, no labels, no text, no watermark."
+    },
+    "ซ่งเซวียน": {
+      "id": "song-xuan",
+      "reference": null,
+      "sheet": "assets/characters/song-xuan.png",
+      "design": "Kind middle-aged uncle; gentle perceptive eyes resembling Zhao Yin and a slightly oval face",
+      "sheetPrompt": "Create a professional photoreal cinematic six-view character continuity sheet for ซ่งเซวียน, one East Asian cast member of a contemporary mainland Chinese family drama. Middle-aged younger uncle in his early forties, gentle perceptive eyes resembling elderly Nun Zhao's, evident kinder open expression, slightly oval face with straight black brows and neat combed black hair. Cool gray suit over blue open collar.  Keep the very same identity and facial proportions in all six panels, vary only view and expression. Show full-length body in stated clothing, neutral front headshot, neutral three-quarter headshot, side-profile headshot, natural small smile and serious worried headshot. Give each face generous size, balance the layout in a neat grid, soft gray-beige studio backdrop, true skin texture, grounded restrained photographic stills. Dressed modestly. No borders covered in type, no labels, no text, no watermark."
+    },
+    "เฉียวอันฉี": {
+      "id": "qiao-anqi",
+      "reference": "references/ffefefef.png",
+      "sheet": "assets/characters/qiao-anqi.png",
+      "design": "18-year-old childhood friend; large round dark-brown eyes and thick slightly wavy dark hair",
+      "sheetPrompt": "Create a professional photoreal cinematic six-view character continuity sheet for เฉียวอันฉี, one East Asian cast member of a contemporary mainland Chinese family drama. 18-year-old best friend, naturally large round dark-brown eyes, thick slightly wavy dark hair, upbeat and sincere, ivory skin and soft cheeks. Muted dusty pink jacket over cream top, fully dressed. The supplied image is a face identity reference. Match the distinctive eye spacing, jaw, nose, and lip geometry, with the age and hairstyle specified above. Keep the very same identity and facial proportions in all six panels, vary only view and expression. Show full-length body in stated clothing, neutral front headshot, neutral three-quarter headshot, side-profile headshot, natural small smile and serious worried headshot. Give each face generous size, balance the layout in a neat grid, soft gray-beige studio backdrop, true skin texture, grounded restrained photographic stills. Dressed modestly. No borders covered in type, no labels, no text, no watermark."
+    },
+    "หนานหรง": {
+      "id": "nan-rong",
+      "reference": "references/407c2e4a6d1b2b56cfba7227f1d5eaad.jpg",
+      "sheet": "assets/characters/nan-rong.png",
+      "design": "18-year-old student; petite porcelain-doll oval face, round eyes, thin silver glasses and long ponytail",
+      "sheetPrompt": "Create a professional photoreal cinematic six-view character continuity sheet for หนานหรง, one East Asian cast member of a contemporary mainland Chinese family drama. 18-year-old university student, small porcelain-doll oval face, fair skin, round observant eyes behind thin wire spectacles, tidy center-parted black hair, modest soft beige cardigan over sage blouse. The supplied image is a face identity reference. Match the distinctive eye spacing, jaw, nose, and lip geometry, with the age and hairstyle specified above. Keep the very same identity and facial proportions in all six panels, vary only view and expression. Show full-length body in stated clothing, neutral front headshot, neutral three-quarter headshot, side-profile headshot, natural small smile and serious worried headshot. Give each face generous size, balance the layout in a neat grid, soft gray-beige studio backdrop, true skin texture, grounded restrained photographic stills. Dressed modestly. No borders covered in type, no labels, no text, no watermark."
+    },
+    "เจียงกั๋ว": {
+      "id": "jiang-guo",
+      "reference": null,
+      "sheet": "assets/characters/jiang-guo.png",
+      "design": "Middle-aged man who looks ten years younger, tall and slim, thick jet-black hair and tapered jaw",
+      "sheetPrompt": "Create a professional photoreal cinematic six-view character continuity sheet for เจียงกั๋ว, one East Asian cast member of a contemporary mainland Chinese family drama. Middle-aged Chinese man who looks ten years younger, tall and slim, thick jet-black hair with a grown-out side part, clean-shaven, finely tapered jaw, subtly cynical eyes. Contemporary understated black suit.  Keep the very same identity and facial proportions in all six panels, vary only view and expression. Show full-length body in stated clothing, neutral front headshot, neutral three-quarter headshot, side-profile headshot, natural small smile and serious worried headshot. Give each face generous size, balance the layout in a neat grid, soft gray-beige studio backdrop, true skin texture, grounded restrained photographic stills. Dressed modestly. No borders covered in type, no labels, no text, no watermark."
+    },
+    "เจินเหมี่ยว": {
+      "id": "zhen-miao",
+      "reference": "references/809a718ff72e84dd5fd27de0b0dde283.jpg",
+      "sheet": "assets/characters/zhen-miao.png",
+      "design": "Early-40s aunt by marriage; kindly downturned almond eyes, long soft face and loose dark shoulder-length blowout",
+      "sheetPrompt": "Create one professional photoreal cinematic six-view character continuity sheet for เจินเหมี่ยว, East Asian cast member of a contemporary mainland Chinese family drama. Early-40s aunt by marriage; kindly downturned almond eyes, long soft face and loose dark shoulder-length blowout. Use the supplied image as the facial structural reference, respecting the specified age and distinctions. Keep the same identity and facial proportions in all six panels; vary view and expression. Include fully clothed full-length body, neutral front headshot, neutral three-quarter headshot, true side-profile headshot, small natural smile and tense serious headshot. Large faces in neatly arranged separated panels, soft gray-beige studio backdrop, natural skin texture, restrained high-end realism, soft even light. Modern modest styling. No text, labels, logos, or watermark."
+    },
+    "เหลียงจิน": {
+      "id": "liang-jin",
+      "reference": "references/d0e3c9db9b52f710e3ef35c88fbcc0b7.jpg",
+      "sheet": "assets/characters/liang-jin.png",
+      "design": "18-year-old student rival; angular heart-shaped face, expressive brow and side-parted black hair",
+      "sheetPrompt": "Create one professional photoreal cinematic six-view character continuity sheet for เหลียงจิน, East Asian cast member of a contemporary mainland Chinese family drama. 18-year-old student rival; angular heart-shaped face, expressive brow and side-parted black hair. Use the supplied image as the facial structural reference, respecting the specified age and distinctions. Keep the same identity and facial proportions in all six panels; vary view and expression. Include fully clothed full-length body, neutral front headshot, neutral three-quarter headshot, true side-profile headshot, small natural smile and tense serious headshot. Large faces in neatly arranged separated panels, soft gray-beige studio backdrop, natural skin texture, restrained high-end realism, soft even light. Modern modest styling. No text, labels, logos, or watermark."
+    },
+    "หนานชิว": {
+      "id": "nan-qiu",
+      "reference": "references/22c7a44f60eeb4a592ceb8d16a755058.jpg",
+      "sheet": "assets/characters/nan-qiu.png",
+      "design": "18-year-old student; heart-shaped face with wide cheekbones, quick expressive gaze, no glasses",
+      "sheetPrompt": "Create one professional photoreal cinematic six-view character continuity sheet for หนานชิว, East Asian cast member of a contemporary mainland Chinese family drama. 18-year-old student; heart-shaped face with wide cheekbones, quick expressive gaze, no glasses. Use the supplied image as the facial structural reference, respecting the specified age and distinctions. Keep the same identity and facial proportions in all six panels; vary view and expression. Include fully clothed full-length body, neutral front headshot, neutral three-quarter headshot, true side-profile headshot, small natural smile and tense serious headshot. Large faces in neatly arranged separated panels, soft gray-beige studio backdrop, natural skin texture, restrained high-end realism, soft even light. Modern modest styling. No text, labels, logos, or watermark."
+    },
+    "ฟ่านเยว่": {
+      "id": "fan-yue",
+      "reference": "references/01c798dd4ce9bf38cb3c761cfca8e203.jpg",
+      "sheet": "assets/characters/fan-yue.png",
+      "design": "18-year-old engineering student; athletic sturdy build, slightly round face, sincere smiling eyes and dark ponytail",
+      "sheetPrompt": "Create one professional photoreal cinematic six-view character continuity sheet for ฟ่านเยว่, East Asian cast member of a contemporary mainland Chinese family drama. 18-year-old engineering student; athletic sturdy build, slightly round face, sincere smiling eyes and dark ponytail. Use the supplied image as the facial structural reference, respecting the specified age and distinctions. Keep the same identity and facial proportions in all six panels; vary view and expression. Include fully clothed full-length body, neutral front headshot, neutral three-quarter headshot, true side-profile headshot, small natural smile and tense serious headshot. Large faces in neatly arranged separated panels, soft gray-beige studio backdrop, natural skin texture, restrained high-end realism, soft even light. Modern modest styling. No text, labels, logos, or watermark."
+    },
+    "ฮวาผิง": {
+      "id": "hua-ping",
+      "reference": "references/1.png",
+      "sheet": "assets/characters/hua-ping.png",
+      "design": "Wan's mother in a memory, age 26; softly smiling with family resemblance in phoenix eyes, wider cheeks, dark hair in low twist",
+      "sheetPrompt": "Create one professional photoreal cinematic six-view character continuity sheet for ฮวาผิง, East Asian cast member of a contemporary mainland Chinese family drama. Wan's mother in a memory, age 26; softly smiling with family resemblance in phoenix eyes, wider cheeks, dark hair in low twist. Use the supplied image as the facial structural reference, respecting the specified age and distinctions. Keep the same identity and facial proportions in all six panels; vary view and expression. Include fully clothed full-length body, neutral front headshot, neutral three-quarter headshot, true side-profile headshot, small natural smile and tense serious headshot. Large faces in neatly arranged separated panels, soft gray-beige studio backdrop, natural skin texture, restrained high-end realism, soft even light. Modern modest styling. No text, labels, logos, or watermark."
+    },
+    "ผู้กำกับหู": {
+      "id": "director-hu",
+      "reference": null,
+      "sheet": "assets/characters/director-hu.png",
+      "design": "Practical middle-aged Chinese television director; rectangular glasses, short salt-and-pepper hair, light stubble and utility vest",
+      "sheetPrompt": "Create one professional photoreal cinematic six-view character continuity sheet for ผู้กำกับหู, East Asian cast member of a contemporary mainland Chinese family drama. Practical middle-aged Chinese television director; rectangular glasses, short salt-and-pepper hair, light stubble and utility vest.  Keep the same identity and facial proportions in all six panels; vary view and expression. Include fully clothed full-length body, neutral front headshot, neutral three-quarter headshot, true side-profile headshot, small natural smile and tense serious headshot. Large faces in neatly arranged separated panels, soft gray-beige studio backdrop, natural skin texture, restrained high-end realism, soft even light. Modern modest styling. No text, labels, logos, or watermark."
+    },
+    "ฉินชาง": {
+      "id": "qin-chang",
+      "reference": null,
+      "sheet": "assets/characters/qin-chang.png",
+      "design": "Tall lean young East Asian man, defined angular jaw, deep-set cool eyes, prominent straight nose and sculpted lips",
+      "sheetPrompt": "Create one professional photoreal cinematic six-view character continuity sheet for ฉินชาง, East Asian cast member of a contemporary mainland Chinese family drama. Tall lean young East Asian man, defined angular jaw, deep-set cool eyes, prominent straight nose and sculpted lips.  Keep the same identity and facial proportions in all six panels; vary view and expression. Include fully clothed full-length body, neutral front headshot, neutral three-quarter headshot, true side-profile headshot, small natural smile and tense serious headshot. Large faces in neatly arranged separated panels, soft gray-beige studio backdrop, natural skin texture, restrained high-end realism, soft even light. Modern modest styling. No text, labels, logos, or watermark."
+    },
+    "หนานจื่อเฉียง": {
+      "id": "nan-ziqiang",
+      "reference": null,
+      "sheet": "assets/characters/nan-ziqiang.png",
+      "design": "Stocky fifty-year-old chairman with upturned eyes, downturned mouth and broad square face",
+      "sheetPrompt": "Create one professional photoreal cinematic six-view character continuity sheet for หนานจื่อเฉียง, East Asian cast member of a contemporary mainland Chinese family drama. Stocky fifty-year-old chairman with upturned eyes, downturned mouth and broad square face.  Keep the same identity and facial proportions in all six panels; vary view and expression. Include fully clothed full-length body, neutral front headshot, neutral three-quarter headshot, true side-profile headshot, small natural smile and tense serious headshot. Large faces in neatly arranged separated panels, soft gray-beige studio backdrop, natural skin texture, restrained high-end realism, soft even light. Modern modest styling. No text, labels, logos, or watermark."
+    },
+    "ช่างแต่งหน้า": {
+      "id": "makeup-artist",
+      "reference": "references/3.jpg",
+      "sheet": "assets/characters/makeup-artist.png",
+      "design": "Late-30s Chinese TV makeup artist; broad oval face and kindly eyes, dark low ponytail",
+      "sheetPrompt": "Create one professional photoreal cinematic six-view character continuity sheet for ช่างแต่งหน้า, East Asian cast member of a contemporary mainland Chinese family drama. Late-30s Chinese TV makeup artist; broad oval face and kindly eyes, dark low ponytail. Use the supplied image as the facial structural reference, respecting the specified age and distinctions. Keep the same identity and facial proportions in all six panels; vary view and expression. Include fully clothed full-length body, neutral front headshot, neutral three-quarter headshot, true side-profile headshot, small natural smile and tense serious headshot. Large faces in neatly arranged separated panels, soft gray-beige studio backdrop, natural skin texture, restrained high-end realism, soft even light. Modern modest styling. No text, labels, logos, or watermark."
+    },
+    "บอดี้การ์ดสาว": {
+      "id": "bodyguard",
+      "reference": "references/d0e3c9db9b52f710e3ef35c88fbcc0b7.jpg",
+      "sheet": "assets/characters/bodyguard.png",
+      "design": "Late-twenties athletic Chinese bodyguard; alert eyes, squared jaw, tight low bun and understated modern black suit",
+      "sheetPrompt": "Create one professional photoreal cinematic six-view character continuity sheet for บอดี้การ์ดสาว, East Asian cast member of a contemporary mainland Chinese family drama. Late-twenties athletic Chinese bodyguard; alert eyes, squared jaw, tight low bun and understated modern black suit. Use the supplied image as the facial structural reference, respecting the specified age and distinctions. Keep the same identity and facial proportions in all six panels; vary view and expression. Include fully clothed full-length body, neutral front headshot, neutral three-quarter headshot, true side-profile headshot, small natural smile and tense serious headshot. Large faces in neatly arranged separated panels, soft gray-beige studio backdrop, natural skin texture, restrained high-end realism, soft even light. Modern modest styling. No text, labels, logos, or watermark."
+    },
+    "ทีมงานสาวสวมหมวกแก๊ป": {
+      "id": "studio-crew",
+      "reference": "references/348ea2b772cf6bf1440ee57483ac09e2.jpg",
+      "sheet": "assets/characters/studio-crew.png",
+      "design": "Unassuming Chinese woman in late twenties; small triangular face, dark hair tucked under dark crew cap",
+      "sheetPrompt": "Create one professional photoreal cinematic six-view character continuity sheet for ทีมงานสาวสวมหมวกแก๊ป, East Asian cast member of a contemporary mainland Chinese family drama. Unassuming Chinese woman in late twenties; small triangular face, dark hair tucked under dark crew cap. Use the supplied image as the facial structural reference, respecting the specified age and distinctions. Keep the same identity and facial proportions in all six panels; vary view and expression. Include fully clothed full-length body, neutral front headshot, neutral three-quarter headshot, true side-profile headshot, small natural smile and tense serious headshot. Large faces in neatly arranged separated panels, soft gray-beige studio backdrop, natural skin texture, restrained high-end realism, soft even light. Modern modest styling. No text, labels, logos, or watermark."
+    },
+    "อาจารย์ฝ่ายกิจการนักศึกษา": {
+      "id": "student-affairs",
+      "reference": "references/61ab78712e053965b7a18aa9b08dd455.jpg",
+      "sheet": "assets/characters/student-affairs.png",
+      "design": "Chinese university head in mid fifties; strict calm face, thick-lensed oval glasses and neat graying bob",
+      "sheetPrompt": "Create one professional photoreal cinematic six-view character continuity sheet for อาจารย์ฝ่ายกิจการนักศึกษา, East Asian cast member of a contemporary mainland Chinese family drama. Chinese university head in mid fifties; strict calm face, thick-lensed oval glasses and neat graying bob. Use the supplied image as the facial structural reference, respecting the specified age and distinctions. Keep the same identity and facial proportions in all six panels; vary view and expression. Include fully clothed full-length body, neutral front headshot, neutral three-quarter headshot, true side-profile headshot, small natural smile and tense serious headshot. Large faces in neatly arranged separated panels, soft gray-beige studio backdrop, natural skin texture, restrained high-end realism, soft even light. Modern modest styling. No text, labels, logos, or watermark."
+    }
+  }
+}
